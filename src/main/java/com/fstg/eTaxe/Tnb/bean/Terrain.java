@@ -21,6 +21,7 @@ public class Terrain implements Serializable {
     @Id
     private long id;
     private String libelle;
+  //  private Rue rue
     @ManyToOne
     private Categorie categorie; // chaque terrain a une categorie 
     private BigDecimal surface = BigDecimal.ZERO;
