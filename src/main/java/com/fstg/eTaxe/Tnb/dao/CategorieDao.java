@@ -12,12 +12,17 @@ import org.springframework.stereotype.Repository;
 /**
  *
  * @author yassine
- */
-@Repository
+ *///
+//deduire de requete 
+// communique avec nosql
+@Repository// extend une classe qui s'appelle jpa repostory
 public interface CategorieDao  extends   JpaRepository<Categorie, Long>{
     
+     public Categorie findBylibelle(String libelle);
+
     
-    
+ //  findByRef( String ref); deletBy
+     
     
     
     

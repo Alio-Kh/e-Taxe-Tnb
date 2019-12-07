@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface TauxTaxeDao  extends   JpaRepository<TauxTaxe, Long>{
-    
+
     
     
     

@@ -3,6 +3,8 @@ package com.fstg.eTaxe.Tnb.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -19,9 +21,10 @@ import javax.persistence.ManyToOne;
 public class Terrain implements Serializable {
 
     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String libelle;
-  //  private Rue rue
+  //  private Rue rue 
     @ManyToOne
     private Categorie categorie; // chaque terrain a une categorie 
     private BigDecimal surface = BigDecimal.ZERO;

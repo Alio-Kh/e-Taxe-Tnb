@@ -3,30 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fstg.eTaxe.Tnb.dao;
+package com.fstg.eTaxe.Tnb.service;
+
 
 import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
 import com.fstg.eTaxe.Tnb.bean.Terrain;
 import java.math.BigDecimal;
 import java.util.List;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author yassine
  */
-@Repository
-public interface TerrainDao  extends   JpaRepository<Terrain, Long>{
-
-     public List<Terrain> findByLibelle(String libelle);
-     public Terrain findByid(Long id);
+public interface TerrainService {
+    // juste les signateur des methode ( tout les methode //) 
+    public void save(Terrain terrain); // enregistre les terrain cree dans la base de donnees
+    public List<Terrain>  findAll();
+    public List<Terrain> findByLibelle(String libelle);
+    public Terrain findByid(Long id);
+    public void deletTerrain(long id);
      public List<Terrain> findByCategorie(Categorie categorie);
      public List<Terrain> findByPropreitaire(Proprietaire proprietaire);
      public List<Terrain> findBySurface(BigDecimal surface);
-
    
- 
+   // public void ajoutterTerrain( Terrain tern) === save 
+    
+    
+    
+    
     
 }

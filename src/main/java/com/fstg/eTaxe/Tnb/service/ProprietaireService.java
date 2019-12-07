@@ -3,20 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fstg.eTaxe.Tnb.dao;
-
+package com.fstg.eTaxe.Tnb.service;
 
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+
+
 
 /**
  *
  * @author yassine
  */
-@Repository
-public interface ProprietaireDao  extends   JpaRepository<Proprietaire, Long>{
-    
- 
+public interface ProprietaireService {
+     public void save(Proprietaire pr);
+     public void findByid(Long id);
+  
     
 }
