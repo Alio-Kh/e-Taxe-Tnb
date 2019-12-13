@@ -5,6 +5,11 @@
  */
 package com.fstg.eTaxe.Tnb.serviceImpl;
 
+import com.fstg.eTaxe.Tnb.bean.Quartier;
+import com.fstg.eTaxe.Tnb.dao.QuartierDao;
+import com.fstg.eTaxe.Tnb.service.QuartierService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,9 +17,53 @@ import org.springframework.stereotype.Service;
  * @author yassine
  */
 @Service
-public class QuartierServiceImpl {
-    // le corps de la  fonction ou de la methode 
+public class QuartierServiceImpl implements QuartierService {
 
-   
-    
+    @Autowired
+    private QuartierDao quartierDao;
+
+    @Override
+    public Quartier findByLibelle(String libelle) {
+        return getQuartierDao().findByLibelle(libelle);
+    }
+
+//    @Override
+//    public Quartier findByRue(Rue rue) {
+//        return quartierDao.findByRue(rue);
+//    }
+
+//    @Override
+//    public List<Quartier> findBySecteur(Secteur secteur) {
+//        return quartierDao.findBySecteur(secteur);
+//    }
+
+    @Override
+    public void save(Quartier quartier) {
+        getQuartierDao().save(quartier);
+    }
+
+    @Override
+    public void deleteQuartier(long id) {
+        getQuartierDao().deleteById(id);
+    }
+
+    @Override
+    public List<Quartier> findAll() {
+        return getQuartierDao().findAll();
+    }
+
+    /**
+     * @return the quartierDao
+     */
+    public QuartierDao getQuartierDao() {
+        return quartierDao;
+    }
+
+    /**
+     * @param quartierDao the quartierDao to set
+     */
+    public void setQuartierDao(QuartierDao quartierDao) {
+        this.quartierDao = quartierDao;
+    }
+
 }

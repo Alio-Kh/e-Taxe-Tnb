@@ -5,8 +5,7 @@
  */
 package com.fstg.eTaxe.Tnb.dao;
 
-
-
+import com.fstg.eTaxe.Tnb.bean.Quartier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.fstg.eTaxe.Tnb.bean.Secteur;
@@ -16,15 +15,9 @@ import com.fstg.eTaxe.Tnb.bean.Secteur;
  * @author yassine
  */
 @Repository
-public interface SecteurDao  extends   JpaRepository<Secteur, Long>{
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+public interface SecteurDao extends JpaRepository<Secteur, Long> {
+
+    public Secteur findByLibelle(String libelle);
+
+//    public Secteur findByQuartier(Quartier quartier);
 }

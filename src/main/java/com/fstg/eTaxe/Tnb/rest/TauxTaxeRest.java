@@ -31,37 +31,42 @@ public class TauxTaxeRest {
     @Autowired
     public TauxTaxeService tauxTaxeService;
     
+    //tested
     @GetMapping(value="/")
     public List<TauxTaxe> findAll() {
         return tauxTaxeService.findAll();
     }
     
+    //tested
     @DeleteMapping(value="/id/{id}")
     public void deletTauxTaxe(@PathVariable Long id) {
         tauxTaxeService.deletTauxTaxe(id);
     }
     
+    //tested
     @PostMapping(value="/")
     public void save(@RequestBody TauxTaxe tauxTaxe) {
         tauxTaxeService.save(tauxTaxe);
     }
-    
+
     @GetMapping(value="/categorie/")
     public List<TauxTaxe> findByCategorie(@RequestBody Categorie categorie) {
         return tauxTaxeService.findByCategorie(categorie);
     }
     
-    @GetMapping(value="/montant_taxe/{montant_taxe}")
+    //tested
+    @GetMapping(value="/montantTaxe/{montantTaxe}")
     public TauxTaxe findByMontantTaxe(@PathVariable BigDecimal montantTaxe) {
         return tauxTaxeService.findByMontantTaxe(montantTaxe);
     }
     
-    @GetMapping(value="/date_debut/{date_debut}")
+    @GetMapping(value="/dateDebut/{dateDebut}")
     public TauxTaxe findByDateDebut(@PathVariable Date dateDebut) {
         return tauxTaxeService.findByDateDebut(dateDebut);
     }
     
-    @GetMapping(value="/date_Fin/{date_Fin}")
+    
+    @GetMapping(value="/dateFin/{dateFin}")
     public TauxTaxe findByDateFin(@PathVariable Date dateFin) {
         return tauxTaxeService.findByDateFin(dateFin);
     }

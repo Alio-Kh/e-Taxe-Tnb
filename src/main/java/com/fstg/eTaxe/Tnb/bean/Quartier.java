@@ -1,6 +1,7 @@
 package com.fstg.eTaxe.Tnb.bean;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,14 @@ public class Quartier implements Serializable {
     private Secteur secteur;
     @OneToMany(mappedBy = "quartier")
     private List<Rue> rues;
+
+    public List<Rue> getRues() {
+        return Collections.unmodifiableList(rues);
+    }
+
+    public void setRues(List<Rue> rues) {
+        this.rues = rues;
+    }
 
     public Quartier(long id, String libelle, Secteur secteur) {
         this.id = id;
