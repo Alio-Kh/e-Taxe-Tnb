@@ -24,8 +24,8 @@ import javax.persistence.Temporal;
 public class TaxeAnnuelle implements Serializable {
 
     @Id
-             @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @ManyToOne
     private TauxTaxe tautTaxe;

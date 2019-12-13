@@ -24,20 +24,20 @@ import javax.persistence.TemporalType;
 public class TauxTaxe implements Serializable { // paiement par categorie
 
     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     // chaque categorie  a une montant taxe  precise
     @OneToOne
-    private Categorie categorie;
-    // private Terrain terrain;
-    // private  Bigdicemal 
+    private Categorie categorie; 
     private BigDecimal montantTaxe;
 
+    // date debut paiement 
     @Temporal(TemporalType.DATE)
-    private Date debutPaiement;
+    private Date dateDebut;
 
+    // date fin paiement 
     @Temporal(TemporalType.DATE)
-    private Date finPaiement;
+    private Date dateFin;
 
     public Long getId() {
         return id;
@@ -50,23 +50,23 @@ public class TauxTaxe implements Serializable { // paiement par categorie
     public TauxTaxe() {
     }
 
-    public TauxTaxe(Categorie categorie, BigDecimal montantTaxe, Date debutPaiement, Date finpaiement) {
+    public TauxTaxe(Categorie categorie, BigDecimal montantTaxe, Date dateDebut, Date dateFin) {
         this.categorie = categorie;
         this.montantTaxe = montantTaxe;
-        this.debutPaiement = debutPaiement;
-        this.finPaiement = finpaiement;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
     }
 
     public Categorie getCategorie() {
         return categorie;
     }
 
-    public Date getDebutPaiement() {
-        return debutPaiement;
+    public Date getDateDebut() {
+        return dateDebut;
     }
 
-    public Date getFinPaiement() {
-        return finPaiement;
+    public Date getDateFin() {
+        return dateFin;
     }
 
     public void setCategorie(Categorie categorie) {
@@ -81,17 +81,17 @@ public class TauxTaxe implements Serializable { // paiement par categorie
         this.montantTaxe = montantTaxe;
     }
 
-    public void setDebutPaiement(Date debutPaiement) {
-        this.debutPaiement = debutPaiement;
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
     }
 
-    public void setFinPaiement(Date finpaiement) {
-        this.finPaiement = finpaiement;
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
     }
 
     @Override
     public String toString() {
-        return "TauxTaxe{" + "categorie=" + categorie + ", montantTaxe=" + montantTaxe + ", debutPaiement=" + debutPaiement + ", finpaiement=" + finPaiement + '}';
+        return "TauxTaxe{" + "categorie=" + categorie + ", montantTaxe=" + montantTaxe + ", dateDebut=" + dateDebut + ", finpaiement=" + dateFin + '}';
     }
 
 }

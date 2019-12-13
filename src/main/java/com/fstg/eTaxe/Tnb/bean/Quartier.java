@@ -66,7 +66,7 @@ public class Quartier implements Serializable {
     }
 
     public Quartier() {
-
+        
     }
 
 }

@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fstg.eTaxe.Tnb.service.Impl;
+package com.fstg.eTaxe.Tnb.serviceImpl;
 
-
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author yassine
  */
-public interface RueServiceImpl {
+@Service
+public class SecteurServiceImpl {
     
 }

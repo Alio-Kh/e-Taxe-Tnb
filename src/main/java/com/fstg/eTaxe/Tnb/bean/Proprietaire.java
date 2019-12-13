@@ -2,6 +2,7 @@ package com.fstg.eTaxe.Tnb.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class Proprietaire implements Serializable {
 
     @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String nom;
     private String prenom;
     private String adresse;
@@ -33,7 +34,7 @@ public class Proprietaire implements Serializable {
     // liste des terrain 
 
     @OneToMany(mappedBy = "proprietaire")
-    List<Terrain> terrains = new ArrayList< Terrain>();
+    private List<Terrain> terrains = new ArrayList< Terrain>();
 
     public Proprietaire(long id, String nom, String prenom, String adresse) {
         this.id = id;
@@ -60,7 +61,7 @@ public class Proprietaire implements Serializable {
     }
 
     public List<Terrain> getTerrains() {
-        return terrains;
+        return Collections.unmodifiableList(terrains);
     }
 
     public void setTerrains(List<Terrain> terrains) {

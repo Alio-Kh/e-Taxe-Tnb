@@ -6,16 +6,25 @@
 package com.fstg.eTaxe.Tnb.service;
 
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
-
-
+import java.util.List;
 
 /**
  *
  * @author yassine
  */
 public interface ProprietaireService {
-     public void save(Proprietaire pr);
-     public void findByid(Long id);
-  
+
+    public void save(Proprietaire proprietaire);
+
+    public Proprietaire findByNom(String nom);
+
+    public Proprietaire findByPrenom(String prenom);
+
+    public Proprietaire findByAdresse(String adresse);
+
+    public Proprietaire findByEmail(String email);
+
+    public List<Proprietaire> findAll();
     
+    public void deleteProprietaire(Long id);
 }

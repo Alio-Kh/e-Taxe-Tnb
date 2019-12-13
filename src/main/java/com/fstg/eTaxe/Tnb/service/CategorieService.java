@@ -18,8 +18,10 @@ public interface CategorieService {
     // au sein de service en trouve dao
     // framezork springboot  EJB entreprise java bean 
     public void save(Categorie categorie);
-    public Categorie findBylibelle(String libelle);
+    public Categorie findByLibelle(String libelle);
     public List<Categorie>  findAll();
+    public void deleteCategorie(long id);
+//    public Categorie findById(Long id);
 
     
 }

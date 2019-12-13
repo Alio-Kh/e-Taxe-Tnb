@@ -20,8 +20,8 @@ public interface TerrainService {
     // juste les signateur des methode ( tout les methode //) 
     public void save(Terrain terrain); // enregistre les terrain cree dans la base de donnees
     public List<Terrain>  findAll();
-    public List<Terrain> findByLibelle(String libelle);
-    public Terrain findByid(Long id);
+    public List<Terrain> findByReferance(String referance);
+//    public Terrain findByid(Long id);
     public void deletTerrain(long id);
      public List<Terrain> findByCategorie(Categorie categorie);
      public List<Terrain> findByPropreitaire(Proprietaire proprietaire);

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.fstg.eTaxe.Tnb.rest;
+
 import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
 import com.fstg.eTaxe.Tnb.bean.Terrain;
@@ -29,52 +30,53 @@ import org.springframework.web.bind.annotation.RestController;
 public class TerrainRest {
 
     // pas de traitement 
-    
     @Autowired // permet d'instensier un objet   // si il troveent beaucoup de class fille erreur 
     private TerrainService terrainservice;
-   // already test
+    // already test
+
     @PostMapping(value = "/")// ajouter un terrain 
     public void save(@RequestBody Terrain terrain) {
         terrainservice.save(terrain);
     }
-   // already test
+    // already test
+
     @GetMapping(value = "/")
-    public List<Terrain> findAll(){
+    public List<Terrain> findAll() {
         return terrainservice.findAll();
     }
-    // already test
-    @GetMapping(value="/id/{id}") 
-    public Terrain findByid(@PathVariable Long id) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-         return terrainservice.findByid(id);
+//    // already test
+//    @GetMapping(value="/id/{id}") 
+//    public Terrain findByid(@PathVariable Long id) {
+//        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//         return terrainservice.findByid(id);
+//    }
+    
+    // tested
+    @DeleteMapping(value = "/id/{id}")
+    public void deleteTerain(@PathVariable long id) {
+        terrainservice.deletTerrain(id);
     }
-       // already test
-     @DeleteMapping(value="/id/{id}")
-     public void deleteTerain(@PathVariable long id){
-           terrainservice.deletTerrain(id);
-     }
-     // already test
-    @GetMapping("/libelle/{libelle}")
-    public List<Terrain> findByLibelle(@PathVariable String libelle) { // dans l'input le meme variable (le meme nom de variable )
-       return terrainservice.findByLibelle(libelle);
+    
+    // tested
+    @GetMapping("/referance/{referance}")
+    public List<Terrain> findByReferance(@PathVariable String referance) { // dans l'input le meme variable (le meme nom de variable )
+        return terrainservice.findByReferance(referance);
 
     }
-     @GetMapping("/categorie/")
+
+    @GetMapping("/categorie/")
     public List<Terrain> findByCategorie(@RequestBody Categorie categorie) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-         return terrainservice.findByCategorie(categorie); 
+        return terrainservice.findByCategorie(categorie);
     }
 
-     @GetMapping("/proprietaire/")
-    public List<Terrain> findByPropreitaire( @RequestBody Proprietaire proprietaire) {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-       return terrainservice.findByPropreitaire(proprietaire);
+    @GetMapping("/proprietaire/")
+    public List<Terrain> findByPropreitaire(@RequestBody Proprietaire proprietaire) {
+        return terrainservice.findByPropreitaire(proprietaire);
     }
 
     @GetMapping("/surface/{surface}")
     public List<Terrain> findBySurface(@PathVariable BigDecimal surface) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-          return terrainservice.findBySurface(surface);
+        return terrainservice.findBySurface(surface);
     }
-     
+
 }

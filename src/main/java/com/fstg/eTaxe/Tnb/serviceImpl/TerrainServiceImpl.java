@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fstg.eTaxe.Tnb.service.Impl;
-
+package com.fstg.eTaxe.Tnb.serviceImpl;
 
 import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
@@ -39,9 +38,6 @@ public class TerrainServiceImpl implements TerrainService {
         return terraindao.findAll();
     }
 
-  
-    
-
     @Transactional
     @Override
     public void deletTerrain(long id) {
@@ -49,38 +45,30 @@ public class TerrainServiceImpl implements TerrainService {
 
     }
 
+//    @Override
+//    public Terrain findByid(Long id) {
+//        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//         return  terraindao.findByid(id);
+//    }
     @Override
-    public Terrain findByid(Long id) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-         return  terraindao.findByid(id);
-    }
-
-    @Override
-    public List<Terrain> findByLibelle(String libelle) {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        List<Terrain> resulta=new ArrayList<Terrain>();
-        
-         return  terraindao.findByLibelle(libelle);
+    public List<Terrain> findByReferance(String libelle) {
+        return terraindao.findByReferance(libelle);
     }
 
     @Override
     public List<Terrain> findByCategorie(Categorie categorie) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-           return  terraindao.findByCategorie(categorie);
-        
+        return terraindao.findByCategorie(categorie);
+
     }
 
     @Override
     public List<Terrain> findByPropreitaire(Proprietaire proprietaire) {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return  terraindao.findByPropreitaire(proprietaire);
+        return terraindao.findByProprietaire(proprietaire);
     }
 
     @Override
     public List<Terrain> findBySurface(BigDecimal surface) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return terraindao.findBySurface(surface);
     }
-
-  
 
 }

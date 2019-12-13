@@ -23,7 +23,7 @@ public class Terrain implements Serializable {
     @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String libelle;
+    private String referance;
   //  private Rue rue 
     @ManyToOne
     private Categorie categorie; // chaque terrain a une categorie 
@@ -31,9 +31,9 @@ public class Terrain implements Serializable {
     @ManyToOne
     private Proprietaire proprietaire;
     
-    public Terrain(long id, String libelle, Categorie categorie, BigDecimal surface, Proprietaire proprietaire) {
+    public Terrain(long id, String referance, Categorie categorie, BigDecimal surface, Proprietaire proprietaire) {
         this.id = id;
-        this.libelle = libelle;
+        this.referance = referance;
         this.categorie = categorie;
         this.surface = surface;
         this.proprietaire = proprietaire;
@@ -43,8 +43,8 @@ public class Terrain implements Serializable {
         this.id = id;
     }
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public void setReferance(String referance) {
+        this.referance = referance;
     }
 
     public void setCategorie(Categorie categorie) {
@@ -63,8 +63,8 @@ public class Terrain implements Serializable {
         return id;
     }
 
-    public String getLibelle() {
-        return libelle;
+    public String getReferance() {
+        return referance;
     }
 
     public Categorie getCategorie() {

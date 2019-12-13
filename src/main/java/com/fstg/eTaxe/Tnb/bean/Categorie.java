@@ -1,5 +1,6 @@
 package com.fstg.eTaxe.Tnb.bean;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,10 +17,10 @@ import javax.persistence.Id;
  * @author yassine
  */
 @Entity
-public class Categorie { // categorie de terrains 
+public class Categorie implements Serializable { // categorie de terrains 
   
     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String libelle;
     // min max
