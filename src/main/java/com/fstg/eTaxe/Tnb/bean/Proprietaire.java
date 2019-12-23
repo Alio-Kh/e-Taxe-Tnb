@@ -1,5 +1,7 @@
 package com.fstg.eTaxe.Tnb.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -60,10 +62,12 @@ public class Proprietaire implements Serializable {
         this.tele = tele;
     }
 
+    @JsonIgnore
     public List<Terrain> getTerrains() {
-        return Collections.unmodifiableList(terrains);
+        return terrains;
     }
 
+    @JsonSetter
     public void setTerrains(List<Terrain> terrains) {
         this.terrains = terrains;
     }

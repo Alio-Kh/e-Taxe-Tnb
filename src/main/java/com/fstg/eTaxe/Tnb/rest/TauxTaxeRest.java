@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,6 +67,11 @@ public class TauxTaxeRest {
         return tauxTaxeService.findByDateDebut(dateDebut);
     }
     
+//    @Query("select * from TauxTaxe where dateFin >=1")
+//    @GetMapping(value="/dateFin/{dateFin}")
+//    public TauxTaxe findByDateFin(@Param Date dateFin) {
+//        return tauxTaxeService.findByDateFin(dateFin);
+//    }
     
     @GetMapping(value="/dateFin/{dateFin}")
     public TauxTaxe findByDateFin(@PathVariable Date dateFin) {

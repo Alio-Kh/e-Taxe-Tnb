@@ -27,5 +27,7 @@ public interface QuartierService {
     public void deleteQuartier(long id);
 
     public List<Quartier> findAll();
+    
+    public int exitsts(long id);
 
 }

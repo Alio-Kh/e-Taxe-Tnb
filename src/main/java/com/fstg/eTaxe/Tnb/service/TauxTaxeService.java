@@ -31,4 +31,6 @@ public interface TauxTaxeService {
 
     public TauxTaxe findByDateFin(Date dateFin);
 
+    public TauxTaxe update(TauxTaxe tauxTaxe);
+
 }

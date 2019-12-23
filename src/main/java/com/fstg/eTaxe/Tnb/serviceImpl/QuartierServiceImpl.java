@@ -31,12 +31,10 @@ public class QuartierServiceImpl implements QuartierService {
 //    public Quartier findByRue(Rue rue) {
 //        return quartierDao.findByRue(rue);
 //    }
-
 //    @Override
 //    public List<Quartier> findBySecteur(Secteur secteur) {
 //        return quartierDao.findBySecteur(secteur);
 //    }
-
     @Override
     public void save(Quartier quartier) {
         getQuartierDao().save(quartier);
@@ -64,6 +62,15 @@ public class QuartierServiceImpl implements QuartierService {
      */
     public void setQuartierDao(QuartierDao quartierDao) {
         this.quartierDao = quartierDao;
+    }
+
+    @Override
+    public int exitsts(long id) {
+        if (quartierDao.existsById(id)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

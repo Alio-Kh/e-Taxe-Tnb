@@ -49,4 +49,13 @@ public class CategorieServiceImpl implements CategorieService {
         categoriDao.deleteById(id);
     }
 
+    
+    
+    
+    // not implemented yet
+    @Override
+    public Categorie update(Categorie categorie) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

@@ -22,6 +22,7 @@ public interface CategorieService {
     public List<Categorie>  findAll();
     public void deleteCategorie(long id);
 //    public Categorie findById(Long id);
+public Categorie update(Categorie categorie);
 
     
 }

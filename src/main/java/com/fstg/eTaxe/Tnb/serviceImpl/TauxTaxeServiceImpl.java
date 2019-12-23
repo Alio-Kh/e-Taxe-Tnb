@@ -21,43 +21,54 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TauxTaxeServiceImpl implements TauxTaxeService {
-    
+
     @Autowired
     public TauxTaxeDao tauxTaxeDao;
-    
+
     @Override
     public List<TauxTaxe> findAll() {
         return tauxTaxeDao.findAll();
     }
-    
+
     @Override
     public void deletTauxTaxe(Long id) {
         tauxTaxeDao.deleteById(id);
     }
-    
+
     @Override
     public void save(TauxTaxe tauxTaxe) {
         tauxTaxeDao.save(tauxTaxe);
     }
-    
+
     @Override
     public List<TauxTaxe> findByCategorie(Categorie categorie) {
         return tauxTaxeDao.findByCategorie(categorie);
     }
-    
+
     @Override
     public TauxTaxe findByMontantTaxe(BigDecimal montantTaxe) {
         return tauxTaxeDao.findByMontantTaxe(montantTaxe);
     }
-    
+
     @Override
     public TauxTaxe findByDateDebut(Date dateDebut) {
         return tauxTaxeDao.findByDateDebut(dateDebut);
     }
-    
+
     @Override
     public TauxTaxe findByDateFin(Date dateFin) {
         return tauxTaxeDao.findByDateFin(dateFin);
     }
+
     
+    
+    
+    
+    
+    // not implemented yet
+    @Override
+    public TauxTaxe update(TauxTaxe tauxTaxe) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

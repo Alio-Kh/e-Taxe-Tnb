@@ -21,7 +21,7 @@ public interface QuartierDao extends JpaRepository<Quartier, Long> {
 
     public Quartier findByLibelle(String libelle);
 
-    public Quartier findByRue(Rue rue);
+//    public Quartier findByRue(Rue rue);
 
 //    public List<Quartier> findBySecteur(Secteur secteur);
 
