@@ -27,6 +27,7 @@ public class TauxTaxe implements Serializable { // paiement par categorie
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     // chaque categorie  a une montant taxe  precise
+    
     @OneToOne
     private Categorie categorie; 
     private BigDecimal montantTaxe;

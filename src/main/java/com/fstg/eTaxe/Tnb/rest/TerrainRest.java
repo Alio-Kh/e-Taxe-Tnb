@@ -33,7 +33,6 @@ public class TerrainRest {
     @Autowired // permet d'instensier un objet   // si il troveent beaucoup de class fille erreur 
     private TerrainService terrainservice;
     // already test
-
     @PostMapping(value = "/")// ajouter un terrain 
     public void save(@RequestBody Terrain terrain) {
         terrainservice.save(terrain);
@@ -59,7 +58,7 @@ public class TerrainRest {
     
     // tested
     @GetMapping("/referance/{referance}")
-    public List<Terrain> findByReferance(@PathVariable String referance) { // dans l'input le meme variable (le meme nom de variable )
+    public Terrain findByReferance(@PathVariable String referance) { // dans l'input le meme variable (le meme nom de variable )
         return terrainservice.findByReferance(referance);
 
     }

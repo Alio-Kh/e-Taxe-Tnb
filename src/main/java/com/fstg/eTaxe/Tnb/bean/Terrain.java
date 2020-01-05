@@ -1,12 +1,16 @@
 package com.fstg.eTaxe.Tnb.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,7 +19,7 @@ import javax.persistence.ManyToOne;
  */
 /**
  *
- * @author yassine
+ * @author ali
  */
 @Entity
 public class Terrain implements Serializable {
@@ -24,12 +28,30 @@ public class Terrain implements Serializable {
      @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String referance;
-  //  private Rue rue 
+
+    @ManyToOne
+    private Rue rue;
+    
     @ManyToOne
     private Categorie categorie; // chaque terrain a une categorie 
+    
     private BigDecimal surface = BigDecimal.ZERO;
+    
     @ManyToOne
     private Proprietaire proprietaire;
+    
+    @OneToMany(mappedBy = "terrain")
+    private List<TaxeAnnuelle> taxeAnnuelles;
+
+    @JsonIgnore
+    public List<TaxeAnnuelle> getTaxeAnnuelles() {
+        return taxeAnnuelles;
+    }
+
+    @JsonSetter
+    public void setTaxeAnnuelles(List<TaxeAnnuelle> taxeAnnuelles) {
+        this.taxeAnnuelles = taxeAnnuelles;
+    }
     
     public Terrain(long id, String referance, Categorie categorie, BigDecimal surface, Proprietaire proprietaire) {
         this.id = id;
@@ -82,6 +104,12 @@ public class Terrain implements Serializable {
     public Terrain() {
     }
 
-    
+    public Rue getRue() {
+        return rue;
+    }
+
+    public void setRue(Rue rue) {
+        this.rue = rue;
+    }
     
 }

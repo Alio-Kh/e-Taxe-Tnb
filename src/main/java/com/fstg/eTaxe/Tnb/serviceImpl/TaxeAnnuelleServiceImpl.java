@@ -6,31 +6,132 @@
 package com.fstg.eTaxe.Tnb.serviceImpl;
 
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
+import com.fstg.eTaxe.Tnb.bean.TauxTaxe;
 import com.fstg.eTaxe.Tnb.bean.TaxeAnnuelle;
 import com.fstg.eTaxe.Tnb.bean.Terrain;
+import com.fstg.eTaxe.Tnb.dao.TauxTaxeDao;
+import com.fstg.eTaxe.Tnb.dao.TaxeAnnuelleDao;
+import com.fstg.eTaxe.Tnb.service.TauxTaxeService;
 import com.fstg.eTaxe.Tnb.service.TaxeAnnuelleService;
+import com.fstg.eTaxe.Tnb.service.TerrainService;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  *
- * @author yassine
+ * @author ali
  */
 @Service
-public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService{
+public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
 
-    // not implemented yet
-    @Override
-    public List<TaxeAnnuelle> taxesNonPayee(Proprietaire proprietaire) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    @Autowired
+    private TaxeAnnuelleDao taxeAnnuelleDao;
 
-    // not implemented yet
+    @Autowired
+    private TerrainService terrainService;
+
+    @Autowired
+    private TauxTaxeDao tauxTaxeDao;
+
     @Override
     public TaxeAnnuelle findByAnneeAndTerrainAndProprietaire(int annee, Terrain Terrain, Proprietaire proprietaire) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return taxeAnnuelleDao.findByAnneeAndTerrainAndProprietaire(annee, Terrain, proprietaire);
     }
 
-    
+    @Override
+    public void save(TaxeAnnuelle taxeAnnuelle) {
+        taxeAnnuelleDao.save(calculeMontant2(taxeAnnuelle));
+    }
+
+    @Override
+    public List<TaxeAnnuelle> findAll() {
+        return taxeAnnuelleDao.findAll();
+    }
+
+    //  tested(Ali)
+    @Override
+    public List<TaxeAnnuelle> taxesNonPayeeByProprietaire(Proprietaire proprietaire) {
+        List<TaxeAnnuelle> taxeAnnuelles = new ArrayList<>();
+
+        proprietaire.getTerrains().forEach((terrain) -> {
+            terrain.getTaxeAnnuelles().stream().filter((taxeAnnulle) -> (taxeAnnulle.getPayee().equals(false))).forEachOrdered((taxeAnnulle) -> {
+                taxeAnnuelles.add(taxeAnnulle);
+            });
+        });
+        return taxeAnnuelles;
+    }
+
+    @Override
+    public List<TaxeAnnuelle> taxesNonPayeeByTerrain(Terrain terrain) {
+        List<TaxeAnnuelle> taxeAnnuelles = new ArrayList<>();
+        terrain.getTaxeAnnuelles().stream().filter((taxeAnnulle) -> (taxeAnnulle.getPayee().equals(false))).forEachOrdered((taxeAnnulle) -> {
+            taxeAnnuelles.add(taxeAnnulle);
+        });
+        return taxeAnnuelles;
+    }
+
+    @Override
+    public List<TaxeAnnuelle> findTaxesNonPayeeByReferanceTerrain(Terrain terrain) {
+        List<TaxeAnnuelle> taxeAnnuelles = new ArrayList<>();
+        terrain.getTaxeAnnuelles().stream().filter((taxeAnnulle) -> (taxeAnnulle.getPayee().equals(false))).forEachOrdered((taxeAnnulle) -> {
+            taxeAnnuelles.add(taxeAnnulle);
+        });
+        return taxeAnnuelles;
+    }
+
+    //For Save
+    @Override
+    public TaxeAnnuelle calculeMontant2(TaxeAnnuelle taxeAnnuelle) {
+        BigDecimal montant = new BigDecimal(BigInteger.ZERO);
+        montant = (terrainService.findById(taxeAnnuelle.getTerrain().getId()).getSurface()).multiply(tauxTaxeDao.findById(taxeAnnuelle.getTauxTaxe().getId()).get().getMontantTaxe());
+        taxeAnnuelle.setMontant(montant);
+        return taxeAnnuelle;
+    }
+
+//    //there is a NullPointerException here !!!!!!!!!!!!!!
+//    //For Update 
+//    @Override
+//    public TaxeAnnuelle calculeMontant(TaxeAnnuelle taxeAnnuelle) {
+//        BigDecimal montant = new BigDecimal(BigInteger.ZERO);
+//        montant = (taxeAnnuelle.getTerrain().getSurface()).multiply(taxeAnnuelle.getTauxTaxe().getMontantTaxe());
+//        taxeAnnuelle.setMontant(montant);
+//        return taxeAnnuelle;
+//    }
+
+    // not implemented yet
+//    @Override
+//    public void update(TaxeAnnuelle taxeAnnuelle) {
+//         taxeAnnuelleDao.save(taxeAnnuelle);
+//    }
+    // not implemented yet
+    @Override
+    public List<Integer> anneestaxesNonPayeeByReferanceTerrain(String referance) {
+        return null;
+    }
+
+    @Override
+    public TaxeAnnuelle findById(Long id) {
+        return taxeAnnuelleDao.findById(id).get();
+    }
+
+    //khdama ^_^
+    @Override
+    public void update(Long id, TaxeAnnuelle taxeAnnuelle) {
+        TaxeAnnuelle taxeAnnuelle2 = new TaxeAnnuelle();
+        taxeAnnuelle2 = findById(id);
+        if (taxeAnnuelle.getTauxTaxe() != null) {
+            TauxTaxe tauxTaxe = tauxTaxeDao.findById(taxeAnnuelle.getTauxTaxe().getId()).get();
+            taxeAnnuelle2.setTauxTaxe(tauxTaxe);
+        } 
+        if (true) {
+            Boolean payee = taxeAnnuelle.getPayee();
+            taxeAnnuelle2.setPayee(payee);
+        }
+
+        save(taxeAnnuelle2);
+    }
 }

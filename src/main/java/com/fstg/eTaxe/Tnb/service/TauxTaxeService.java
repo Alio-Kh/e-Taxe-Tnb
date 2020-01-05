@@ -33,4 +33,6 @@ public interface TauxTaxeService {
 
     public TauxTaxe update(TauxTaxe tauxTaxe);
 
+    public TauxTaxe findById(Long id);
+
 }

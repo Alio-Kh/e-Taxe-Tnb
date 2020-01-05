@@ -28,22 +28,36 @@ public class TaxeAnnuelle implements Serializable {
     private long id;
 
     @ManyToOne
-    private TauxTaxe tautTaxe;
+    private TauxTaxe tauxTaxe;
 
     @ManyToOne
     private Proprietaire proprietaire;
 
+    private Boolean payee;
+
+    public Boolean getPayee() {
+        return payee;
+    }
+
+    public void setPayee(Boolean payee) {
+        this.payee = payee;
+    }
+    
     @ManyToOne
     private Terrain terrain;
+
+    public Terrain getTerrain() {
+        return terrain;
+    }
 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date paiement;
     private BigDecimal montant;
     private int annee;
 
-    public TaxeAnnuelle(long id, TauxTaxe tauttaxe, Proprietaire proprietaire, Terrain terrain, Date paiement, BigDecimal montant, int annee) {
+    public TaxeAnnuelle(long id, TauxTaxe tauxTaxe, Proprietaire proprietaire, Terrain terrain, Date paiement, BigDecimal montant, int annee) {
         this.id = id;
-        this.tautTaxe = tauttaxe;
+        this.tauxTaxe = tauxTaxe;
         // this.proprietaire = proprietaire;
         this.terrain = terrain;
         this.paiement = paiement;
@@ -75,13 +89,7 @@ public class TaxeAnnuelle implements Serializable {
         this.id = id;
     }
 
-    public void setTauttaxe(TauxTaxe tauttaxe) {
-        this.tautTaxe = tauttaxe;
-    }
 
-//    public void setProprietaire(Proprietaire proprietaire) {
-//        this.proprietaire = proprietaire;
-//    }
     public void setTerrain(Terrain terrain) {
         this.terrain = terrain;
     }
@@ -98,13 +106,6 @@ public class TaxeAnnuelle implements Serializable {
         this.annee = annee;
     }
 
-    public TauxTaxe getTautTaxe() {
-        return tautTaxe;
-    }
-
-    public void setTautTaxe(TauxTaxe tautTaxe) {
-        this.tautTaxe = tautTaxe;
-    }
 
     public Proprietaire getProprietaire() {
         return proprietaire;
@@ -114,9 +115,17 @@ public class TaxeAnnuelle implements Serializable {
         this.proprietaire = proprietaire;
     }
 
+    public TauxTaxe getTauxTaxe() {
+        return tauxTaxe;
+    }
+
+    public void setTauxTaxe(TauxTaxe tauxTaxe) {
+        this.tauxTaxe = tauxTaxe;
+    }
+
     @Override
     public String toString() {
-        return "TauxTaxeAnnuelle{" + "id=" + id + ", tauttaxe=" + tautTaxe + ", proprietaire="
+        return "TauxTaxeAnnuelle{" + "id=" + id + ", tauttaxe=" + tauxTaxe + ", proprietaire="
                 +// proprietaire + 
                 ", terrain=" + terrain + ", paiement=" + paiement + ", montant=" + montant + ", annee=" + annee + '}';
     }

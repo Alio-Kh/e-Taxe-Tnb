@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -24,6 +25,16 @@ public class Categorie implements Serializable { // categorie de terrains
     private long id;
     private String libelle;
     // min max
+    @OneToOne(mappedBy = "categorie")
+    private TauxTaxe tauxTaxe;
+
+    public TauxTaxe getTauxTaxe() {
+        return tauxTaxe;
+    }
+
+    public void setTauxTaxe(TauxTaxe tauxTaxe) {
+        this.tauxTaxe = tauxTaxe;
+    }
 
     public Categorie(long id, String libelle, BigDecimal maxTaxe, BigDecimal minTax) {
         this.id = id;

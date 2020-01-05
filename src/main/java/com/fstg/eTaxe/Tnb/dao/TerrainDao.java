@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TerrainDao  extends   JpaRepository<Terrain, Long>{
 
-     public List<Terrain> findByReferance(String referance);
+     public Terrain findByReferance(String referance);
 //     public Terrain findById(Long id);
      public List<Terrain> findByCategorie(Categorie categorie);
      public List<Terrain> findByProprietaire(Proprietaire proprietaire);

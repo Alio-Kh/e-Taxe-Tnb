@@ -60,15 +60,15 @@ public class TauxTaxeServiceImpl implements TauxTaxeService {
         return tauxTaxeDao.findByDateFin(dateFin);
     }
 
-    
-    
-    
-    
-    
     // not implemented yet
     @Override
     public TauxTaxe update(TauxTaxe tauxTaxe) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public TauxTaxe findById(Long id) {
+        return tauxTaxeDao.findById(id).get();
     }
 
 }

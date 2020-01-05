@@ -1,11 +1,13 @@
 package com.fstg.eTaxe.Tnb.bean;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,6 +27,8 @@ public class Rue implements Serializable {
     private String libelle;
     @ManyToOne
     private Quartier quartier;
+    @OneToMany(mappedBy = "rue")
+    private List<Terrain> terrains;
 
     public long getId() {
         return id;

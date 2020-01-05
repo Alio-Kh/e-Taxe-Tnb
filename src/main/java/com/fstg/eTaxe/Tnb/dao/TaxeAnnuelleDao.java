@@ -21,5 +21,6 @@ public interface TaxeAnnuelleDao  extends   JpaRepository<TaxeAnnuelle, Long>{
   public TaxeAnnuelle findByAnneeAndTerrainAndProprietaire(int annee, Terrain Terrain, Proprietaire proprietaire);
     
   
+  
     
 }

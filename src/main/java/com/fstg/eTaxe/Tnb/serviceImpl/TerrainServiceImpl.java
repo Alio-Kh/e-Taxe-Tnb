@@ -13,6 +13,7 @@ import com.fstg.eTaxe.Tnb.service.TerrainService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,23 +26,23 @@ import org.springframework.transaction.annotation.Transactional;
 public class TerrainServiceImpl implements TerrainService {
 
     @Autowired
-    private TerrainDao terraindao;// pas de classe qui va implemente cette classe(Dao) c'est automatiquement jSpring data qui va fournir ca 
+    private TerrainDao terrainDao;// pas de classe qui va implemente cette classe(Dao) c'est automatiquement jSpring data qui va fournir ca 
     // si il troveent beaucoup de class fille erreur 
 
     @Override
     public void save(Terrain terrain) {
-        terraindao.save(terrain);
+        terrainDao.save(terrain);
     }
 
     @Override
     public List<Terrain> findAll() {
-        return terraindao.findAll();
+        return terrainDao.findAll();
     }
 
     @Transactional
     @Override
     public void deletTerrain(long id) {
-        terraindao.deleteById(id);
+        terrainDao.deleteById(id);
 
     }
 
@@ -51,24 +52,29 @@ public class TerrainServiceImpl implements TerrainService {
 //         return  terraindao.findByid(id);
 //    }
     @Override
-    public List<Terrain> findByReferance(String libelle) {
-        return terraindao.findByReferance(libelle);
+    public Terrain findByReferance(String referance) {
+        return terrainDao.findByReferance(referance);
     }
 
     @Override
     public List<Terrain> findByCategorie(Categorie categorie) {
-        return terraindao.findByCategorie(categorie);
+        return terrainDao.findByCategorie(categorie);
 
     }
 
     @Override
     public List<Terrain> findByPropreitaire(Proprietaire proprietaire) {
-        return terraindao.findByProprietaire(proprietaire);
+        return terrainDao.findByProprietaire(proprietaire);
     }
 
     @Override
     public List<Terrain> findBySurface(BigDecimal surface) {
-        return terraindao.findBySurface(surface);
+        return terrainDao.findBySurface(surface);
+    }
+
+    @Override
+    public Terrain findById(Long id) {
+        return terrainDao.findById(id).get();
     }
 
 }
