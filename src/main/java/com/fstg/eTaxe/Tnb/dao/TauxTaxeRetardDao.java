@@ -6,25 +6,20 @@
 package com.fstg.eTaxe.Tnb.dao;
 
 import com.fstg.eTaxe.Tnb.bean.Categorie;
-import com.fstg.eTaxe.Tnb.bean.TauxTaxe;
+import com.fstg.eTaxe.Tnb.bean.TauxTaxeRetard;
 import java.math.BigDecimal;
-import java.util.Date;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author yassine
+ * @author alikhyatti
  */
 @Repository
-public interface TauxTaxeDao extends JpaRepository<TauxTaxe, Long> {
+public interface TauxTaxeRetardDao extends JpaRepository<TauxTaxeRetard, Long> {
 
-    public TauxTaxe findByCategorie(Categorie categorie);
+    public TauxTaxeRetard findByCategorie(Categorie categorie);
 
-    public TauxTaxe findByMontantTaxe(BigDecimal montantTaxe);
-
-    public TauxTaxe findByDateDebut(Date dateDebut);
-
-    public TauxTaxe findByDateFin(Date dateFin);
+    public TauxTaxeRetard findByTauxTaxeRetard(BigDecimal tauxTaxeRetard);
 
 }

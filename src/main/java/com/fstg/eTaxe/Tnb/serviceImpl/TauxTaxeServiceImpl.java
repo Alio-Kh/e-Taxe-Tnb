@@ -41,7 +41,7 @@ public class TauxTaxeServiceImpl implements TauxTaxeService {
     }
 
     @Override
-    public List<TauxTaxe> findByCategorie(Categorie categorie) {
+    public TauxTaxe findByCategorie(Categorie categorie) {
         return tauxTaxeDao.findByCategorie(categorie);
     }
 

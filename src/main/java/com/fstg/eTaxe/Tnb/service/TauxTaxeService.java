@@ -23,7 +23,7 @@ public interface TauxTaxeService {
 
     public void save(TauxTaxe tauxTaxe);
 
-    public List<TauxTaxe> findByCategorie(Categorie categorie);
+    public TauxTaxe findByCategorie(Categorie categorie);
 
     public TauxTaxe findByMontantTaxe(BigDecimal montantTaxe);
 

@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author yassine
+ * @author alikhyatti
  */
 @RestController
 @RequestMapping("/e-Taxe-Tnb/taxe_annulle")
@@ -52,7 +52,7 @@ public class TaxeAnnulleRest {
         taxeAnnuelleService.save(taxeAnnuelle);
     }
 
-    //Hadi mab0atche khdama -_-
+    //Hadi mab9atche khdama -_-
     //tested(ALi)********************(Non Complité)****************(+taxe retard)
 //    @PutMapping(value = "/id/{id}")
 //    public void updateMontant(@PathVariable Long id) {
@@ -61,7 +61,6 @@ public class TaxeAnnulleRest {
 //        taxeAnnuelle = taxeAnnuelleService.calculeMontant(taxeAnnuelle);
 //        taxeAnnuelleService.save(taxeAnnuelle);
 //    }
-
     //tested(Ali)
     @GetMapping(value = "/")
     public List<TaxeAnnuelle> findAll() {
@@ -86,19 +85,19 @@ public class TaxeAnnulleRest {
         return taxeAnnuelleService.findTaxesNonPayeeByReferanceTerrain(terrainService.findByReferance(referance));
     }
 
-
-
+//    //tested(Ali)
+//    @PutMapping(value = "/id/{id}")
+//    public void update(@PathVariable Long id, @RequestBody TaxeAnnuelle taxeAnnuelle) {
+//        taxeAnnuelleService.update(id, taxeAnnuelle);
+//    }
+    //update2
     @PutMapping(value = "/id/{id}")
-    public void update(@PathVariable Long id, @RequestBody TaxeAnnuelle taxeAnnuelle) {
-        taxeAnnuelleService.update(id, taxeAnnuelle);
+    public void calculeMontantRetard(@PathVariable Long id) {
+        taxeAnnuelleService.calculeMontantRetard(id);
     }
 
 //    @PutMapping(value = "/taxeAnnuelle/id/{id}")
 //    public void calculeMontant(@PathVariable Long id) {
 //        taxeAnnuelleService.calculeMontant(taxeAnnuelle);
-//    }
-//    @PutMapping(value="/")
-//        public void update(TaxeAnnuelle taxeAnnuelle) {
-//             taxeAnnuelleService.update(taxeAnnuelle);
-//        }
+//    }d
 }

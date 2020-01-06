@@ -1,5 +1,7 @@
 package com.fstg.eTaxe.Tnb.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -25,10 +27,22 @@ public class Rue implements Serializable {
      @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String libelle;
+    
     @ManyToOne
     private Quartier quartier;
+    
     @OneToMany(mappedBy = "rue")
     private List<Terrain> terrains;
+
+    @JsonIgnore
+    public List<Terrain> getTerrains() {
+        return terrains;
+    }
+
+    @JsonSetter
+    public void setTerrains(List<Terrain> terrains) {
+        this.terrains = terrains;
+    }
 
     public long getId() {
         return id;

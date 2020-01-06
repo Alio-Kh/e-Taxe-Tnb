@@ -11,19 +11,28 @@ import com.fstg.eTaxe.Tnb.bean.TaxeAnnuelle;
 import com.fstg.eTaxe.Tnb.bean.Terrain;
 import com.fstg.eTaxe.Tnb.dao.TauxTaxeDao;
 import com.fstg.eTaxe.Tnb.dao.TaxeAnnuelleDao;
-import com.fstg.eTaxe.Tnb.service.TauxTaxeService;
 import com.fstg.eTaxe.Tnb.service.TaxeAnnuelleService;
 import com.fstg.eTaxe.Tnb.service.TerrainService;
+import com.fstg.eTaxe.Tnb.service.util.DateUtil;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javassist.expr.Cast;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  *
- * @author ali
+ * @author alikhyatti
  */
 @Service
 public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
@@ -44,7 +53,8 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
 
     @Override
     public void save(TaxeAnnuelle taxeAnnuelle) {
-        taxeAnnuelleDao.save(calculeMontant2(taxeAnnuelle));
+//        taxeAnnuelleDao.save(calculeMontant2(taxeAnnuelle));
+        taxeAnnuelleDao.save(taxeAnnuelle);
     }
 
     @Override
@@ -92,6 +102,40 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
         return taxeAnnuelle;
     }
 
+    @Override
+    public void calculeMontantRetard(Long id) {
+        TaxeAnnuelle taxeAnnuelle = new TaxeAnnuelle();
+        taxeAnnuelle = findById(id);
+        BigDecimal montant = new BigDecimal(BigInteger.ZERO);
+        BigDecimal divisor = new BigDecimal(BigInteger.TEN.multiply(BigInteger.TEN));
+
+        Date d = new Date();
+        String dateNowStr = DateUtil.format(d);
+
+        long nombreMois = 0;
+        String dateStr = String.valueOf(taxeAnnuelle.getAnnee()) + "-01-01";
+        CharSequence newDate = dateStr;
+//       String dateNowStr = String.valueOf(d.getYear())+"-"+String.valueOf(d.getMonth())+"-"+String.valueOf(d.getDay());
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // format jour / mois / année
+        LocalDate date1 = LocalDate.parse(dateNowStr, format);
+//        LocalDate date1 = LocalDate.parse(newDate, format)
+
+        LocalDate date2 = LocalDate.parse(dateStr, format);
+
+//        ZonedDateTime d = ZonedDateTime.parse(dateTime);
+        Period period = Period.between(date2, date1);
+        nombreMois = period.getYears() * 12 + period.getMonths();
+        if (nombreMois < taxeAnnuelle.getTauxTaxeReratd().getNombreMois()) {
+            montant = calculeMontant2(taxeAnnuelle).getMontant();
+            taxeAnnuelle.setMontant(montant);
+        } else if (nombreMois > taxeAnnuelle.getTauxTaxeReratd().getNombreMois()) {
+            montant = calculeMontant2(taxeAnnuelle).getMontant().multiply(taxeAnnuelle.getTauxTaxeReratd().getTauxTaxeRetard().divide(divisor)).multiply(BigDecimal.valueOf(nombreMois - 3)).add(calculeMontant2(taxeAnnuelle).getMontant());
+            taxeAnnuelle.setMontant(montant);
+        }
+
+        save(taxeAnnuelle);
+    }
+
 //    //there is a NullPointerException here !!!!!!!!!!!!!!
 //    //For Update 
 //    @Override
@@ -101,7 +145,6 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
 //        taxeAnnuelle.setMontant(montant);
 //        return taxeAnnuelle;
 //    }
-
     // not implemented yet
 //    @Override
 //    public void update(TaxeAnnuelle taxeAnnuelle) {
@@ -126,7 +169,7 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
         if (taxeAnnuelle.getTauxTaxe() != null) {
             TauxTaxe tauxTaxe = tauxTaxeDao.findById(taxeAnnuelle.getTauxTaxe().getId()).get();
             taxeAnnuelle2.setTauxTaxe(tauxTaxe);
-        } 
+        }
         if (true) {
             Boolean payee = taxeAnnuelle.getPayee();
             taxeAnnuelle2.setPayee(payee);

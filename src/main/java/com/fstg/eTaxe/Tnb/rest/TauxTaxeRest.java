@@ -8,6 +8,7 @@ package com.fstg.eTaxe.Tnb.rest;
 import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.TauxTaxe;
 import com.fstg.eTaxe.Tnb.service.TauxTaxeService;
+import com.fstg.eTaxe.Tnb.service.util.DateUtil;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +53,7 @@ public class TauxTaxeRest {
     }
 
     @GetMapping(value = "/categorie/")
-    public List<TauxTaxe> findByCategorie(@RequestBody Categorie categorie) {
+    public TauxTaxe findByCategorie(@RequestBody Categorie categorie) {
         return tauxTaxeService.findByCategorie(categorie);
     }
 
@@ -63,8 +64,9 @@ public class TauxTaxeRest {
     }
 
     @GetMapping(value = "/dateDebut/{dateDebut}")
-    public TauxTaxe findByDateDebut(@PathVariable Date dateDebut) {
-        return tauxTaxeService.findByDateDebut(dateDebut);
+    public TauxTaxe findByDateDebut(@PathVariable String dateDebut) {
+        
+        return tauxTaxeService.findByDateDebut(DateUtil.parse(dateDebut));
     }
 
 //    @Query("select * from TauxTaxe where dateFin >=1")
@@ -72,10 +74,9 @@ public class TauxTaxeRest {
 //    public TauxTaxe findByDateFin(@Param Date dateFin) {
 //        return tauxTaxeService.findByDateFin(dateFin);
 //    }
-    
     @GetMapping(value = "/dateFin/{dateFin}")
-    public TauxTaxe findByDateFin(@PathVariable Date dateFin) {
-        return tauxTaxeService.findByDateFin(dateFin);
+    public TauxTaxe findByDateFin(@PathVariable String dateFin) {
+        return tauxTaxeService.findByDateFin(DateUtil.parse(dateFin));
     }
 
     @GetMapping(value = "/id/{id}")
