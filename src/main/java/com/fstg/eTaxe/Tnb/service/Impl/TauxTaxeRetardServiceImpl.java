@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fstg.eTaxe.Tnb.serviceImpl;
+package com.fstg.eTaxe.Tnb.service.Impl;
 
 import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.TauxTaxeRetard;
