@@ -67,23 +67,24 @@ public class TaxeAnnulleRest {
         return taxeAnnuelleService.findAll();
     }
 
-    //tested(Ali)
-    @GetMapping(value = "/proprietaire/id/{id}")
-    public List<TaxeAnnuelle> taxesNonPayeeByProprietaire(@PathVariable Long id) {
-        return taxeAnnuelleService.taxesNonPayeeByProprietaire(proprietaireService.findById(id).get());
-    }
-
-    //tested(Ali)
-    @GetMapping(value = "/terrain/id/{id}")
-    public List<TaxeAnnuelle> taxesNonPayeeByTerrain(@PathVariable Long id) {
-        return taxeAnnuelleService.taxesNonPayeeByTerrain(terrainService.findById(id));
-    }
-
-    //tested(Ali)
-    @GetMapping(value = "/terrain/referance/{referance}")
-    public List<TaxeAnnuelle> findTaxesNonPayeeByReferanceTerrain(@PathVariable String referance) {
-        return taxeAnnuelleService.findTaxesNonPayeeByReferanceTerrain(terrainService.findByReferance(referance));
-    }
+    
+//    //tested(Ali)
+//    @GetMapping(value = "/proprietaire/id/{id}")
+//    public List<TaxeAnnuelle> taxesNonPayeeByProprietaire(@PathVariable Long id) {
+//        return taxeAnnuelleService.taxesNonPayeeByProprietaire(proprietaireService.findById(id).get());
+//    }
+//
+//    //tested(Ali)
+//    @GetMapping(value = "/terrain/id/{id}")
+//    public List<TaxeAnnuelle> taxesNonPayeeByTerrain(@PathVariable Long id) {
+//        return taxeAnnuelleService.taxesNonPayeeByTerrain(terrainService.findById(id));
+//    }
+//
+//    //tested(Ali)
+//    @GetMapping(value = "/terrain/referance/{referance}")
+//    public List<TaxeAnnuelle> findTaxesNonPayeeByReferanceTerrain(@PathVariable String referance) {
+//        return taxeAnnuelleService.findTaxesNonPayeeByReferanceTerrain(terrainService.findByReferance(referance));
+//    }
 
 //    //tested(Ali)
 //    @PutMapping(value = "/id/{id}")

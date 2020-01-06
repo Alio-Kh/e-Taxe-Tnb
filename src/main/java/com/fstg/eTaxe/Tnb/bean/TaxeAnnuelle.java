@@ -37,15 +37,6 @@ public class TaxeAnnuelle implements Serializable {
     @ManyToOne
     private Proprietaire proprietaire;
 
-    private Boolean payee;
-
-    public Boolean getPayee() {
-        return payee;
-    }
-
-    public void setPayee(Boolean payee) {
-        this.payee = payee;
-    }
     
     @ManyToOne
     private Terrain terrain;
@@ -139,7 +130,7 @@ public class TaxeAnnuelle implements Serializable {
 
     @Override
     public String toString() {
-        return "TaxeAnnuelle{" + "id=" + id + ", tauxTaxe=" + tauxTaxe + ", tauxTaxeReratd=" + tauxTaxeReratd + ", proprietaire=" + proprietaire + ", payee=" + payee + ", terrain=" + terrain  + ", montant=" + montant + ", annee=" + annee + '}';
+        return "TaxeAnnuelle{" + "id=" + id + ", tauxTaxe=" + tauxTaxe + ", tauxTaxeReratd=" + tauxTaxeReratd + ", proprietaire=" + proprietaire +  ", terrain=" + terrain  + ", montant=" + montant + ", annee=" + annee + '}';
     }
 
 }

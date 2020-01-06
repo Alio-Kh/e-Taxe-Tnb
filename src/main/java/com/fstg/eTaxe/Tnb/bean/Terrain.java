@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -39,6 +41,27 @@ public class Terrain implements Serializable {
     
     @ManyToOne
     private Proprietaire proprietaire;
+    
+    private int derinierAnneePayee;
+
+    public int getDerinierAnneePayee() {
+        return derinierAnneePayee;
+    }
+
+    public void setDerinierAnneePayee(int derinierAnneePayee) {
+        this.derinierAnneePayee = derinierAnneePayee;
+    }
+
+    public Notification getDarierNotification() {
+        return darierNotification;
+    }
+
+    public void setDarierNotification(Notification darierNotification) {
+        this.darierNotification = darierNotification;
+    }
+    
+    @OneToOne
+    private Notification darierNotification;
     
     @OneToMany(mappedBy = "terrain")
     private List<TaxeAnnuelle> taxeAnnuelles;

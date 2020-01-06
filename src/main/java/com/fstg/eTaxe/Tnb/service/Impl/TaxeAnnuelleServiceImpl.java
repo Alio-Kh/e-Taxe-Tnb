@@ -62,36 +62,36 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
         return taxeAnnuelleDao.findAll();
     }
 
-    //  tested(Ali)
-    @Override
-    public List<TaxeAnnuelle> taxesNonPayeeByProprietaire(Proprietaire proprietaire) {
-        List<TaxeAnnuelle> taxeAnnuelles = new ArrayList<>();
-
-        proprietaire.getTerrains().forEach((terrain) -> {
-            terrain.getTaxeAnnuelles().stream().filter((taxeAnnulle) -> (taxeAnnulle.getPayee().equals(false))).forEachOrdered((taxeAnnulle) -> {
-                taxeAnnuelles.add(taxeAnnulle);
-            });
-        });
-        return taxeAnnuelles;
-    }
-
-    @Override
-    public List<TaxeAnnuelle> taxesNonPayeeByTerrain(Terrain terrain) {
-        List<TaxeAnnuelle> taxeAnnuelles = new ArrayList<>();
-        terrain.getTaxeAnnuelles().stream().filter((taxeAnnulle) -> (taxeAnnulle.getPayee().equals(false))).forEachOrdered((taxeAnnulle) -> {
-            taxeAnnuelles.add(taxeAnnulle);
-        });
-        return taxeAnnuelles;
-    }
-
-    @Override
-    public List<TaxeAnnuelle> findTaxesNonPayeeByReferanceTerrain(Terrain terrain) {
-        List<TaxeAnnuelle> taxeAnnuelles = new ArrayList<>();
-        terrain.getTaxeAnnuelles().stream().filter((taxeAnnulle) -> (taxeAnnulle.getPayee().equals(false))).forEachOrdered((taxeAnnulle) -> {
-            taxeAnnuelles.add(taxeAnnulle);
-        });
-        return taxeAnnuelles;
-    }
+//    //  tested(Ali)
+//    @Override
+//    public List<TaxeAnnuelle> taxesNonPayeeByProprietaire(Proprietaire proprietaire) {
+//        List<TaxeAnnuelle> taxeAnnuelles = new ArrayList<>();
+//
+//        proprietaire.getTerrains().forEach((terrain) -> {
+//            terrain.getTaxeAnnuelles().stream().filter((taxeAnnulle) -> (taxeAnnulle.getPayee().equals(false))).forEachOrdered((taxeAnnulle) -> {
+//                taxeAnnuelles.add(taxeAnnulle);
+//            });
+//        });
+//        return taxeAnnuelles;
+//    }
+//
+//    @Override
+//    public List<TaxeAnnuelle> taxesNonPayeeByTerrain(Terrain terrain) {
+//        List<TaxeAnnuelle> taxeAnnuelles = new ArrayList<>();
+//        terrain.getTaxeAnnuelles().stream().filter((taxeAnnulle) -> (taxeAnnulle.getPayee().equals(false))).forEachOrdered((taxeAnnulle) -> {
+//            taxeAnnuelles.add(taxeAnnulle);
+//        });
+//        return taxeAnnuelles;
+//    }
+//
+//    @Override
+//    public List<TaxeAnnuelle> findTaxesNonPayeeByReferanceTerrain(Terrain terrain) {
+//        List<TaxeAnnuelle> taxeAnnuelles = new ArrayList<>();
+//        terrain.getTaxeAnnuelles().stream().filter((taxeAnnulle) -> (taxeAnnulle.getPayee().equals(false))).forEachOrdered((taxeAnnulle) -> {
+//            taxeAnnuelles.add(taxeAnnulle);
+//        });
+//        return taxeAnnuelles;
+//    }
 
     //For Save
     @Override
@@ -108,21 +108,13 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
         taxeAnnuelle = findById(id);
         BigDecimal montant = new BigDecimal(BigInteger.ZERO);
         BigDecimal divisor = new BigDecimal(BigInteger.TEN.multiply(BigInteger.TEN));
-
         Date d = new Date();
         String dateNowStr = DateUtil.format(d);
-
         long nombreMois = 0;
         String dateStr = String.valueOf(taxeAnnuelle.getAnnee()) + "-01-01";
-        CharSequence newDate = dateStr;
-//       String dateNowStr = String.valueOf(d.getYear())+"-"+String.valueOf(d.getMonth())+"-"+String.valueOf(d.getDay());
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // format jour / mois / année
         LocalDate date1 = LocalDate.parse(dateNowStr, format);
-//        LocalDate date1 = LocalDate.parse(newDate, format)
-
         LocalDate date2 = LocalDate.parse(dateStr, format);
-
-//        ZonedDateTime d = ZonedDateTime.parse(dateTime);
         Period period = Period.between(date2, date1);
         nombreMois = period.getYears() * 12 + period.getMonths();
         if (nombreMois < taxeAnnuelle.getTauxTaxeReratd().getNombreMois()) {
@@ -151,10 +143,10 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
 //         taxeAnnuelleDao.save(taxeAnnuelle);
 //    }
     // not implemented yet
-    @Override
-    public List<Integer> anneestaxesNonPayeeByReferanceTerrain(String referance) {
-        return null;
-    }
+//    @Override
+//    public List<Integer> anneestaxesNonPayeeByReferanceTerrain(String referance) {
+//        return null;
+//    }
 
     @Override
     public TaxeAnnuelle findById(Long id) {
@@ -170,10 +162,7 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
             TauxTaxe tauxTaxe = tauxTaxeDao.findById(taxeAnnuelle.getTauxTaxe().getId()).get();
             taxeAnnuelle2.setTauxTaxe(tauxTaxe);
         }
-        if (true) {
-            Boolean payee = taxeAnnuelle.getPayee();
-            taxeAnnuelle2.setPayee(payee);
-        }
+        
 
         save(taxeAnnuelle2);
     }

@@ -16,13 +16,13 @@ import java.util.List;
  */
 public interface TaxeAnnuelleService {
 
-    public List<TaxeAnnuelle> taxesNonPayeeByTerrain(Terrain terrain);
-
-    public List<TaxeAnnuelle> taxesNonPayeeByProprietaire(Proprietaire proprietaire);
-
-    public List<TaxeAnnuelle> findTaxesNonPayeeByReferanceTerrain(Terrain terrain);
-
-    public List<Integer> anneestaxesNonPayeeByReferanceTerrain(String referance);
+//    public List<TaxeAnnuelle> taxesNonPayeeByTerrain(Terrain terrain);
+//
+//    public List<TaxeAnnuelle> taxesNonPayeeByProprietaire(Proprietaire proprietaire);
+//
+//    public List<TaxeAnnuelle> findTaxesNonPayeeByReferanceTerrain(Terrain terrain);
+//
+//    public List<Integer> anneestaxesNonPayeeByReferanceTerrain(String referance);
 
     public void save(TaxeAnnuelle taxeAnnuelle);
 
