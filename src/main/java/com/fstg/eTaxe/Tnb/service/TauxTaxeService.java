@@ -10,13 +10,14 @@ import com.fstg.eTaxe.Tnb.bean.TauxTaxe;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
  * @author yassine
  */
 public interface TauxTaxeService {
-
+    
     public List<TauxTaxe> findAll();
 
     public void deletTauxTaxe(Long id);
@@ -34,5 +35,6 @@ public interface TauxTaxeService {
     public TauxTaxe update(TauxTaxe tauxTaxe);
 
     public TauxTaxe findById(Long id);
-
+    
+public TauxTaxe findByCategorieAndDateNow(Categorie categorie,Date dateNow);
 }

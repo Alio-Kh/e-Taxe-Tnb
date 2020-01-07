@@ -71,4 +71,10 @@ public class TauxTaxeServiceImpl implements TauxTaxeService {
         return tauxTaxeDao.findById(id).get();
     }
 
+    //(Ali)
+    @Override
+    public TauxTaxe findByCategorieAndDateNow(Categorie categorie, Date dateNow) {
+        return tauxTaxeDao.findByCategorieAndDateNow(categorie, dateNow);
+    }
+
 }

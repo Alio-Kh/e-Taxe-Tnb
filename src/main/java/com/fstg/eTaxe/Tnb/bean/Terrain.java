@@ -66,6 +66,11 @@ public class Terrain implements Serializable {
     @OneToMany(mappedBy = "terrain")
     private List<TaxeAnnuelle> taxeAnnuelles;
 
+    @Override
+    public String toString() {
+        return "Terrain{" + "id=" + id + ", referance=" + referance + ", rue=" + rue + ", categorie=" + categorie + ", surface=" + surface + ", proprietaire=" + proprietaire + ", derinierAnneePayee=" + derinierAnneePayee + ", darierNotification=" + darierNotification + ", taxeAnnuelles=" + taxeAnnuelles + '}';
+    }
+
     @JsonIgnore
     public List<TaxeAnnuelle> getTaxeAnnuelles() {
         return taxeAnnuelles;

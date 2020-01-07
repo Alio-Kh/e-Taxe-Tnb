@@ -86,16 +86,16 @@ public class TaxeAnnulleRest {
 //        return taxeAnnuelleService.findTaxesNonPayeeByReferanceTerrain(terrainService.findByReferance(referance));
 //    }
 
-//    //tested(Ali)
-//    @PutMapping(value = "/id/{id}")
-//    public void update(@PathVariable Long id, @RequestBody TaxeAnnuelle taxeAnnuelle) {
-//        taxeAnnuelleService.update(id, taxeAnnuelle);
-//    }
-    //update2
+    //tested(Ali)
     @PutMapping(value = "/id/{id}")
-    public void calculeMontantRetard(@PathVariable Long id) {
-        taxeAnnuelleService.calculeMontantRetard(id);
+    public void update(@PathVariable Long id) {
+        taxeAnnuelleService.update(id);
     }
+    //update2
+//    @PutMapping(value = "/id/{id}")
+//    public void calculeMontantRetard(@PathVariable Long id) {
+//        taxeAnnuelleService.calculeMontantRetard(id);
+//    }
 
 //    @PutMapping(value = "/taxeAnnuelle/id/{id}")
 //    public void calculeMontant(@PathVariable Long id) {

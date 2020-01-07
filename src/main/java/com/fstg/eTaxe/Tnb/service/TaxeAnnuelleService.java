@@ -35,7 +35,7 @@ public interface TaxeAnnuelleService {
 
     public TaxeAnnuelle calculeMontant2(TaxeAnnuelle taxeAnnuelle);
 
-    public void update(Long id, TaxeAnnuelle taxeAnnuelle);
+    public void update(Long id);
 
     public void calculeMontantRetard(Long id);
 

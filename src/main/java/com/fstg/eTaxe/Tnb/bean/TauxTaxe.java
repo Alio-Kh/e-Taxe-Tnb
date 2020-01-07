@@ -93,7 +93,8 @@ public class TauxTaxe implements Serializable { // paiement par categorie
 
     @Override
     public String toString() {
-        return "TauxTaxe{" + "categorie=" + categorie + ", montantTaxe=" + montantTaxe + ", dateDebut=" + dateDebut + ", finpaiement=" + dateFin + '}';
+        return "TauxTaxe{" + "id=" + id + ", categorie=" + categorie + ", montantTaxe=" + montantTaxe + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + '}';
     }
+
 
 }

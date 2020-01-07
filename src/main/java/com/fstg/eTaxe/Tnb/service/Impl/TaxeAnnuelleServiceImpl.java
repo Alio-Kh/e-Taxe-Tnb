@@ -11,6 +11,8 @@ import com.fstg.eTaxe.Tnb.bean.TaxeAnnuelle;
 import com.fstg.eTaxe.Tnb.bean.Terrain;
 import com.fstg.eTaxe.Tnb.dao.TauxTaxeDao;
 import com.fstg.eTaxe.Tnb.dao.TaxeAnnuelleDao;
+import com.fstg.eTaxe.Tnb.service.CategorieService;
+import com.fstg.eTaxe.Tnb.service.TauxTaxeRetardService;
 import com.fstg.eTaxe.Tnb.service.TaxeAnnuelleService;
 import com.fstg.eTaxe.Tnb.service.TerrainService;
 import com.fstg.eTaxe.Tnb.service.util.DateUtil;
@@ -46,6 +48,9 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
     @Autowired
     private TauxTaxeDao tauxTaxeDao;
 
+    @Autowired
+    private TauxTaxeRetardService TauxTaxeRetardService;
+
     @Override
     public TaxeAnnuelle findByAnneeAndTerrainAndProprietaire(int annee, Terrain Terrain, Proprietaire proprietaire) {
         return taxeAnnuelleDao.findByAnneeAndTerrainAndProprietaire(annee, Terrain, proprietaire);
@@ -53,8 +58,13 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
 
     @Override
     public void save(TaxeAnnuelle taxeAnnuelle) {
-//        taxeAnnuelleDao.save(calculeMontant2(taxeAnnuelle));
-        taxeAnnuelleDao.save(taxeAnnuelle);
+        Date dateNow = new Date();
+        taxeAnnuelle.setTauxTaxe(tauxTaxeDao.findByCategorieAndDateNow(terrainService.findById(taxeAnnuelle.getTerrain().getId()).getCategorie(), DateUtil.parse(DateUtil.format(dateNow))));
+        taxeAnnuelle.setTauxTaxeReratd(TauxTaxeRetardService.findByCategorie(taxeAnnuelle.getTerrain().getCategorie()));
+        taxeAnnuelle.setDatePaiement(dateNow);
+        taxeAnnuelleDao.save(calculeMontant2(taxeAnnuelle));
+
+//        taxeAnnuelleDao.save(taxeAnnuelle);
     }
 
     @Override
@@ -92,7 +102,6 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
 //        });
 //        return taxeAnnuelles;
 //    }
-
     //For Save
     @Override
     public TaxeAnnuelle calculeMontant2(TaxeAnnuelle taxeAnnuelle) {
@@ -147,7 +156,6 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
 //    public List<Integer> anneestaxesNonPayeeByReferanceTerrain(String referance) {
 //        return null;
 //    }
-
     @Override
     public TaxeAnnuelle findById(Long id) {
         return taxeAnnuelleDao.findById(id).get();
@@ -155,15 +163,16 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
 
     //khdama ^_^
     @Override
-    public void update(Long id, TaxeAnnuelle taxeAnnuelle) {
-        TaxeAnnuelle taxeAnnuelle2 = new TaxeAnnuelle();
-        taxeAnnuelle2 = findById(id);
-        if (taxeAnnuelle.getTauxTaxe() != null) {
-            TauxTaxe tauxTaxe = tauxTaxeDao.findById(taxeAnnuelle.getTauxTaxe().getId()).get();
-            taxeAnnuelle2.setTauxTaxe(tauxTaxe);
-        }
-        
-
-        save(taxeAnnuelle2);
+    public void update(Long id) {
+        TaxeAnnuelle taxeAnnuelle = new TaxeAnnuelle();
+        taxeAnnuelle = findById(id);
+//        if (taxeAnnuelle.getTauxTaxe() != null) {
+//            TauxTaxe tauxTaxe = tauxTaxeDao.findById(taxeAnnuelle.getTauxTaxe().getId()).get();
+//            taxeAnnuelle2.setTauxTaxe(tauxTaxe);
+//        }
+        Date dateNow = new Date();
+        taxeAnnuelle.setTauxTaxe(tauxTaxeDao.findByCategorieAndDateNow(terrainService.findById(taxeAnnuelle.getTerrain().getId()).getCategorie(), DateUtil.parse(DateUtil.format(dateNow))));
+        taxeAnnuelle.setTauxTaxeReratd(TauxTaxeRetardService.findByCategorie(taxeAnnuelle.getTerrain().getCategorie()));
+        save(taxeAnnuelle);
     }
 }

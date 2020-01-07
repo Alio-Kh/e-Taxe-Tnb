@@ -7,6 +7,7 @@ package com.fstg.eTaxe.Tnb.rest;
 
 import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.TauxTaxe;
+import com.fstg.eTaxe.Tnb.service.CategorieService;
 import com.fstg.eTaxe.Tnb.service.TauxTaxeService;
 import com.fstg.eTaxe.Tnb.service.util.DateUtil;
 import java.math.BigDecimal;
@@ -33,6 +34,9 @@ public class TauxTaxeRest {
 
     @Autowired
     public TauxTaxeService tauxTaxeService;
+
+    @Autowired
+    public CategorieService categorieService;
 
     //tested
     @GetMapping(value = "/")
@@ -65,7 +69,6 @@ public class TauxTaxeRest {
 
     @GetMapping(value = "/dateDebut/{dateDebut}")
     public TauxTaxe findByDateDebut(@PathVariable String dateDebut) {
-        
         return tauxTaxeService.findByDateDebut(DateUtil.parse(dateDebut));
     }
 
@@ -82,6 +85,12 @@ public class TauxTaxeRest {
     @GetMapping(value = "/id/{id}")
     public TauxTaxe findById(Long id) {
         return tauxTaxeService.findById(id);
+    }
+
+    //tested(Ali)
+    @GetMapping(value = "/libelleCategorie/{libelleCategorie}/dateNow/{dateNow}")
+    public TauxTaxe findByCategorieAndDateNow(@PathVariable String libelleCategorie, @PathVariable String dateNow) {
+        return tauxTaxeService.findByCategorieAndDateNow(categorieService.findByLibelle(libelleCategorie), DateUtil.parse(dateNow));
     }
 
 }
