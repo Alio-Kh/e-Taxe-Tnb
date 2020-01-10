@@ -22,12 +22,19 @@ public interface QuartierService {
 
 //    public List<Quartier> findBySecteur(Secteur secteur);
 
-    public void save(Quartier quartier);
+   public void save(Quartier quartier);
 
     public void deleteQuartier(long id);
 
     public List<Quartier> findAll();
+    public Quartier findByid(long id);
     
     public int exitsts(long id);
+      public List<Quartier> findSecteur();
+      //public List<Quartier> findbyidLibelle(String libelle);
+     public List<Quartier> findByidSecteur(long idSecteur);
+     public  List<Quartier> findByLibelleSecteur(String libelleSecteur);
+     public Quartier WhereStreetExist(long id);
+     
 
 }
