@@ -18,11 +18,17 @@ public interface RueService {
     public Rue findByLibelle(String libelle);
 
 //    public List<Rue> findByQuartier(Quartier quartier);
-
-    public List<Rue> findAll();
+ public List<Rue> findAll();
 
     public void save(Rue rue);
-
+    public Rue findByid(long id);
     public void deleteRue(long id);
+    public List<Rue> findByIdQuartier( long idquartier);
+    
+    
+   
+    public List<Rue> findByLibelleQuartier(String libelleQuartie);
+    
+    public Rue WhereTerrainExist(long idTerrain);
 
 }

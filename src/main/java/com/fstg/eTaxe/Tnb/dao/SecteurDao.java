@@ -16,8 +16,8 @@ import com.fstg.eTaxe.Tnb.bean.Secteur;
  */
 @Repository
 public interface SecteurDao extends JpaRepository<Secteur, Long> {
-
-    public Secteur findByLibelle(String libelle);
+public Secteur findByLibelle(String libelle);
+    public Secteur findByid(long id);
 
 //    public Secteur findByQuartier(Quartier quartier);
 }

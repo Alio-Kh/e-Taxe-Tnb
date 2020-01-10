@@ -9,6 +9,7 @@ import com.fstg.eTaxe.Tnb.bean.Quartier;
 import com.fstg.eTaxe.Tnb.bean.Rue;
 import com.fstg.eTaxe.Tnb.bean.Secteur;
 import com.fstg.eTaxe.Tnb.service.QuartierService;
+import com.fstg.eTaxe.Tnb.service.SecteurService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,10 +29,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class QuartierRest {
 
     @Autowired
-    public QuartierService quartierService;
+    private  QuartierService quartierService;
+    @Autowired
+    private SecteurService service;
 
     
-    @GetMapping(value = "/liblle/{libelle}")
+    @GetMapping(value ="/libelle/{libelle}")
     public Quartier findByLibelle(@PathVariable String libelle) {
         return quartierService.findByLibelle(libelle);
     }
@@ -49,6 +52,7 @@ public class QuartierRest {
     //tested
     @PostMapping(value = "/")
     public void save(@RequestBody Quartier quartier) {
+        service.saveAndTestExisting(quartier.getSecteur());
         quartierService.save(quartier);
     }
 
@@ -63,4 +67,38 @@ public class QuartierRest {
     public List<Quartier> findAll() {
         return quartierService.findAll();
     }
+    // tested
+   @GetMapping(value="/pff")
+    public List<Quartier> findbySecteur() {
+        return quartierService.findSecteur();
+    }
+  // already test
+    @GetMapping("/secteur/{idSecteur}")
+    public List<Quartier> findByidSecteur(@ PathVariable long idSecteur) {
+        return quartierService.findByidSecteur(idSecteur);
+    }
+    //  already teste
+   @GetMapping("/libelleSecteur/{libelleSecteur}")
+    public List<Quartier> findByLibelleSecteur(@PathVariable String libelleSecteur) {
+        return quartierService.findByLibelleSecteur(libelleSecteur);
+    }
+    /// ou existe une rue 
+    // already exist
+    @GetMapping("/RueExist/{id}")
+    public Quartier WhereStreetExist(@PathVariable long id) {
+        return quartierService.WhereStreetExist(id);
+    }
+    /// 
+  @GetMapping("/id/{id}")
+    public Quartier findByid(@PathVariable long id) {
+        return quartierService.findByid(id);
+    }
+   @GetMapping("/exist/{id}")
+    public int exitsts( @PathVariable long id) {
+        return quartierService.exitsts(id);
+    }
+    
+  
+ 
+    
 }

@@ -14,11 +14,17 @@ import java.util.List;
  */
 public interface SecteurService {
 
-    public Secteur findByLibelle(String libelle);
+   public Secteur findByLibelle(String libelle);
 
     public List<Secteur> findAll();
+      public Secteur findByid(long id);
 
-    public void save(Secteur secteur);
+   public int saveAndTestExisting(Secteur secteur);
+   public void deleteByid(long id);
 
-    public void deleteSecteur(long id);
+    public int deleteSecteur(long id);
+    public Secteur WhereDistricExiste(long idQuartier);
+     public int exitstsByid(long id);
+     public int existByLibelle(String libelle);
+     
 }

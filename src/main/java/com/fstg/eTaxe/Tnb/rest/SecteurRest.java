@@ -27,28 +27,51 @@ public class SecteurRest {
     @Autowired
     public SecteurService secteurService;
 
-    //tested
+    // already testtest
     @GetMapping(value="/libelle/{libelle}")
     public Secteur findByLibelle(@PathVariable String libelle) {
         return secteurService.findByLibelle(libelle);
     }
     
-    // tested
+    // already test test
     @GetMapping(value="/")
     public List<Secteur> findAll() {
         return secteurService.findAll();
     }
     
-    //tested
+    // already test 
     @PostMapping(value="/")
-    public void save(@RequestBody Secteur secteur) {
-        secteurService.save(secteur);
+    public void saveAndTestExisting(@RequestBody Secteur secteur) {
+        secteurService.saveAndTestExisting(secteur);
     }
     
-    //tested
+    // already test test
     @DeleteMapping(value="/id/{id}")
     public void deleteSecteur(@PathVariable long id) {
         secteurService.deleteSecteur(id);
     }
+    // ou existe une quartier ==> dans quelle secteur 
+    // already test
+    @GetMapping("/idQuartier/{idQuartier}")
+    public Secteur WhereDistricExiste( @PathVariable long idQuartier) {
+        return secteurService.WhereDistricExiste(idQuartier);
+    }
+    // already tested
+  @GetMapping("/exist/{id}")
+    public int exitstsByid(@PathVariable long id) {
+        return secteurService.exitstsByid(id);
+    }
+    // already test
+   @GetMapping("/existBylibelle/{libelle}")
+    public int existByLibelle( @PathVariable String libelle) {
+        return secteurService.existByLibelle(libelle);
+    }
+  @DeleteMapping("delete/{id}")
+    public void deleteByid( @PathVariable long id) {
+        secteurService.deleteByid(id);
+    }
+    
+  
+    
     
 }

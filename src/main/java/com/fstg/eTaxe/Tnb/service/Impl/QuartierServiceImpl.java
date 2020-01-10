@@ -6,8 +6,11 @@
 package com.fstg.eTaxe.Tnb.service.Impl;
 
 import com.fstg.eTaxe.Tnb.bean.Quartier;
+import com.fstg.eTaxe.Tnb.bean.Rue;
 import com.fstg.eTaxe.Tnb.dao.QuartierDao;
 import com.fstg.eTaxe.Tnb.service.QuartierService;
+import com.fstg.eTaxe.Tnb.service.RueService;
+import com.fstg.eTaxe.Tnb.service.SecteurService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +24,13 @@ public class QuartierServiceImpl implements QuartierService {
 
     @Autowired
     private QuartierDao quartierDao;
-
+      @Autowired
+      private SecteurService service; 
+      @Autowired
+      private RueService rueService;
     @Override
     public Quartier findByLibelle(String libelle) {
-        return getQuartierDao().findByLibelle(libelle);
+        return quartierDao.findByLibelle(libelle);
     }
 
 //    @Override
@@ -37,7 +43,10 @@ public class QuartierServiceImpl implements QuartierService {
 //    }
     @Override
     public void save(Quartier quartier) {
+       service.saveAndTestExisting(quartier.getSecteur());
+         service.saveAndTestExisting(quartier.getSecteur());
         getQuartierDao().save(quartier);
+       
     }
 
     @Override
@@ -72,5 +81,61 @@ public class QuartierServiceImpl implements QuartierService {
             return 0;
         }
     }
+
+  
+
+//    @Override
+//    public List<Quartier> findbyidSecteur(long id) {
+//        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        List <Quartier> quartiers;
+//        
+//    }
+
+//    @Override
+//    public List<Quartier> findbyidLibelle(String libelle) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+ 
+    @Override
+    public List<Quartier> findSecteur() {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return  quartierDao.findSecteur();
+    }
+
+   
+
+    @Override
+    public List<Quartier> findByidSecteur(long idSecteur) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return quartierDao.findByidSecteur(idSecteur);
+    }
+
+    @Override
+    public List<Quartier> findByLibelleSecteur(String libelleSecteur) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return quartierDao.findByLibelleSecteur(libelleSecteur);
+    }
+
+    @Override
+    public Quartier WhereStreetExist(long id) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Rue rue =rueService.findByid(id);
+        if (rue==null){
+            return null;
+        }else{
+            return rue.getQuartier();
+        }
+            
+    }
+
+    @Override
+    public Quartier findByid(long id) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return quartierDao.findByid(id);
+    }
+    
+    
+
+   
 
 }
