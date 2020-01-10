@@ -7,11 +7,22 @@ package com.fstg.eTaxe.Tnb.service.Impl;
 
 import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
+import com.fstg.eTaxe.Tnb.bean.TauxTaxe;
+import com.fstg.eTaxe.Tnb.bean.TauxTaxeRetard;
+import com.fstg.eTaxe.Tnb.bean.TaxeAnnuelle;
 import com.fstg.eTaxe.Tnb.bean.Terrain;
+import com.fstg.eTaxe.Tnb.dao.ProprietaireDao;
 import com.fstg.eTaxe.Tnb.dao.TerrainDao;
+import com.fstg.eTaxe.Tnb.service.ProprietaireService;
+import com.fstg.eTaxe.Tnb.service.TauxTaxeRetardService;
+import com.fstg.eTaxe.Tnb.service.TauxTaxeService;
+import com.fstg.eTaxe.Tnb.service.TaxeAnnuelleService;
 import com.fstg.eTaxe.Tnb.service.TerrainService;
+import com.fstg.eTaxe.Tnb.service.util.DateUtil;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +39,18 @@ public class TerrainServiceImpl implements TerrainService {
     @Autowired
     private TerrainDao terrainDao;// pas de classe qui va implemente cette classe(Dao) c'est automatiquement jSpring data qui va fournir ca 
     // si il troveent beaucoup de class fille erreur 
+
+    @Autowired
+    private ProprietaireService proprietaireService;
+
+    @Autowired
+    private TaxeAnnuelleService taxeAnnuelleService;
+
+    @Autowired
+    private TauxTaxeService tauxTaxeService;
+
+    @Autowired
+    private TauxTaxeRetardService tauxTaxeRetardService;
 
     @Override
     public void save(Terrain terrain) {
@@ -75,6 +98,81 @@ public class TerrainServiceImpl implements TerrainService {
     @Override
     public Terrain findById(Long id) {
         return terrainDao.findById(id).get();
+    }
+
+    //  tested (Ali)
+    @Override
+    public List<Terrain> terrainsNonPayeeByProprietaire(Proprietaire proprietaire) {
+        proprietaire = proprietaireService.findById(proprietaire.getId());
+        List<Terrain> terrains = new ArrayList<>();
+        Date date = new Date();
+        for (Terrain terrain : terrainDao.findByProprietaire(proprietaire)) {
+            if (terrain.getDerinierAnneePayee() < DateUtil.formatToYearInteger(date) - 1) {
+                terrains.add(terrain);
+            }
+        }
+        return terrains;
+    }
+
+//  tested 
+    @Override
+    public Boolean isPayee(String referance, int annee) {
+        Terrain terrain = terrainDao.findByReferance(referance);
+        return terrain.getDerinierAnneePayee() >= annee;
+    }
+
+// tested
+    @Override
+    public List<Integer> findAnneesTerrainsNonPayee(String referance) {
+        List<Integer> annees = new ArrayList<>();
+        Terrain terrain = terrainDao.findByReferance(referance);
+        Date date = new Date();
+        for (int i = terrain.getDerinierAnneePayee() + 1; i < DateUtil.formatToYearInteger(date); i++) {
+            annees.add(i);
+        }
+        return annees;
+    }
+
+// test
+    @Override
+    public BigDecimal calculeMontantRetard(Long id, int annee) {
+        Terrain terrain = new Terrain();
+        terrain = findById(id);
+        BigDecimal montant = new BigDecimal(BigInteger.ZERO);
+        BigDecimal divisor = new BigDecimal(BigInteger.TEN.multiply(BigInteger.TEN));
+        Date dateNow = new Date();
+        long nombreMois = DateUtil.periodMonth(DateUtil.parseYearIntegerToDate(annee), dateNow);
+        TauxTaxeRetard tauxTaxeRetard = tauxTaxeRetardService.findByCategorie(terrain.getCategorie());
+        if (tauxTaxeRetard.getNombreMois() < nombreMois) {
+            montant = calculeMontantAnnuelle(id, annee).multiply(tauxTaxeRetard.getTauxTaxeRetard().divide(divisor)).multiply(BigDecimal.valueOf(nombreMois - 3));
+            return montant;
+        } else {
+            return montant;
+        }
+    }
+
+// test
+    @Override
+    public BigDecimal calculeMontantAnnuelle(Long id /*id terrain*/, int annee) {
+        BigDecimal montant = new BigDecimal(BigInteger.ZERO);
+        Terrain terrain = new Terrain();
+        terrain = findById(id);
+//        if (taxeAnnuelleService.findByAnneeAndTerrain(annee, terrain).equals(null) ) {
+        String dateStr = String.valueOf(annee) + "-01-02";
+            TauxTaxe tauxTaxe = tauxTaxeService.findByCategorieAndDateTaxe(terrain.getCategorie(), DateUtil.parse(dateStr));
+           System.out.println("com.fstg.eTaxe.Tnb.service.Impl.TerrainServiceImpl.calculeMontantAnnuelle()"+dateStr+DateUtil.parse(dateStr));
+            montant = (terrain.getSurface()).multiply(tauxTaxe.getMontantTaxe());
+            System.out.println("com.fstg.eTaxe.Tnb.service.Impl.TerrainServiceImpl.calculeMontantAnnuelle()"+montant);
+//            return montant;
+//        }
+        return montant;
+    }
+
+// test
+    @Override
+    public BigDecimal calculeMontantTotal(Long id, int annee) {
+        BigDecimal montant = calculeMontantRetard(id, annee).add(calculeMontantAnnuelle(id, annee));
+        return montant;
     }
 
 }

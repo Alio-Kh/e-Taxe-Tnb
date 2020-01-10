@@ -67,7 +67,6 @@ public class TaxeAnnulleRest {
         return taxeAnnuelleService.findAll();
     }
 
-    
 //    //tested(Ali)
 //    @GetMapping(value = "/proprietaire/id/{id}")
 //    public List<TaxeAnnuelle> taxesNonPayeeByProprietaire(@PathVariable Long id) {
@@ -85,7 +84,6 @@ public class TaxeAnnulleRest {
 //    public List<TaxeAnnuelle> findTaxesNonPayeeByReferanceTerrain(@PathVariable String referance) {
 //        return taxeAnnuelleService.findTaxesNonPayeeByReferanceTerrain(terrainService.findByReferance(referance));
 //    }
-
     //tested(Ali)
     @PutMapping(value = "/id/{id}")
     public void update(@PathVariable Long id) {
@@ -101,4 +99,9 @@ public class TaxeAnnulleRest {
 //    public void calculeMontant(@PathVariable Long id) {
 //        taxeAnnuelleService.calculeMontant(taxeAnnuelle);
 //    }d
+    
+    @GetMapping("/terrain/annee/{annee}/id/{id}")
+    public TaxeAnnuelle findByAnneeAndTerrain(@PathVariable int annee, @PathVariable long id) {
+        return taxeAnnuelleService.findByAnneeAndTerrain(annee, terrainService.findById(id));
+    }
 }

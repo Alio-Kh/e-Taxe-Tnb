@@ -31,4 +31,6 @@ public interface TauxTaxeDao extends JpaRepository<TauxTaxe, Long> {
     @Query("select t from TauxTaxe t where t.categorie = ?1 and ?2 between t.dateDebut and t.dateFin")
     public TauxTaxe findByCategorieAndDateNow(Categorie categorie,Date dateNow);
 
+    @Query("select t from TauxTaxe t where t.categorie = ?1 and ?2 between t.dateDebut and t.dateFin")
+    public TauxTaxe findByCategorieAndDateTaxe(Categorie categorie,Date dateTaxe);
 }

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,8 +25,9 @@ import javax.persistence.OneToMany;
 public class Proprietaire implements Serializable {
 
     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String referance;
     private String nom;
     private String prenom;
     private String adresse;
@@ -44,6 +44,14 @@ public class Proprietaire implements Serializable {
         this.prenom = prenom;
         this.adresse = adresse;
 
+    }
+
+    public String getReferance() {
+        return referance;
+    }
+
+    public void setReferance(String referance) {
+        this.referance = referance;
     }
 
     public String getEmail() {

@@ -92,5 +92,11 @@ public class TauxTaxeRest {
     public TauxTaxe findByCategorieAndDateNow(@PathVariable String libelleCategorie, @PathVariable String dateNow) {
         return tauxTaxeService.findByCategorieAndDateNow(categorieService.findByLibelle(libelleCategorie), DateUtil.parse(dateNow));
     }
+      
+    //tested(Ali)
+    @GetMapping(value = "/libelleCategorie/{libelleCategorie}/annee/{annee}")
+    public TauxTaxe findByCategorieAndAnneeTaxe(@PathVariable String libelleCategorie, @PathVariable int annee){
+        return tauxTaxeService.findByCategorieAndDateTaxe(categorieService.findByLibelle(libelleCategorie),  DateUtil.parseYearIntegerToDate(annee));
+    }
 
 }

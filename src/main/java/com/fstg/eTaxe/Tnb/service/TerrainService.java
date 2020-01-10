@@ -11,6 +11,7 @@ import com.fstg.eTaxe.Tnb.bean.Terrain;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  *
@@ -36,7 +37,18 @@ public interface TerrainService {
 
     //Ali
     public Terrain findById(Long id);
+
+    public List<Terrain> terrainsNonPayeeByProprietaire(Proprietaire proprietaire);
+
+    public Boolean isPayee(String referance, int annee);
+
+    public List<Integer> findAnneesTerrainsNonPayee(String referance);
+
+    public BigDecimal calculeMontantRetard(Long id, int annee);
     
+    public BigDecimal calculeMontantAnnuelle(Long id, int annee);
+    
+    public BigDecimal calculeMontantTotal(Long id, int annee);
 
     // public void ajoutterTerrain( Terrain tern) === save 
 }

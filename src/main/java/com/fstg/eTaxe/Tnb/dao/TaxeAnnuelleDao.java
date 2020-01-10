@@ -9,6 +9,7 @@ import com.fstg.eTaxe.Tnb.bean.Proprietaire;
 import com.fstg.eTaxe.Tnb.bean.TaxeAnnuelle;
 import com.fstg.eTaxe.Tnb.bean.Terrain;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,6 +21,8 @@ public interface TaxeAnnuelleDao  extends   JpaRepository<TaxeAnnuelle, Long>{
     
   public TaxeAnnuelle findByAnneeAndTerrainAndProprietaire(int annee, Terrain Terrain, Proprietaire proprietaire);
     
+//  @Query("select t from Terrain t where t.annee = ?1 and t.id = ?2.id")
+  public TaxeAnnuelle findByAnneeAndTerrain(int annee, Terrain Terrain);
   
   
     

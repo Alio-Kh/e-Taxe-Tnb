@@ -71,4 +71,9 @@ public class ProprietaireRest {
         proprietaireService.deleteProprietaire(id);
     }
 
+    @GetMapping(value = "/referance/{referance}")
+    public Proprietaire findByReferance(@PathVariable String referance) {
+        return proprietaireService.findByReferance(referance);
+    }
+
 }

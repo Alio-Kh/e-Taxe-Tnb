@@ -30,6 +30,8 @@ public interface TaxeAnnuelleService {
 
     public TaxeAnnuelle findByAnneeAndTerrainAndProprietaire(int annee, Terrain Terrain, Proprietaire proprietaire);
 
+     public TaxeAnnuelle findByAnneeAndTerrain(int annee, Terrain Terrain);
+    
 //    public TaxeAnnuelle calculeMontant(TaxeAnnuelle taxeAnnuelle);
     public TaxeAnnuelle findById(Long id);
 

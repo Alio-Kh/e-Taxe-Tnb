@@ -17,7 +17,7 @@ import org.springframework.data.jpa.repository.Query;
  * @author yassine
  */
 public interface TauxTaxeService {
-    
+
     public List<TauxTaxe> findAll();
 
     public void deletTauxTaxe(Long id);
@@ -35,6 +35,9 @@ public interface TauxTaxeService {
     public TauxTaxe update(TauxTaxe tauxTaxe);
 
     public TauxTaxe findById(Long id);
-    
-public TauxTaxe findByCategorieAndDateNow(Categorie categorie,Date dateNow);
+
+    public TauxTaxe findByCategorieAndDateNow(Categorie categorie, Date dateNow);
+
+    public TauxTaxe findByCategorieAndDateTaxe(Categorie categorie, Date dateTaxe);
+
 }

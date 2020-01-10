@@ -23,5 +23,7 @@ public interface ProprietaireDao extends JpaRepository<Proprietaire, Long> {
     public Proprietaire findByAdresse(String adresse);
 
     public Proprietaire findByEmail(String email);
+    
+    public Proprietaire findByReferance(String referance);
 
 }

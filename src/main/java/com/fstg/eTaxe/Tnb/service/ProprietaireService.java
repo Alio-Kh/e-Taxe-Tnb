@@ -26,8 +26,11 @@ public interface ProprietaireService {
     public Proprietaire findByEmail(String email);
 
     public List<Proprietaire> findAll();
-    
+
     public void deleteProprietaire(Long id);
-    
-    public Optional<Proprietaire> findById(Long id);
+
+    public Proprietaire findById(Long id);
+
+    public Proprietaire findByReferance(String referance);
+
 }

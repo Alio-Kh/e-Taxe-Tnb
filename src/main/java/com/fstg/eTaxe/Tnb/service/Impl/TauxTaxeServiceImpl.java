@@ -27,6 +27,7 @@ public class TauxTaxeServiceImpl implements TauxTaxeService {
 
     @Override
     public List<TauxTaxe> findAll() {
+
         return tauxTaxeDao.findAll();
     }
 
@@ -75,6 +76,12 @@ public class TauxTaxeServiceImpl implements TauxTaxeService {
     @Override
     public TauxTaxe findByCategorieAndDateNow(Categorie categorie, Date dateNow) {
         return tauxTaxeDao.findByCategorieAndDateNow(categorie, dateNow);
+    }
+
+    //test(Ali)
+    @Override
+    public TauxTaxe findByCategorieAndDateTaxe(Categorie categorie, Date dateTaxe) {
+        return tauxTaxeDao.findByCategorieAndDateTaxe(categorie, dateTaxe);
     }
 
 }

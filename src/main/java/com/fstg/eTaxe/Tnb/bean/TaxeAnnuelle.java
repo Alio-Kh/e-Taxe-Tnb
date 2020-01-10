@@ -32,7 +32,7 @@ public class TaxeAnnuelle implements Serializable {
     private TauxTaxe tauxTaxe;
 
     @ManyToOne
-    private TauxTaxeRetard tauxTaxeReratd;
+    private TauxTaxeRetard tauxTaxeRetard;
     
     @ManyToOne
     private Proprietaire proprietaire;
@@ -120,17 +120,17 @@ public class TaxeAnnuelle implements Serializable {
         this.tauxTaxe = tauxTaxe;
     }
     
-    public TauxTaxeRetard getTauxTaxeReratd() {
-        return tauxTaxeReratd;
+    public TauxTaxeRetard getTauxTaxeRetard() {
+        return tauxTaxeRetard;
     }
 
-    public void setTauxTaxeReratd(TauxTaxeRetard tauxTaxeReratd) {
-        this.tauxTaxeReratd = tauxTaxeReratd;
+    public void setTauxTaxeRetard(TauxTaxeRetard tauxTaxeRetard) {
+        this.tauxTaxeRetard = tauxTaxeRetard;
     }
 
     @Override
     public String toString() {
-        return "TaxeAnnuelle{" + "id=" + id + ", tauxTaxe=" + tauxTaxe + ", tauxTaxeReratd=" + tauxTaxeReratd + ", proprietaire=" + proprietaire +  ", terrain=" + terrain  + ", montant=" + montant + ", annee=" + annee + '}';
+        return "TaxeAnnuelle{" + "id=" + id + ", tauxTaxe=" + tauxTaxe + ", tauxTaxeRetard=" + tauxTaxeRetard + ", proprietaire=" + proprietaire +  ", terrain=" + terrain  + ", montant=" + montant + ", annee=" + annee + '}';
     }
 
 }
