@@ -26,4 +26,5 @@ public interface NotificationService {
     public void update(long id, Notification notification);
 
     public Notification findById(long id);
+    
 }

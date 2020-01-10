@@ -43,6 +43,7 @@ public class Terrain implements Serializable {
     private Proprietaire proprietaire;
     
     private int derinierAnneePayee;
+   
 
     public int getDerinierAnneePayee() {
         return derinierAnneePayee;

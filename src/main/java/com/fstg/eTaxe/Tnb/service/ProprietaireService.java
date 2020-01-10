@@ -6,6 +6,7 @@
 package com.fstg.eTaxe.Tnb.service;
 
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
+import com.fstg.eTaxe.Tnb.bean.Terrain;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,5 +33,6 @@ public interface ProprietaireService {
     public Proprietaire findById(Long id);
 
     public Proprietaire findByReferance(String referance);
+    public Proprietaire findPersonneNotifier(int n,long id);
 
 }

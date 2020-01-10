@@ -7,6 +7,7 @@ package com.fstg.eTaxe.Tnb.rest;
 
 import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
+import com.fstg.eTaxe.Tnb.bean.Terrain;
 import com.fstg.eTaxe.Tnb.service.ProprietaireService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,5 +76,10 @@ public class ProprietaireRest {
     public Proprietaire findByReferance(@PathVariable String referance) {
         return proprietaireService.findByReferance(referance);
     }
+   @GetMapping("/n/{n}/id/{id}")
+    public Proprietaire findPersonneNotifier(@PathVariable int n,@PathVariable long id) {
+      return proprietaireService.findPersonneNotifier(n, id);
+    }
+    
 
 }

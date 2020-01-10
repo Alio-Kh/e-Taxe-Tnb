@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 /*
@@ -37,6 +38,7 @@ public class Proprietaire implements Serializable {
 
     @OneToMany(mappedBy = "proprietaire")
     private List<Terrain> terrains = new ArrayList< Terrain>();
+  
 
     public Proprietaire(long id, String nom, String prenom, String adresse) {
         this.id = id;
