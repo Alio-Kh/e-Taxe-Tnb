@@ -85,10 +85,10 @@ public class TaxeAnnulleRest {
 //        return taxeAnnuelleService.findTaxesNonPayeeByReferanceTerrain(terrainService.findByReferance(referance));
 //    }
     //tested(Ali)
-    @PutMapping(value = "/id/{id}")
-    public void update(@PathVariable Long id) {
-        taxeAnnuelleService.update(id);
-    }
+//    @PutMapping(value = "/id/{id}")
+//    public void update(@PathVariable Long id) {
+//        taxeAnnuelleService.update(id);
+//    }
     //update2
 //    @PutMapping(value = "/id/{id}")
 //    public void calculeMontantRetard(@PathVariable Long id) {

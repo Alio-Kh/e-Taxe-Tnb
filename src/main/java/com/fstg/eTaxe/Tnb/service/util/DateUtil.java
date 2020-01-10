@@ -62,8 +62,12 @@ public class DateUtil {
     public static Date parseYearIntegerToDate(int annee) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMAT_YY_MM_DD);
         String date = String.valueOf(annee) + "-01-02";
-        return parse(date);
-
+        try {
+            return simpleDateFormat.parse(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(DateUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public static int periodMonth(Date date1, Date date2) {

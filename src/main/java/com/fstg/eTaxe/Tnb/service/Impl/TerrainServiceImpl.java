@@ -158,14 +158,11 @@ public class TerrainServiceImpl implements TerrainService {
         Terrain terrain = new Terrain();
         terrain = findById(id);
 //        if (taxeAnnuelleService.findByAnneeAndTerrain(annee, terrain).equals(null) ) {
-        String dateStr = String.valueOf(annee) + "-01-02";
-            TauxTaxe tauxTaxe = tauxTaxeService.findByCategorieAndDateTaxe(terrain.getCategorie(), DateUtil.parse(dateStr));
-           System.out.println("com.fstg.eTaxe.Tnb.service.Impl.TerrainServiceImpl.calculeMontantAnnuelle()"+dateStr+DateUtil.parse(dateStr));
-            montant = (terrain.getSurface()).multiply(tauxTaxe.getMontantTaxe());
-            System.out.println("com.fstg.eTaxe.Tnb.service.Impl.TerrainServiceImpl.calculeMontantAnnuelle()"+montant);
-//            return montant;
+            TauxTaxe tauxTaxe = tauxTaxeService.findByCategorieAndDateTaxe(terrain.getCategorie(), DateUtil.parseYearIntegerToDate(annee));         
+           montant = (terrain.getSurface()).multiply(tauxTaxe.getMontantTaxe());
+            return montant;
 //        }
-        return montant;
+//        return montant;
     }
 
 // test

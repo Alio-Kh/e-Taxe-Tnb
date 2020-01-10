@@ -35,10 +35,10 @@ public interface TaxeAnnuelleService {
 //    public TaxeAnnuelle calculeMontant(TaxeAnnuelle taxeAnnuelle);
     public TaxeAnnuelle findById(Long id);
 
-    public TaxeAnnuelle calculeMontant2(TaxeAnnuelle taxeAnnuelle);
+//    public TaxeAnnuelle calculeMontant2(TaxeAnnuelle taxeAnnuelle);
 
-    public void update(Long id);
+//    public void update(Long id);
 
-    public void calculeMontantRetard(Long id);
+//    public void calculeMontantRetard(Long id);
 
 }

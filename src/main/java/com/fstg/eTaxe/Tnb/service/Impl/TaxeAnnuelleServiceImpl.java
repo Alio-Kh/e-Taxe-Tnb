@@ -63,62 +63,52 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
         taxeAnnuelle.setTauxTaxe(tauxTaxeDao.findByCategorieAndDateNow(terrainService.findById(taxeAnnuelle.getTerrain().getId()).getCategorie(), DateUtil.parse(DateUtil.format(dateNow))));
         taxeAnnuelle.setTauxTaxeRetard(TauxTaxeRetardService.findByCategorie(terrainService.findById(taxeAnnuelle.getTerrain().getId()).getCategorie()));
         taxeAnnuelle.setDatePaiement(dateNow);
-        //        taxeAnnuelleDao.save(calculeMontant2(taxeAnnuelle));
         taxeAnnuelle.setMontant(terrainService.calculeMontantTotal(taxeAnnuelle.getTerrain().getId(), taxeAnnuelle.getAnnee()));
         taxeAnnuelleDao.save(taxeAnnuelle);
     }
-//    @Override
-//    public void save(TaxeAnnuelle taxeAnnuelle) {
-//        Date dateNow = new Date();
-//        taxeAnnuelle.setTauxTaxe(tauxTaxeDao.findByCategorieAndDateNow(terrainService.findById(taxeAnnuelle.getTerrain().getId()).getCategorie(), DateUtil.parseYearIntegerToDate(taxeAnnuelle.getAnnee())));
-//        taxeAnnuelle.setTauxTaxeRetard(TauxTaxeRetardService.findByCategorie(terrainService.findById(taxeAnnuelle.getTerrain().getId()).getCategorie()));
-//        taxeAnnuelle.setDatePaiement(dateNow);
-//        taxeAnnuelleDao.save(calculeMontant2(taxeAnnuelle));
-//
-//    }
 
     @Override
     public List<TaxeAnnuelle> findAll() {
         return taxeAnnuelleDao.findAll();
     }
 
-    //For Save
-    @Override
-    public TaxeAnnuelle calculeMontant2(TaxeAnnuelle taxeAnnuelle) {
-        BigDecimal montant = new BigDecimal(BigInteger.ZERO);
-        montant = (terrainService.findById(taxeAnnuelle.getTerrain().getId()).getSurface()).multiply(tauxTaxeDao.findById(taxeAnnuelle.getTauxTaxe().getId()).get().getMontantTaxe());
-        taxeAnnuelle.setMontant(montant);
-        return taxeAnnuelle;
-    }
+//    //For Save
+//    @Override
+//    public TaxeAnnuelle calculeMontant2(TaxeAnnuelle taxeAnnuelle) {
+//        BigDecimal montant = new BigDecimal(BigInteger.ZERO);
+//        montant = (terrainService.findById(taxeAnnuelle.getTerrain().getId()).getSurface()).multiply(tauxTaxeDao.findById(taxeAnnuelle.getTauxTaxe().getId()).get().getMontantTaxe());
+//        taxeAnnuelle.setMontant(montant);
+//        return taxeAnnuelle;
+//    }
 
-    //calculeMontant
-    @Override
-    public void calculeMontantRetard(Long id) {
-        TaxeAnnuelle taxeAnnuelle = new TaxeAnnuelle();
-        taxeAnnuelle = findById(id);
-        BigDecimal montant = new BigDecimal(BigInteger.ZERO);
-        BigDecimal divisor = new BigDecimal(BigInteger.TEN.multiply(BigInteger.TEN));
-        Date dateNow = new Date();
-
-        long nombreMois = DateUtil.periodMonth(DateUtil.parseYearIntegerToDate(taxeAnnuelle.getAnnee()), dateNow);
-
-//        String dateNowStr = DateUtil.format(dateNow);
-//        String dateStr = String.valueOf(taxeAnnuelle.getAnnee()) + "-01-01";
-//        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // format jour / mois / année
-//        LocalDate date1 = LocalDate.parse(dateNowStr, format);
-//        LocalDate date2 = LocalDate.parse(dateStr, format);
-//        Period period = Period.between(date2, date1);
-//        nombreMois = period.getYears() * 12 + period.getMonths();
-        if (nombreMois < taxeAnnuelle.getTauxTaxeRetard().getNombreMois()) {
-            montant = calculeMontant2(taxeAnnuelle).getMontant();
-            taxeAnnuelle.setMontant(montant);
-        } else if (nombreMois > taxeAnnuelle.getTauxTaxeRetard().getNombreMois()) {
-            montant = calculeMontant2(taxeAnnuelle).getMontant().multiply(taxeAnnuelle.getTauxTaxeRetard().getTauxTaxeRetard().divide(divisor)).multiply(BigDecimal.valueOf(nombreMois - 3)).add(calculeMontant2(taxeAnnuelle).getMontant());
-            taxeAnnuelle.setMontant(montant);
-        }
-
-        save(taxeAnnuelle);
-    }
+//    //calculeMontant
+//    @Override
+//    public void calculeMontantRetard(Long id) {
+//        TaxeAnnuelle taxeAnnuelle = new TaxeAnnuelle();
+//        taxeAnnuelle = findById(id);
+//        BigDecimal montant = new BigDecimal(BigInteger.ZERO);
+//        BigDecimal divisor = new BigDecimal(BigInteger.TEN.multiply(BigInteger.TEN));
+//        Date dateNow = new Date();
+//
+//        long nombreMois = DateUtil.periodMonth(DateUtil.parseYearIntegerToDate(taxeAnnuelle.getAnnee()), dateNow);
+//
+////        String dateNowStr = DateUtil.format(dateNow);
+////        String dateStr = String.valueOf(taxeAnnuelle.getAnnee()) + "-01-01";
+////        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // format jour / mois / année
+////        LocalDate date1 = LocalDate.parse(dateNowStr, format);
+////        LocalDate date2 = LocalDate.parse(dateStr, format);
+////        Period period = Period.between(date2, date1);
+////        nombreMois = period.getYears() * 12 + period.getMonths();
+//        if (nombreMois < taxeAnnuelle.getTauxTaxeRetard().getNombreMois()) {
+//            montant = calculeMontant2(taxeAnnuelle).getMontant();
+//            taxeAnnuelle.setMontant(montant);
+//        } else if (nombreMois > taxeAnnuelle.getTauxTaxeRetard().getNombreMois()) {
+//            montant = calculeMontant2(taxeAnnuelle).getMontant().multiply(taxeAnnuelle.getTauxTaxeRetard().getTauxTaxeRetard().divide(divisor)).multiply(BigDecimal.valueOf(nombreMois - 3)).add(calculeMontant2(taxeAnnuelle).getMontant());
+//            taxeAnnuelle.setMontant(montant);
+//        }
+//
+//        save(taxeAnnuelle);
+//    }
 //
 //    public BigDecimal calculeMontantRetard2(Long id) {
 //        Terrain terrain = new Terrain();
@@ -175,19 +165,19 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
     }
 
     //khdama ^_^
-    @Override
-    public void update(Long id) {
-        TaxeAnnuelle taxeAnnuelle = new TaxeAnnuelle();
-        taxeAnnuelle = findById(id);
-//        if (taxeAnnuelle.getTauxTaxe() != null) {
-//            TauxTaxe tauxTaxe = tauxTaxeDao.findById(taxeAnnuelle.getTauxTaxe().getId()).get();
-//            taxeAnnuelle2.setTauxTaxe(tauxTaxe);
-//        }
-        Date dateNow = new Date();
-        taxeAnnuelle.setTauxTaxe(tauxTaxeDao.findByCategorieAndDateNow(terrainService.findById(taxeAnnuelle.getTerrain().getId()).getCategorie(), DateUtil.parse(DateUtil.format(dateNow))));
-        taxeAnnuelle.setTauxTaxeRetard(TauxTaxeRetardService.findByCategorie(taxeAnnuelle.getTerrain().getCategorie()));
-        save(taxeAnnuelle);
-    }
+//    @Override
+//    public void update(Long id) {
+//        TaxeAnnuelle taxeAnnuelle = new TaxeAnnuelle();
+//        taxeAnnuelle = findById(id);
+////        if (taxeAnnuelle.getTauxTaxe() != null) {
+////            TauxTaxe tauxTaxe = tauxTaxeDao.findById(taxeAnnuelle.getTauxTaxe().getId()).get();
+////            taxeAnnuelle2.setTauxTaxe(tauxTaxe);
+////        }
+//        Date dateNow = new Date();
+//        taxeAnnuelle.setTauxTaxe(tauxTaxeDao.findByCategorieAndDateNow(terrainService.findById(taxeAnnuelle.getTerrain().getId()).getCategorie(), DateUtil.parse(DateUtil.format(dateNow))));
+//        taxeAnnuelle.setTauxTaxeRetard(TauxTaxeRetardService.findByCategorie(taxeAnnuelle.getTerrain().getCategorie()));
+//        save(taxeAnnuelle);
+//    }
 
     @Override
     public TaxeAnnuelle findByAnneeAndTerrain(int annee, Terrain Terrain) {
