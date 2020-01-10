@@ -32,11 +32,6 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationDao.findByLibelle(libelle);
     }
 
-//    @Override
-//    public Categorie findById(Long id) {
-//        return categoriDao.findById(id);
-//    }
-    @Override
     public List<Notification> findAll() {
         return notificationDao.findAll();
     }

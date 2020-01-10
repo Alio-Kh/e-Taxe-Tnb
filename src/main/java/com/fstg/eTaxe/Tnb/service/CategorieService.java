@@ -21,8 +21,7 @@ public interface CategorieService {
     public Categorie findByLibelle(String libelle);
     public List<Categorie>  findAll();
     public void deleteCategorie(long id);
-//    public Categorie findById(Long id);
-public Categorie update(Categorie categorie);
+    public Categorie findById(Long id);
 
     
 }

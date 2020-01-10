@@ -72,4 +72,9 @@ public class ProprietaireServiceImpl implements ProprietaireService {
         return proprietaireDao.findByReferance(referance);
     }
 
+    @Override
+    public void update(Proprietaire proprietaire) {
+        proprietaireDao.save(proprietaire);
+    }
+
 }

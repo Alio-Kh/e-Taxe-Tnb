@@ -33,4 +33,5 @@ public interface ProprietaireService {
 
     public Proprietaire findByReferance(String referance);
 
+    public void update(Proprietaire proprietaire);
 }

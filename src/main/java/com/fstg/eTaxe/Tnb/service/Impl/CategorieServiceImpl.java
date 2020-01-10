@@ -33,10 +33,10 @@ public class CategorieServiceImpl implements CategorieService {
         return categoriDao.findByLibelle(libelle);
     }
 
-//    @Override
-//    public Categorie findById(Long id) {
-//        return categoriDao.findById(id);
-//    }
+    @Override
+    public Categorie findById(Long id) {
+        return categoriDao.findById(id).get();
+    }
     
     @Override
     public List<Categorie> findAll() {
@@ -52,10 +52,5 @@ public class CategorieServiceImpl implements CategorieService {
     
     
     
-    // not implemented yet
-    @Override
-    public Categorie update(Categorie categorie) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
 }
