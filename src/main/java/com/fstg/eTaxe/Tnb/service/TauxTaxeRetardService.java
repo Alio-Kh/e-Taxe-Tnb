@@ -21,13 +21,13 @@ public interface TauxTaxeRetardService {
 
     public void deletTauxTaxeRetard(Long id);
 
-    public void save(TauxTaxeRetard tauxTaxeRetard);
+    public String save(TauxTaxeRetard tauxTaxeRetard);
 
     public TauxTaxeRetard findByCategorie(Categorie categorie);
 
     public TauxTaxeRetard findByTauxTaxeRetard(BigDecimal tauxTaxeRetard);
 
-    public TauxTaxeRetard update(TauxTaxeRetard tauxTaxeRetard);
+    public String update(long id, TauxTaxeRetard tauxTaxeRetard);
 
     public TauxTaxeRetard findById(Long id);
 

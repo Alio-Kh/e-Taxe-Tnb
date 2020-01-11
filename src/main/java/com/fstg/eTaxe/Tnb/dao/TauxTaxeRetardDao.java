@@ -21,5 +21,7 @@ public interface TauxTaxeRetardDao extends JpaRepository<TauxTaxeRetard, Long> {
     public TauxTaxeRetard findByCategorie(Categorie categorie);
 
     public TauxTaxeRetard findByTauxTaxeRetard(BigDecimal tauxTaxeRetard);
+    
+    public Boolean existsByCategorie(Categorie categorie);
 
 }

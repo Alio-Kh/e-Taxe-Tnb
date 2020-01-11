@@ -49,6 +49,7 @@ public interface TerrainService {
     public BigDecimal calculeMontantAnnuelle(Long id, int annee);
     
     public BigDecimal calculeMontantTotal(Long id, int annee);
+    
+    public Boolean isPropretaireHaveTerrain(Proprietaire proprietaire, Terrain terrain);
 
-    // public void ajoutterTerrain( Terrain tern) === save 
 }

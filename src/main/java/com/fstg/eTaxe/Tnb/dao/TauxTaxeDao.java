@@ -9,6 +9,7 @@ import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.TauxTaxe;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -22,7 +23,7 @@ public interface TauxTaxeDao extends JpaRepository<TauxTaxe, Long> {
 
     public TauxTaxe findByCategorie(Categorie categorie);
 
-    public TauxTaxe findByMontantTaxe(BigDecimal montantTaxe);
+    public List<TauxTaxe> findByMontantTaxe(BigDecimal montantTaxe);
 
     public TauxTaxe findByDateDebut(Date dateDebut);
 

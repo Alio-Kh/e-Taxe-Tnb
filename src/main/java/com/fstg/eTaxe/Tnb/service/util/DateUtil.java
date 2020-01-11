@@ -48,9 +48,9 @@ public class DateUtil {
         return simpleDateFormat.format(date);
     }
 
-    public static String formattoYear(Date date) {
+    public static int formattoYear(Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMAT_YYYY);
-        return simpleDateFormat.format(date);
+        return Integer.valueOf(simpleDateFormat.format(date));
     }
 
     public static int formatToYearInteger(Date date) {

@@ -98,7 +98,6 @@ public class QuartierRest {
         return quartierService.exitsts(id);
     }
     
-  
  
     
 }

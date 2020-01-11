@@ -23,22 +23,22 @@ public interface TaxeAnnuelleService {
 //    public List<TaxeAnnuelle> findTaxesNonPayeeByReferanceTerrain(Terrain terrain);
 //
 //    public List<Integer> anneestaxesNonPayeeByReferanceTerrain(String referance);
-
-    public void save(TaxeAnnuelle taxeAnnuelle);
+    
+    public String save(TaxeAnnuelle taxeAnnuelle);
 
     public List<TaxeAnnuelle> findAll();
 
     public TaxeAnnuelle findByAnneeAndTerrainAndProprietaire(int annee, Terrain Terrain, Proprietaire proprietaire);
 
-     public TaxeAnnuelle findByAnneeAndTerrain(int annee, Terrain Terrain);
-    
+    public TaxeAnnuelle findByAnneeAndTerrain(int annee, Terrain Terrain);
+
 //    public TaxeAnnuelle calculeMontant(TaxeAnnuelle taxeAnnuelle);
     public TaxeAnnuelle findById(Long id);
 
 //    public TaxeAnnuelle calculeMontant2(TaxeAnnuelle taxeAnnuelle);
-
 //    public void update(Long id);
-
 //    public void calculeMontantRetard(Long id);
+    
+    public Boolean existsByAnnee(int annee);
 
 }

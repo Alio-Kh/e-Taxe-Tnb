@@ -8,6 +8,8 @@ package com.fstg.eTaxe.Tnb.service;
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  *
@@ -15,7 +17,7 @@ import java.util.Optional;
  */
 public interface ProprietaireService {
 
-    public void save(Proprietaire proprietaire);
+    public String save(Proprietaire proprietaire);
 
     public Proprietaire findByNom(String nom);
 
@@ -32,6 +34,9 @@ public interface ProprietaireService {
     public Proprietaire findById(Long id);
 
     public Proprietaire findByReferance(String referance);
+    
+    public String update(String referance, Proprietaire proprietaire);
 
-    public void update(Proprietaire proprietaire);
+
+    public Boolean exist(String referance);
 }

@@ -27,6 +27,7 @@ public class Proprietaire implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private String referance;
     private String nom;
     private String prenom;
@@ -80,10 +81,6 @@ public class Proprietaire implements Serializable {
         this.terrains = terrains;
     }
 
-    public long getId() {
-        return id;
-    }
-
     public String getNom() {
         return nom;
     }
@@ -94,10 +91,6 @@ public class Proprietaire implements Serializable {
 
     public String getAdresse() {
         return adresse;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setNom(String nom) {
@@ -114,5 +107,19 @@ public class Proprietaire implements Serializable {
 
     public Proprietaire() {
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Proprietaire{" + "id=" + id + ", referance=" + referance + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", email=" + email + ", tele=" + tele + ", terrains=" + terrains + '}';
+    }
+    
 
 }

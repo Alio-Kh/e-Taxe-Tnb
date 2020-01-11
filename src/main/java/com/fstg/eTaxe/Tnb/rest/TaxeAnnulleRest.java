@@ -48,8 +48,8 @@ public class TaxeAnnulleRest {
 
     //tested(Ali)
     @PostMapping(value = "/")
-    public void save(@RequestBody TaxeAnnuelle taxeAnnuelle) {
-        taxeAnnuelleService.save(taxeAnnuelle);
+    public String save(@RequestBody TaxeAnnuelle taxeAnnuelle) {
+        return taxeAnnuelleService.save(taxeAnnuelle);
     }
 
     //Hadi mab9atche khdama -_-

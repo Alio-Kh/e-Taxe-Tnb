@@ -7,8 +7,10 @@ package com.fstg.eTaxe.Tnb.service.Impl;
 
 import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.TauxTaxe;
+import com.fstg.eTaxe.Tnb.dao.CategorieDao;
 import com.fstg.eTaxe.Tnb.dao.TauxTaxeDao;
 import com.fstg.eTaxe.Tnb.service.TauxTaxeService;
+import com.fstg.eTaxe.Tnb.service.util.DateUtil;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +27,9 @@ public class TauxTaxeServiceImpl implements TauxTaxeService {
     @Autowired
     public TauxTaxeDao tauxTaxeDao;
 
+    @Autowired
+    public CategorieDao categorieDao;
+
     @Override
     public List<TauxTaxe> findAll() {
 
@@ -36,9 +41,22 @@ public class TauxTaxeServiceImpl implements TauxTaxeService {
         tauxTaxeDao.deleteById(id);
     }
 
+//    @Override
+//    public void save(TauxTaxe tauxTaxe) {
+//        tauxTaxeDao.save(tauxTaxe);
+//    }
     @Override
-    public void save(TauxTaxe tauxTaxe) {
-        tauxTaxeDao.save(tauxTaxe);
+    public String save(TauxTaxe tauxTaxe) {
+        if (tauxTaxeDao.findByCategorieAndDateTaxe(tauxTaxe.getCategorie(), tauxTaxe.getDateDebut()) == null && tauxTaxeDao.findByCategorieAndDateTaxe(tauxTaxe.getCategorie(), tauxTaxe.getDateFin()) == null) {
+            if (DateUtil.periodMonth(tauxTaxe.getDateFin(), tauxTaxe.getDateDebut()) < 0) {
+                return tauxTaxe.getDateDebut()+" is greater-than "+tauxTaxe.getDateFin();
+            } else {
+                tauxTaxeDao.save(tauxTaxe);
+                return "Taux taxe of categorie " + categorieDao.findById(tauxTaxe.getCategorie().getId()).get().getLibelle() + " is saved";
+            }
+        } else {
+            return "Error! (DateDebut : " + tauxTaxe.getDateDebut() + " or DateFin : " + tauxTaxe.getDateFin() + " of this tauxTaxe is in anouther interval date of tauxTaxe )";
+        }
     }
 
     @Override
@@ -47,7 +65,7 @@ public class TauxTaxeServiceImpl implements TauxTaxeService {
     }
 
     @Override
-    public TauxTaxe findByMontantTaxe(BigDecimal montantTaxe) {
+    public List<TauxTaxe> findByMontantTaxe(BigDecimal montantTaxe) {
         return tauxTaxeDao.findByMontantTaxe(montantTaxe);
     }
 
@@ -74,7 +92,8 @@ public class TauxTaxeServiceImpl implements TauxTaxeService {
 
     //(Ali)
     @Override
-    public TauxTaxe findByCategorieAndDateNow(Categorie categorie, Date dateNow) {
+    public TauxTaxe findByCategorieAndDateNow(Categorie categorie) {
+        Date dateNow = new Date();
         return tauxTaxeDao.findByCategorieAndDateNow(categorie, dateNow);
     }
 

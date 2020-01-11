@@ -33,7 +33,7 @@ public class TerrainRest {
     // pas de traitement 
     @Autowired // permet d'instensier un objet   // si il troveent beaucoup de class fille erreur 
     private TerrainService terrainservice;
-
+    
     @Autowired
     private ProprietaireService proprietaireService;
 
@@ -65,7 +65,7 @@ public class TerrainRest {
     @GetMapping("/referance/{referance}")
     public Terrain findByReferance(@PathVariable String referance) { // dans l'input le meme variable (le meme nom de variable )
         return terrainservice.findByReferance(referance);
-
+        
     }
 
     // tested
@@ -111,9 +111,9 @@ public class TerrainRest {
     }
     
     @GetMapping(value = "/id/{id}/annee/{annee}")
-     public BigDecimal calculeMontantAnnuelle(@PathVariable Long id /*id terrain*/, @PathVariable int annee){
-         return terrainservice.calculeMontantAnnuelle(id, annee);
-     }
+    public BigDecimal calculeMontantAnnuelle(@PathVariable Long id /*id terrain*/, @PathVariable int annee) {
+        return terrainservice.calculeMontantAnnuelle(id, annee);
+    }
 //     @GetMapping(value = "/id/{id}/annee/{annee}")
 //      public BigDecimal calculeMontantRetard(@PathVariable Long id /*id terrain*/, @PathVariable int annee){
 //         return terrainservice.calculeMontantRetard(id, annee);
@@ -122,6 +122,10 @@ public class TerrainRest {
 //      public BigDecimal calculeMontantTotal(@PathVariable Long id /*id terrain*/, @PathVariable int annee){
 //         return terrainservice.calculeMontantTotal(id, annee);
 //     }
-
+    
+    @GetMapping(value = "/proprietaire/referance/{referanceProprietaire}/terrain/referance/{referanceTerrain}")
+    public Boolean isPropretaireHaveTerrain(@PathVariable String referanceProprietaire, @PathVariable String referanceTerrain) {        
+        return terrainservice.isPropretaireHaveTerrain(proprietaireService.findByReferance(referanceProprietaire), terrainservice.findByReferance(referanceTerrain));
+    }
     
 }

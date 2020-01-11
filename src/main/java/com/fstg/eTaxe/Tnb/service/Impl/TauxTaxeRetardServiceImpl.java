@@ -8,6 +8,7 @@ package com.fstg.eTaxe.Tnb.service.Impl;
 import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.TauxTaxeRetard;
 import com.fstg.eTaxe.Tnb.dao.TauxTaxeRetardDao;
+import com.fstg.eTaxe.Tnb.service.CategorieService;
 import com.fstg.eTaxe.Tnb.service.TauxTaxeRetardService;
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,6 +24,9 @@ public class TauxTaxeRetardServiceImpl implements TauxTaxeRetardService {
 
     @Autowired
     public TauxTaxeRetardDao tauxTaxeRetardDao;
+
+    @Autowired
+    public CategorieService categorieService;
 
     @Override
     public List<TauxTaxeRetard> findAll() {
@@ -43,10 +47,22 @@ public class TauxTaxeRetardServiceImpl implements TauxTaxeRetardService {
 //    public TauxTaxeRetard findByMontantTaxeRetard(BigDecimal montantTaxeRetard) {
 //        return tauxTaxeRetardDao.findByMontantTaxeRetard(montantTaxeRetard);
 //    }
+    
     // not implemented yet
     @Override
-    public TauxTaxeRetard update(TauxTaxeRetard tauxTaxeRetard) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String update(long id, TauxTaxeRetard tauxTaxeRetard) {
+        TauxTaxeRetard tauxTaxeRetard1 = findById(id);
+        if (tauxTaxeRetard1 != null) {
+            if (tauxTaxeRetard.getNombreMois() != 0) {
+                tauxTaxeRetard1.setNombreMois(tauxTaxeRetard.getNombreMois());
+            }
+            if (tauxTaxeRetard.getTauxTaxeRetard() != null) {
+                tauxTaxeRetard1.setTauxTaxeRetard(tauxTaxeRetard.getTauxTaxeRetard());
+            }
+            tauxTaxeRetardDao.save(tauxTaxeRetard1);
+            return "taux retard taxe updated";
+        }
+        return "taux retard taxe not updated (il n'existe pas)";
     }
 
     @Override
@@ -55,8 +71,13 @@ public class TauxTaxeRetardServiceImpl implements TauxTaxeRetardService {
     }
 
     @Override
-    public void save(TauxTaxeRetard tauxTaxeRetard) {
-        tauxTaxeRetardDao.save(tauxTaxeRetard);
+    public String save(TauxTaxeRetard tauxTaxeRetard) {
+        if (tauxTaxeRetardDao.existsByCategorie(categorieService.findById(tauxTaxeRetard.getCategorie().getId()))) {
+            return "le taux taxe de la categorie "+categorieService.findById(tauxTaxeRetard.getCategorie().getId()).getLibelle()+" exist";
+        } else {
+            tauxTaxeRetardDao.save(tauxTaxeRetard);
+            return "le taux taxe de la categorie "+categorieService.findById(tauxTaxeRetard.getCategorie().getId()).getLibelle()+"saved";
+        }
     }
 
     @Override

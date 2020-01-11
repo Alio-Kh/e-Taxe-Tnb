@@ -13,6 +13,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  *
@@ -25,9 +27,13 @@ public class ProprietaireServiceImpl implements ProprietaireService {
     private ProprietaireDao proprietaireDao;
 
     @Override
-    public void save(Proprietaire proprietaire) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        proprietaireDao.save(proprietaire);
+    public String save(Proprietaire proprietaire) {
+        if (proprietaireDao.existsByReferance(proprietaire.getReferance())) {
+            return proprietaire.getReferance() + " exist in data base";
+        } else {
+            proprietaireDao.save(proprietaire);
+            return "proprietaire saved";
+        }
     }
 
     @Override
@@ -72,9 +78,34 @@ public class ProprietaireServiceImpl implements ProprietaireService {
         return proprietaireDao.findByReferance(referance);
     }
 
+    public Boolean exist(String referance) {
+        return proprietaireDao.existsByReferance(referance);
+    }
+
     @Override
-    public void update(Proprietaire proprietaire) {
-        proprietaireDao.save(proprietaire);
+    public String update(String referance, Proprietaire proprietaire) {
+        if (proprietaireDao.existsByReferance(referance)) {
+            Proprietaire proprietaire1 = proprietaireDao.findByReferance(referance);
+            if (proprietaire.getAdresse() != null) {
+                proprietaire1.setAdresse(proprietaire.getAdresse());
+            }
+            if (proprietaire.getEmail() != null) {
+                proprietaire1.setEmail(proprietaire.getEmail());
+            }
+            if (proprietaire.getNom() != null) {
+                proprietaire1.setNom(proprietaire.getNom());
+            }
+            if (proprietaire.getPrenom() != null) {
+                proprietaire1.setPrenom(proprietaire.getPrenom());
+            }
+            if (proprietaire.getTele() != null) {
+                proprietaire1.setTele(proprietaire.getTele());
+            }
+            proprietaireDao.save(proprietaire1);
+            return "la mise à jour du proprietaire " + proprietaire1.getNom() + " " + proprietaire1.getPrenom() + " a réussi";
+        } else {
+            return "Update failed! (le prorietaire " + referance + " n'existe pas)";
+        }
     }
 
 }

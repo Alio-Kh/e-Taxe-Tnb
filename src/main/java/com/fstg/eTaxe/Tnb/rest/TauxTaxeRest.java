@@ -52,8 +52,8 @@ public class TauxTaxeRest {
 
     //tested
     @PostMapping(value = "/")
-    public void save(@RequestBody TauxTaxe tauxTaxe) {
-        tauxTaxeService.save(tauxTaxe);
+    public String save(@RequestBody TauxTaxe tauxTaxe) {
+       return tauxTaxeService.save(tauxTaxe);
     }
 
     @GetMapping(value = "/categorie/")
@@ -63,7 +63,7 @@ public class TauxTaxeRest {
 
     //tested
     @GetMapping(value = "/montantTaxe/{montantTaxe}")
-    public TauxTaxe findByMontantTaxe(@PathVariable BigDecimal montantTaxe) {
+    public List<TauxTaxe> findByMontantTaxe(@PathVariable BigDecimal montantTaxe) {
         return tauxTaxeService.findByMontantTaxe(montantTaxe);
     }
 
@@ -88,9 +88,9 @@ public class TauxTaxeRest {
     }
 
     //tested(Ali)
-    @GetMapping(value = "/libelleCategorie/{libelleCategorie}/dateNow/{dateNow}")
-    public TauxTaxe findByCategorieAndDateNow(@PathVariable String libelleCategorie, @PathVariable String dateNow) {
-        return tauxTaxeService.findByCategorieAndDateNow(categorieService.findByLibelle(libelleCategorie), DateUtil.parse(dateNow));
+    @GetMapping(value = "/libelleCategorie/{libelleCategorie}")
+    public TauxTaxe findByCategorieAndDateNow(@PathVariable String libelleCategorie) {
+        return tauxTaxeService.findByCategorieAndDateNow(categorieService.findByLibelle(libelleCategorie));
     }
       
     //tested(Ali)
@@ -98,5 +98,7 @@ public class TauxTaxeRest {
     public TauxTaxe findByCategorieAndAnneeTaxe(@PathVariable String libelleCategorie, @PathVariable int annee){
         return tauxTaxeService.findByCategorieAndDateTaxe(categorieService.findByLibelle(libelleCategorie),  DateUtil.parseYearIntegerToDate(annee));
     }
+    
+   
 
 }

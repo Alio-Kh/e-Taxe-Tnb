@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,10 +30,10 @@ public class ProprietaireRest {
     @Autowired // permet d'instensier un objet   // si il troveent beaucoup de class fille erreur 
     private ProprietaireService proprietaireService;
 
-    // already tste
+    // already testes
     @PostMapping(value = "/")
-    public void save(@RequestBody Proprietaire proprietaire) {
-        proprietaireService.save(proprietaire);
+    public String save(@RequestBody Proprietaire proprietaire) {
+        return proprietaireService.save(proprietaire);
     }
 
     // tested
@@ -71,9 +72,24 @@ public class ProprietaireRest {
         proprietaireService.deleteProprietaire(id);
     }
 
+    //tested
     @GetMapping(value = "/referance/{referance}")
     public Proprietaire findByReferance(@PathVariable String referance) {
         return proprietaireService.findByReferance(referance);
+    }
+
+    @PutMapping("/referance/{referance}")
+    public String update(@PathVariable String referance, @RequestBody Proprietaire proprietaire) {
+        return proprietaireService.update(referance, proprietaire);
+    }
+
+    @GetMapping("/exist/referance/{referance}")
+    public String exist(@PathVariable String referance) {
+        if (proprietaireService.exist(referance)) {
+            return "Le proprietaire " + proprietaireService.findByReferance(referance).getNom() + " " + proprietaireService.findByReferance(referance).getPrenom() + " existe";
+        } else {
+            return "Le proprietaire " + referance + " n'existe pas";
+        }
     }
 
 }

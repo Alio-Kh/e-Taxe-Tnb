@@ -151,25 +151,33 @@ public class TerrainServiceImpl implements TerrainService {
         }
     }
 
-// test
+// tested
     @Override
     public BigDecimal calculeMontantAnnuelle(Long id /*id terrain*/, int annee) {
         BigDecimal montant = new BigDecimal(BigInteger.ZERO);
         Terrain terrain = new Terrain();
         terrain = findById(id);
-//        if (taxeAnnuelleService.findByAnneeAndTerrain(annee, terrain).equals(null) ) {
-            TauxTaxe tauxTaxe = tauxTaxeService.findByCategorieAndDateTaxe(terrain.getCategorie(), DateUtil.parseYearIntegerToDate(annee));         
-           montant = (terrain.getSurface()).multiply(tauxTaxe.getMontantTaxe());
-            return montant;
-//        }
-//        return montant;
+        if (taxeAnnuelleService.findByAnneeAndTerrain(annee, terrain) == null) {
+            TauxTaxe tauxTaxe = tauxTaxeService.findByCategorieAndDateTaxe(terrain.getCategorie(), DateUtil.parseYearIntegerToDate(annee));
+            if (tauxTaxe != null) {
+                montant = (terrain.getSurface()).multiply(tauxTaxe.getMontantTaxe());
+                return BigDecimal.ZERO;
+            }
+
+        }
+        return montant;
     }
 
-// test
+// tested
     @Override
     public BigDecimal calculeMontantTotal(Long id, int annee) {
         BigDecimal montant = calculeMontantRetard(id, annee).add(calculeMontantAnnuelle(id, annee));
         return montant;
+    }
+
+    @Override
+    public Boolean isPropretaireHaveTerrain(Proprietaire proprietaire, Terrain terrain) {
+        return terrain.getProprietaire().equals(proprietaire);
     }
 
 }

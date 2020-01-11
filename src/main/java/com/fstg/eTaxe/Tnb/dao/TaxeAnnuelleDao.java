@@ -24,6 +24,8 @@ public interface TaxeAnnuelleDao  extends   JpaRepository<TaxeAnnuelle, Long>{
 //  @Query("select t from Terrain t where t.annee = ?1 and t.id = ?2.id")
   public TaxeAnnuelle findByAnneeAndTerrain(int annee, Terrain Terrain);
   
+  public Boolean existsByAnnee(int annee);
+  
   
     
 }

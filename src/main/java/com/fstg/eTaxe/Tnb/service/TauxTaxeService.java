@@ -22,11 +22,11 @@ public interface TauxTaxeService {
 
     public void deletTauxTaxe(Long id);
 
-    public void save(TauxTaxe tauxTaxe);
+    public String save(TauxTaxe tauxTaxe);
 
     public TauxTaxe findByCategorie(Categorie categorie);
 
-    public TauxTaxe findByMontantTaxe(BigDecimal montantTaxe);
+    public List<TauxTaxe> findByMontantTaxe(BigDecimal montantTaxe);
 
     public TauxTaxe findByDateDebut(Date dateDebut);
 
@@ -36,7 +36,7 @@ public interface TauxTaxeService {
 
     public TauxTaxe findById(Long id);
 
-    public TauxTaxe findByCategorieAndDateNow(Categorie categorie, Date dateNow);
+    public TauxTaxe findByCategorieAndDateNow(Categorie categorie);
 
     public TauxTaxe findByCategorieAndDateTaxe(Categorie categorie, Date dateTaxe);
 

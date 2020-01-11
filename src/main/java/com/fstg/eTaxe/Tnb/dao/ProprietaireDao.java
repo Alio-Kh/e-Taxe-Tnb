@@ -26,4 +26,5 @@ public interface ProprietaireDao extends JpaRepository<Proprietaire, Long> {
     
     public Proprietaire findByReferance(String referance);
 
+    public Boolean existsByReferance(String referance); 
 }

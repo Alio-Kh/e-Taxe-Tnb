@@ -47,8 +47,8 @@ public class TauxTaxeRetardRest {
 
     //not tested
     @PostMapping(value = "/")
-    public void save(@RequestBody TauxTaxeRetard tauxTaxeRetard) {
-        tauxTaxeRetardService.save(tauxTaxeRetard);
+    public String save(@RequestBody TauxTaxeRetard tauxTaxeRetard) {
+        return tauxTaxeRetardService.save(tauxTaxeRetard);
     }
 
     @GetMapping(value = "/categorie/")
@@ -67,7 +67,10 @@ public class TauxTaxeRetardRest {
         return tauxTaxeRetardService.findById(id);
     }
     
-    
+    @PutMapping("/id/{id}")
+    public String update(@PathVariable long id, @RequestBody TauxTaxeRetard tauxTaxeRetard){
+        return tauxTaxeRetardService.update(id, tauxTaxeRetard);
+    }
 
 
 }
