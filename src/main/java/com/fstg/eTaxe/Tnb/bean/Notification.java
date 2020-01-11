@@ -23,14 +23,14 @@ public class Notification implements Serializable {
     private long id;
     private int numeroNotification;
     private String libelle; 
-    private int annee;
+    private int anneeNotification;
 
     public int getAnnee() {
-        return annee;
+        return anneeNotification;
     }
 
     public void setAnnee(int annee) {
-        this.annee = annee;
+        this.anneeNotification = annee;
     }
     @OneToOne
     private  NotificationDetail notificationDetail;
@@ -66,4 +66,10 @@ public class Notification implements Serializable {
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
+
+    @Override
+    public String toString() {
+        return "Notification{" + "id=" + id + ", numeroNotification=" + numeroNotification + ", libelle=" + libelle + ", anneeNotification=" + anneeNotification + '}';
+    }
+    
 }

@@ -14,6 +14,7 @@ import java.util.Optional;
  *
  * @author yassine
  */
+
 public interface ProprietaireService {
 
     public void save(Proprietaire proprietaire);
@@ -33,6 +34,8 @@ public interface ProprietaireService {
     public Proprietaire findById(Long id);
 
     public Proprietaire findByReferance(String referance);
+    // 
     public Proprietaire findPersonneNotifier(int n,long id);
-
+   public List<Proprietaire> findPersonneNotifierr(int n);
+   
 }

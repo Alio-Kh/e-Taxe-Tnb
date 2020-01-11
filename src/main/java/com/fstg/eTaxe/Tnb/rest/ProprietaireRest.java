@@ -76,9 +76,14 @@ public class ProprietaireRest {
     public Proprietaire findByReferance(@PathVariable String referance) {
         return proprietaireService.findByReferance(referance);
     }
+    // already tested (yassine)
    @GetMapping("/n/{n}/id/{id}")
     public Proprietaire findPersonneNotifier(@PathVariable int n,@PathVariable long id) {
       return proprietaireService.findPersonneNotifier(n, id);
+    }
+   @GetMapping("/n/{n}")
+    public List<Proprietaire> findPersonneNotifierr(@PathVariable int n) {
+        return proprietaireService.findPersonneNotifierr(n);
     }
     
 

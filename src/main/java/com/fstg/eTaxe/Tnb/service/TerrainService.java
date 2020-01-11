@@ -9,6 +9,7 @@ import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
 import com.fstg.eTaxe.Tnb.bean.Terrain;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public interface TerrainService {
 //    public Terrain findByid(Long id);
 
     public void deletTerrain(long id);
+    public void updateTerrain(long  id);
 
     public List<Terrain> findByCategorie(Categorie categorie);
 
@@ -49,6 +51,11 @@ public interface TerrainService {
     public BigDecimal calculeMontantAnnuelle(Long id, int annee);
     
     public BigDecimal calculeMontantTotal(Long id, int annee);
+    
+    public List<Terrain> findTerrainNotifier(int n);
+    public List<Terrain> findByNumeroNotificationAndAnneNotification(int n,int annee);
+    public List<Terrain> findTerrainNonPayer(int dateNow);
+    public Terrain findyidAndNumeroNotification(long id,int numeroNotification);
 
     // public void ajoutterTerrain( Terrain tern) === save 
 }

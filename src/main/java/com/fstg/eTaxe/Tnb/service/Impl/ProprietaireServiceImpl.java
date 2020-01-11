@@ -90,5 +90,18 @@ public class ProprietaireServiceImpl implements ProprietaireService {
                 return null;
             }
     }
+
+    @Override
+    public List<Proprietaire> findPersonneNotifierr(int n) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Proprietaire>proprietaires=new ArrayList<Proprietaire>();
+        List<Terrain> terrains =terrainService.findTerrainNotifier(n);
+              for(Terrain terrain:terrains){
+                  proprietaires.add(terrain.getProprietaire());
+              }
+        
+              return proprietaires;
+        
+    }
     
 }

@@ -6,6 +6,8 @@
 package com.fstg.eTaxe.Tnb.rest;
 
 import com.fstg.eTaxe.Tnb.bean.Notification;
+import com.fstg.eTaxe.Tnb.bean.Proprietaire;
+import com.fstg.eTaxe.Tnb.bean.Terrain;
 import com.fstg.eTaxe.Tnb.service.NotificationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +63,17 @@ public class NotificationRest {
     public void update(@PathVariable long id, @RequestBody Notification notification){
         notificationService.update(id,notification);
     }
+    // alrady tested (yassine)
+@GetMapping("/proprietaire")
+    public int HowMuchNotifierProprietaire(@RequestBody Proprietaire proprietaire) {
+        return notificationService.HowMuchNotifierProprietaire(proprietaire);
+    }
+    // already test (yassine)
+    @PostMapping("/numerdeNotification/{n}")
+    public void NotifierTerrain( @PathVariable int n) {
+        notificationService.NotifierTerrain(n);
+    }
+    
     
                
 }

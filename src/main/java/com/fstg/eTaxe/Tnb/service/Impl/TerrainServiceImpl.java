@@ -174,5 +174,65 @@ public class TerrainServiceImpl implements TerrainService {
         BigDecimal montant = calculeMontantRetard(id, annee).add(calculeMontantAnnuelle(id, annee));
         return montant;
     }
+/// yassine
+    @Override
+    public List<Terrain> findTerrainNotifier(int n) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Terrain> terrains =findAll();
+        List<Terrain> terrains1 = new ArrayList<Terrain>();
+        for(Terrain terrain:terrains){
+            if(terrain.getDarierNotification().getNumeroNotification()==n){
+                terrains1.add(terrain);
+            }
+        }
+        return terrains1;
+        
+    }
+/// yassine
+    @Override
+    public List<Terrain> findByNumeroNotificationAndAnneNotification(int n, int annee) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+           List<Terrain> terrains =findTerrainNotifier(n);
+           List<Terrain> terrains1 =new ArrayList<Terrain>();
+           for(Terrain t :terrains){
+               if(t.getDarierNotification().getAnnee()==annee){
+                   terrains1.add(t);
+               }
+           }
+           return terrains1;
+    }
+// yassine
+    @Override
+    public void updateTerrain(long  id) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
+        Terrain terrain=findById(id);
+        terrainDao.save(terrain);
+    }
+    //yassine
+    @Override
+    public List<Terrain> findTerrainNonPayer(int dateNow) {
+       // DateUtil dateUtil=new DateUtil();
+        List<Terrain> terrains1= new  ArrayList<Terrain>();
+        //int anneeNow=dateUtil.formatToYearInteger(dateNow);
+        List<Terrain> terrains=findAll();
+        for(Terrain terrain : terrains){
+            if(terrain.getDerinierAnneePayee()<dateNow){
+                terrains1.add(terrain);
+            }
+        }
+        return terrains1;
+        
+        
+    }
 
+    @Override
+    public Terrain findyidAndNumeroNotification(long id, int numeroNotification) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         Terrain terrain=findById(id);
+         if(terrain.getDarierNotification().getNumeroNotification()==numeroNotification){
+             return terrain;
+         }
+         return null;
+    }
 }
