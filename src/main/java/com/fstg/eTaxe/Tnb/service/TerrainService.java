@@ -51,10 +51,14 @@ public interface TerrainService {
     public BigDecimal calculeMontantAnnuelle(Long id, int annee);
     
     public BigDecimal calculeMontantTotal(Long id, int annee);
+    // yassine//////
     
     public List<Terrain> findTerrainNotifier(int n);
+    // terrain notifier avec numero de notification n dans annee 
     public List<Terrain> findByNumeroNotificationAndAnneNotification(int n,int annee);
+    
     public List<Terrain> findTerrainNonPayer(int dateNow);
+    
     public Terrain findyidAndNumeroNotification(long id,int numeroNotification);
 
     // public void ajoutterTerrain( Terrain tern) === save 

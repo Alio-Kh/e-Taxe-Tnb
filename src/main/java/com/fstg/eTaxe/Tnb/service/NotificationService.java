@@ -26,8 +26,11 @@ public interface NotificationService {
 
     public void deleteNotification(long id);
 
-    public void update(long id, Notification notification);
-
+    //public void update(long id, Notification notification);
+    public void updateNotification(long id);
+  
+    
+    // yassine //
     public Notification findById(long id);
     public int HowMuchNotifierProprietaire(Proprietaire proprietaire);
     public void NotifierTerrain(int n); 

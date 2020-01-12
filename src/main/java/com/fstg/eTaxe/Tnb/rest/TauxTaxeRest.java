@@ -51,10 +51,10 @@ public class TauxTaxeRest {
     }
 
     //tested
-    @PostMapping(value = "/")
+    /*@PostMapping(value = "/")
     public void save(@RequestBody TauxTaxe tauxTaxe) {
         tauxTaxeService.save(tauxTaxe);
-    }
+    }*/
 
     @GetMapping(value = "/categorie/")
     public TauxTaxe findByCategorie(@RequestBody Categorie categorie) {
@@ -98,5 +98,10 @@ public class TauxTaxeRest {
     public TauxTaxe findByCategorieAndAnneeTaxe(@PathVariable String libelleCategorie, @PathVariable int annee){
         return tauxTaxeService.findByCategorieAndDateTaxe(categorieService.findByLibelle(libelleCategorie),  DateUtil.parseYearIntegerToDate(annee));
     }
+    @PostMapping("/")
+    public int saveTaxe(@RequestBody TauxTaxe tauxTaxe) {
+        return tauxTaxeService.saveTaxe(tauxTaxe);
+    }
 
+    
 }

@@ -81,6 +81,7 @@ public class ProprietaireRest {
     public Proprietaire findPersonneNotifier(@PathVariable int n,@PathVariable long id) {
       return proprietaireService.findPersonneNotifier(n, id);
     }
+    // already test (yassine)
    @GetMapping("/n/{n}")
     public List<Proprietaire> findPersonneNotifierr(@PathVariable int n) {
         return proprietaireService.findPersonneNotifierr(n);

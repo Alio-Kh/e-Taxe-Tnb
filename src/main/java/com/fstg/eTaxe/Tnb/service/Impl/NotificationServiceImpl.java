@@ -52,12 +52,13 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     // not implemented yet
-    @Override
+   /* @Override
     public void update(long id, Notification notification) {
         Notification existedNotification = findById(id);
         existedNotification.setLibelle(notification.getLibelle());
         notificationDao.save(existedNotification);
     }
+*/
 
     @Override
     public void deleteNotification(long id) {
@@ -84,7 +85,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 // yassine
     @Override
-    public void NotifierTerrain( int n) {
+    public void NotifierTerrain(int n) {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
        List<Terrain> terrains=terrainService.findTerrainNotifier(n-1);
        for(Terrain terrain1:terrains){
@@ -93,13 +94,19 @@ public class NotificationServiceImpl implements NotificationService {
        }
        
     }
+    // notifier annee n avec numeronotification 
 
     @Override
-    public void NotifierNow(int dateNow,int numeroNotification) {
+    public void NotifierNow(int dateNow , int numeroNotification) {
         //int annee=dateUtil.formatToYearInteger(dateNow);
-         List<Terrain> terrains=terrainService.findTerrainNonPayer(dateNow);
-         
-        
+         List<Terrain> terrains= terrainService.findByNumeroNotificationAndAnneNotification(dateNow, numeroNotification-1);
+               for(Terrain terrain:terrains ){
+                  terrain.getDarierNotification().setNumeroNotification(numeroNotification);
+             terrainService.updateTerrain(terrain.getId());
+              // update(terrain.getDarierNotification().getId(),terrain.getDarierNotification());
+              //terrainService.save(terrain);
+              //updateNotification(terrain.getDarierNotification().getId());
+         }
     }
 
     @Override
@@ -118,7 +125,7 @@ public class NotificationServiceImpl implements NotificationService {
                  
          } 
     }
-
+//  already tested 
     @Override
     public int NotifierTerrain(long id,int n) {
         Terrain terrain =terrainService.findyidAndNumeroNotification(id, n-1);
@@ -127,6 +134,15 @@ public class NotificationServiceImpl implements NotificationService {
         }else {
                 terrain.getDarierNotification().setNumeroNotification(n);
                 return 1;
+        }
+    }
+
+    @Override
+    public void updateNotification(long id) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Notification notification=findById(id);
+        if(notification!=null){
+             notificationDao.save(notification);
         }
     }
     

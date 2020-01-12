@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/e-Taxe-Tnb/rue")
 public class RueRest {
+    
+    // already tested (yassine)
      @Autowired
     public RueService rueService;
     
@@ -58,4 +60,23 @@ public class RueRest {
     public void deleteRue(@PathVariable long id) {
         rueService.deleteRue(id);
     }
+
+    public Rue findByid(long id) {
+        return rueService.findByid(id);
+    }
+    // already tested
+    @GetMapping("/idquartier/{idquartier}")
+    public List<Rue> findByIdQuartier( @PathVariable long idquartier) {
+        return rueService.findByIdQuartier(idquartier);
+    }
+    // already tested
+   @GetMapping("/libelleQuartie/{libelleQuartie}")
+    public List<Rue> findByLibelleQuartier( @PathVariable String libelleQuartie) {
+        return rueService.findByLibelleQuartier(libelleQuartie);
+    }
+   //// already tested
+    public Rue WhereTerrainExist(long idTerrain) {
+        return rueService.WhereTerrainExist(idTerrain);
+    }
+    
 }

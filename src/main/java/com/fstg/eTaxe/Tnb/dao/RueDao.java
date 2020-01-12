@@ -30,7 +30,7 @@ public interface RueDao extends JpaRepository<Rue, Long> {
     public List<Rue> findByIdQuartier(@Param("idquartier") long idquartier);
     
       //"SELECT * FROM quartier,secteur WHERE quartier.secteur=secteur.id and secteur.libelle=:libelleSecteur"
-    @Query(value="SELECT id,libelle FROM rue,quartier   WHERE rue.quartier=quartier.id and quartier.libelle=:libelleQuartie",nativeQuery = true)
+    @Query(value="SELECT * FROM rue,quartier   WHERE rue.quartier=quartier.id and quartier.libelle=:libelleQuartie",nativeQuery = true)
     public List<Rue> findByLibelleQuartier(@Param("libelleQuartie") String libelleQuartie);
     
 

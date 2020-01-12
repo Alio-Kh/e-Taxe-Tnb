@@ -24,7 +24,6 @@ public class NotificationDetail implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long id;
-   
     private BigDecimal montant;
     private BigDecimal montantRetard;
     private BigDecimal MontantTotal;

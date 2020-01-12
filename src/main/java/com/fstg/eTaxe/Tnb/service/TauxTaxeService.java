@@ -17,16 +17,20 @@ import org.springframework.data.jpa.repository.Query;
  * @author yassine
  */
 public interface TauxTaxeService {
+    // yassine
 
     public List<TauxTaxe> findAll();
 
     public void deletTauxTaxe(Long id);
 
     public void save(TauxTaxe tauxTaxe);
+    public int  saveTaxe(TauxTaxe tauxTaxe);
 
     public TauxTaxe findByCategorie(Categorie categorie);
 
     public TauxTaxe findByMontantTaxe(BigDecimal montantTaxe);
+    
+    // ali
 
     public TauxTaxe findByDateDebut(Date dateDebut);
 

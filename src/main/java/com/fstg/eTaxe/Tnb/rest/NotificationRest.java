@@ -59,12 +59,13 @@ public class NotificationRest {
         return notificationService.findAll();
     }
     
-    @PutMapping(value="/id/{id}")
+    /*@PutMapping(value="/id/{id}")
     public void update(@PathVariable long id, @RequestBody Notification notification){
         notificationService.update(id,notification);
     }
+*/
     // alrady tested (yassine)
-@GetMapping("/proprietaire")
+     @GetMapping("/proprietaire")
     public int HowMuchNotifierProprietaire(@RequestBody Proprietaire proprietaire) {
         return notificationService.HowMuchNotifierProprietaire(proprietaire);
     }
@@ -72,6 +73,26 @@ public class NotificationRest {
     @PostMapping("/numerdeNotification/{n}")
     public void NotifierTerrain( @PathVariable int n) {
         notificationService.NotifierTerrain(n);
+    }
+
+    public Notification findById(long id) {
+        return notificationService.findById(id);
+    }
+    @GetMapping("/dateNow/{dateNow}/numeroNotification/{numeroNotification}")
+    public void NotifierNow(@PathVariable int dateNow, @PathVariable int numeroNotification) {
+        notificationService.NotifierNow(dateNow, numeroNotification);
+    }
+
+    public void NotifierUrgent(int annee) {
+        notificationService.NotifierUrgent(annee);
+    }
+     
+    public int NotifierTerrain(long id, int n) {
+        return notificationService.NotifierTerrain(id, n);
+    }
+  @PutMapping("/id/{id}")
+    public void updateNotification(@PathVariable long id) {
+        notificationService.updateNotification(id);
     }
     
     
