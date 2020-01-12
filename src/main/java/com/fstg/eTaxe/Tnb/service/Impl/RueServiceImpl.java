@@ -5,7 +5,6 @@
  */
 package com.fstg.eTaxe.Tnb.service.Impl;
 
-import com.fstg.eTaxe.Tnb.bean.Quartier;
 import com.fstg.eTaxe.Tnb.bean.Rue;
 import com.fstg.eTaxe.Tnb.bean.Terrain;
 import com.fstg.eTaxe.Tnb.dao.QuartierDao;

@@ -9,12 +9,9 @@ import com.fstg.eTaxe.Tnb.bean.Proprietaire;
 import com.fstg.eTaxe.Tnb.dao.ProprietaireDao;
 import com.fstg.eTaxe.Tnb.service.ProprietaireService;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  *
@@ -104,7 +101,7 @@ public class ProprietaireServiceImpl implements ProprietaireService {
             proprietaireDao.save(proprietaire1);
             return "la mise à jour du proprietaire " + proprietaire1.getNom() + " " + proprietaire1.getPrenom() + " a réussi";
         } else {
-            return "Update failed! (le prorietaire " + referance + " n'existe pas)";
+            return "Update failed! (le proprietaire " + referance + " n'existe pas)";
         }
     }
 

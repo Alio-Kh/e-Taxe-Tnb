@@ -7,7 +7,6 @@ package com.fstg.eTaxe.Tnb.rest;
 
 import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.TauxTaxeRetard;
-import com.fstg.eTaxe.Tnb.bean.TaxeAnnuelle;
 import com.fstg.eTaxe.Tnb.service.TauxTaxeRetardService;
 import java.math.BigDecimal;
 import java.util.List;

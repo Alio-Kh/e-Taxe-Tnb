@@ -10,8 +10,6 @@ import com.fstg.eTaxe.Tnb.bean.Proprietaire;
 import com.fstg.eTaxe.Tnb.bean.Terrain;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  *

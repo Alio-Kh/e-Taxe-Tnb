@@ -6,30 +6,18 @@
 package com.fstg.eTaxe.Tnb.service.Impl;
 
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
-import com.fstg.eTaxe.Tnb.bean.TauxTaxe;
 import com.fstg.eTaxe.Tnb.bean.TaxeAnnuelle;
 import com.fstg.eTaxe.Tnb.bean.Terrain;
 import com.fstg.eTaxe.Tnb.dao.TauxTaxeDao;
 import com.fstg.eTaxe.Tnb.dao.TaxeAnnuelleDao;
-import com.fstg.eTaxe.Tnb.service.CategorieService;
 import com.fstg.eTaxe.Tnb.service.ProprietaireService;
 import com.fstg.eTaxe.Tnb.service.TauxTaxeRetardService;
 import com.fstg.eTaxe.Tnb.service.TaxeAnnuelleService;
 import com.fstg.eTaxe.Tnb.service.TerrainService;
 import com.fstg.eTaxe.Tnb.service.util.DateUtil;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javassist.expr.Cast;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -178,11 +166,7 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
 //    public void update(TaxeAnnuelle taxeAnnuelle) {
 //         taxeAnnuelleDao.save(taxeAnnuelle);
 //    }
-    // not implemented yet
-//    @Override
-//    public List<Integer> anneestaxesNonPayeeByReferanceTerrain(String referance) {
-//        return null;
-//    }
+
     @Override
     public TaxeAnnuelle findById(Long id) {
         return taxeAnnuelleDao.findById(id).get();

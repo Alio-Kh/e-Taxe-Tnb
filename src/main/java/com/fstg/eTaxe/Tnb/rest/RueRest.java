@@ -5,11 +5,9 @@
  */
 package com.fstg.eTaxe.Tnb.rest;
 
-import com.fstg.eTaxe.Tnb.bean.Quartier;
 import com.fstg.eTaxe.Tnb.bean.Rue;
 import com.fstg.eTaxe.Tnb.service.RueService;
 import java.util.List;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

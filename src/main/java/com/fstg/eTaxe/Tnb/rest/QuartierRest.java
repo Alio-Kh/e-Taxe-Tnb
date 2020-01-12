@@ -6,8 +6,6 @@
 package com.fstg.eTaxe.Tnb.rest;
 
 import com.fstg.eTaxe.Tnb.bean.Quartier;
-import com.fstg.eTaxe.Tnb.bean.Rue;
-import com.fstg.eTaxe.Tnb.bean.Secteur;
 import com.fstg.eTaxe.Tnb.service.QuartierService;
 import com.fstg.eTaxe.Tnb.service.SecteurService;
 import java.util.List;

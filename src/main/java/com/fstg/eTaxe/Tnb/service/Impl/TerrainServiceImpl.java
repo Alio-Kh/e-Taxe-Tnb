@@ -9,9 +9,7 @@ import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
 import com.fstg.eTaxe.Tnb.bean.TauxTaxe;
 import com.fstg.eTaxe.Tnb.bean.TauxTaxeRetard;
-import com.fstg.eTaxe.Tnb.bean.TaxeAnnuelle;
 import com.fstg.eTaxe.Tnb.bean.Terrain;
-import com.fstg.eTaxe.Tnb.dao.ProprietaireDao;
 import com.fstg.eTaxe.Tnb.dao.TerrainDao;
 import com.fstg.eTaxe.Tnb.service.ProprietaireService;
 import com.fstg.eTaxe.Tnb.service.TauxTaxeRetardService;
@@ -19,12 +17,13 @@ import com.fstg.eTaxe.Tnb.service.TauxTaxeService;
 import com.fstg.eTaxe.Tnb.service.TaxeAnnuelleService;
 import com.fstg.eTaxe.Tnb.service.TerrainService;
 import com.fstg.eTaxe.Tnb.service.util.DateUtil;
+import com.fstg.eTaxe.Tnb.service.util.PdfUtil;
+import com.itextpdf.text.Document;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -127,9 +126,14 @@ public class TerrainServiceImpl implements TerrainService {
         List<Integer> annees = new ArrayList<>();
         Terrain terrain = terrainDao.findByReferance(referance);
         Date date = new Date();
+        Document document = PdfUtil.createPdf();
+        document.addTitle("findAnneesTerrainsNonPayee");
+        PdfUtil.editPdf(document, "referance Terrain :  Nom proprietaire  Prenom proprietaire : Année\n");
         for (int i = terrain.getDerinierAnneePayee() + 1; i < DateUtil.formatToYearInteger(date); i++) {
             annees.add(i);
+            PdfUtil.editPdf(document, terrain.getReferance() + " : " + terrain.getProprietaire().getNom() + " " + terrain.getProprietaire().getPrenom() + " : " + String.valueOf(i));
         }
+        PdfUtil.pdfClose(document);
         return annees;
     }
 
