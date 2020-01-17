@@ -25,7 +25,6 @@ public class User implements Serializable { // categorie de terrains
     private String login;
     private String password;
     private String email;
-    private String referance;
     private String nom;
     private String prenom;
 
@@ -45,13 +44,6 @@ public class User implements Serializable { // categorie de terrains
         this.email = email;
     }
 
-    public String getReferance() {
-        return referance;
-    }
-
-    public void setReferance(String referance) {
-        this.referance = referance;
-    }
 
     public String getNom() {
         return nom;

@@ -5,10 +5,13 @@
  */
 package com.fstg.eTaxe.Tnb.rest;
 
+import com.fstg.eTaxe.Tnb.bean.Proprietaire;
 import com.fstg.eTaxe.Tnb.bean.TaxeAnnuelle;
+import com.fstg.eTaxe.Tnb.bean.Terrain;
 import com.fstg.eTaxe.Tnb.service.ProprietaireService;
 import com.fstg.eTaxe.Tnb.service.TaxeAnnuelleService;
 import com.fstg.eTaxe.Tnb.service.TerrainService;
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -89,14 +92,38 @@ public class TaxeAnnulleRest {
 //    public void calculeMontantRetard(@PathVariable Long id) {
 //        taxeAnnuelleService.calculeMontantRetard(id);
 //    }
-
 //    @PutMapping(value = "/taxeAnnuelle/id/{id}")
 //    public void calculeMontant(@PathVariable Long id) {
 //        taxeAnnuelleService.calculeMontant(taxeAnnuelle);
-//    }d
-    
+//    }
     @GetMapping("/terrain/annee/{annee}/id/{id}")
     public TaxeAnnuelle findByAnneeAndTerrain(@PathVariable int annee, @PathVariable long id) {
         return taxeAnnuelleService.findByAnneeAndTerrain(annee, terrainService.findById(id));
     }
+
+    @GetMapping("/terrain/annee/{annee}")
+    public BigDecimal totalTaxeTnbByAnnee(@PathVariable int annee) {
+        return taxeAnnuelleService.totalTaxeTnbByAnnee(annee);
+    }
+
+    @GetMapping("terrain/referance/{referance}")
+    public List<BigDecimal> histoPaiementTerrain(@PathVariable String referance) {
+        return taxeAnnuelleService.histoPaiementTerrain(terrainService.findByReferance(referance));
+    }
+
+    @GetMapping("proprietaire/referance/{referance}")
+    public List<BigDecimal> histoPaiementProprietaire(@PathVariable String referance) {
+        return taxeAnnuelleService.histoPaiementProprietaire(proprietaireService.findByReferance(referance));
+    }
+
+    @GetMapping("pdf/terrain/referance/{referance}")
+    public String pdfHistoPaiementTerrain(@PathVariable String referance) {
+        return taxeAnnuelleService.pdfHistoPaiementTerrain(terrainService.findByReferance(referance));
+    }
+    
+    @GetMapping("pdf/proprietaire/referance/{referance}")
+    public String pdfHistoPaiementProprietaire(@PathVariable String referance) {
+        return taxeAnnuelleService.pdfHistoPaiementProprietaire(proprietaireService.findByReferance(referance));
+    }
+
 }

@@ -22,11 +22,7 @@ public interface UserDao extends JpaRepository<User, Long> {
 
     public User findByEmail(String email);
     
-    public User findByReferance(String referance);
-    
     public User findByLogin(String login);
-
-    public Boolean existsByReferance(String referance); 
     
     public Boolean existsByLogin(String login);
     

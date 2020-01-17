@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
  * @author yassine
  */
 @Entity
-public class TaxeAnnuelle implements Serializable {
+public class TaxeAnnuelle implements Comparable<TaxeAnnuelle>, Serializable  {
 
     @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -131,6 +131,11 @@ public class TaxeAnnuelle implements Serializable {
     @Override
     public String toString() {
         return "TaxeAnnuelle{" + "id=" + id + ", tauxTaxe=" + tauxTaxe + ", tauxTaxeRetard=" + tauxTaxeRetard + ", proprietaire=" + proprietaire +  ", terrain=" + terrain  + ", montant=" + montant + ", annee=" + annee + '}';
+    }
+
+    @Override
+    public int compareTo(TaxeAnnuelle o) {
+        return Integer.compare(this.annee, o.annee);
     }
 
 }

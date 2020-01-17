@@ -6,12 +6,14 @@
 package com.fstg.eTaxe.Tnb.service;
 
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
+import com.fstg.eTaxe.Tnb.bean.Terrain;
 import java.util.List;
 
 /**
  *
  * @author yassine
  */
+
 public interface ProprietaireService {
 
     public String save(Proprietaire proprietaire);
@@ -36,4 +38,8 @@ public interface ProprietaireService {
 
 
     public Boolean exist(String referance);
+    // 
+    public Proprietaire findPersonneNotifier(int n,long id);
+   public List<Proprietaire> findPersonneNotifierr(int n);
+   
 }

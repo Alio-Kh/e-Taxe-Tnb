@@ -6,6 +6,9 @@
 package com.fstg.eTaxe.Tnb.service;
 
 import com.fstg.eTaxe.Tnb.bean.Notification;
+import com.fstg.eTaxe.Tnb.bean.Proprietaire;
+import com.fstg.eTaxe.Tnb.bean.Terrain;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,7 +26,17 @@ public interface NotificationService {
 
     public void deleteNotification(long id);
 
-    public void update(long id, Notification notification);
-
+    //public void update(long id, Notification notification);
+    public void updateNotification(long id);
+  
+    
+    // yassine //
     public Notification findById(long id);
+    public int HowMuchNotifierProprietaire(Proprietaire proprietaire);
+    public void NotifierTerrain(int n); 
+    public void NotifierNow(int dateNow,int numeroNotification);
+    public void NotifierUrgent( int annee);
+    public int NotifierTerrain(long id,int n);
+  
+    
 }

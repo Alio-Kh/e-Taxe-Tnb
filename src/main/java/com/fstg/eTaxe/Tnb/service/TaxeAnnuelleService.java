@@ -8,6 +8,7 @@ package com.fstg.eTaxe.Tnb.service;
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
 import com.fstg.eTaxe.Tnb.bean.TaxeAnnuelle;
 import com.fstg.eTaxe.Tnb.bean.Terrain;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -23,7 +24,6 @@ public interface TaxeAnnuelleService {
 //    public List<TaxeAnnuelle> findTaxesNonPayeeByReferanceTerrain(Terrain terrain);
 //
 //    public List<Integer> anneestaxesNonPayeeByReferanceTerrain(String referance);
-    
     public String save(TaxeAnnuelle taxeAnnuelle);
 
     public List<TaxeAnnuelle> findAll();
@@ -38,7 +38,21 @@ public interface TaxeAnnuelleService {
 //    public TaxeAnnuelle calculeMontant2(TaxeAnnuelle taxeAnnuelle);
 //    public void update(Long id);
 //    public void calculeMontantRetard(Long id);
-    
-    public Boolean existsByAnnee(int annee);
+    public Boolean existsByAnneeAndTerrain(int annee, Terrain terrain);
 
+    public BigDecimal totalTaxeTnbByAnnee(int annee);
+
+    public List<TaxeAnnuelle> findByAnnee(int annee);
+
+    public List<TaxeAnnuelle> findByTerrain(Terrain terrain);
+
+    public List<TaxeAnnuelle> findByProprietainre(Proprietaire proprietaire);
+
+    public List<BigDecimal> histoPaiementTerrain(Terrain terrain);
+
+    public List<BigDecimal> histoPaiementProprietaire(Proprietaire proprietaire);
+
+    public String pdfHistoPaiementProprietaire(Proprietaire proprietaire);
+
+    public String pdfHistoPaiementTerrain(Terrain terrain);
 }

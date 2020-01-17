@@ -5,6 +5,7 @@
  */
 package com.fstg.eTaxe.Tnb.service.util;
 
+import com.fstg.eTaxe.Tnb.service.Impl.TerrainServiceImpl;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -25,26 +26,26 @@ import java.util.logging.Logger;
  */
 public class PdfUtil {
 
-    public static Document createPdf() {
+    public static Document createPdf(String nomPdf) {
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream("/Users/alikhyatti/iTextHelloWorld2.pdf"));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PdfUtil.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DocumentException ex) {
+            PdfWriter.getInstance(document, new FileOutputStream("/Users/alikhyatti/" + nomPdf + ".pdf"));
+        } catch (FileNotFoundException | DocumentException ex) {
             Logger.getLogger(PdfUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         return document;
     }
 
-    public static void editPdf(Document document, String word) {
+    public static void pdfOpen(Document document) {
         document.open();
+    }
+
+    public static void editPdf(Document document, String word) {
 //        Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
 //        Chunk chunk = new Chunk(word, font);
 
         try {
             document.add(new Paragraph(word));
-
         } catch (DocumentException ex) {
             Logger.getLogger(PdfUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -55,13 +56,24 @@ public class PdfUtil {
         document.close();
     }
 
+    public static void pdfTitle(Document document, String title) {
+        Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+        Chunk chunk = new Chunk(title, font);
+        try {
+            document.add(chunk);
+        } catch (DocumentException ex) {
+            Logger.getLogger(TerrainServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        PdfUtil.editPdf(document, "");
+    }
+    
 //    public static void pdfTable(Document document) {
 //        PdfPTable table = new PdfPTable(3);
 //        addTableHeader(table);
 //        
 //        addRows(table);
 //        addCustomRows(table);
-//
+//        
 //        document.add(table);
 //    }
 }

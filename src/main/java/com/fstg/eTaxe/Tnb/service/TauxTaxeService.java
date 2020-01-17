@@ -16,6 +16,7 @@ import java.util.List;
  * @author yassine
  */
 public interface TauxTaxeService {
+    // yassine
 
     public List<TauxTaxe> findAll();
 
@@ -25,7 +26,10 @@ public interface TauxTaxeService {
 
     public TauxTaxe findByCategorie(Categorie categorie);
 
-    public List<TauxTaxe> findByMontantTaxe(BigDecimal montantTaxe);
+    public TauxTaxe findByMontantTaxe(BigDecimal montantTaxe);
+    
+    // ali
+//    public List<TauxTaxe> findByMontantTaxe(BigDecimal montantTaxe);
 
     public TauxTaxe findByDateDebut(Date dateDebut);
 

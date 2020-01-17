@@ -58,11 +58,11 @@ public class TauxTaxeRest {
         return tauxTaxeService.findByCategorie(categorie);
     }
 
-    //tested
-    @GetMapping(value = "/montantTaxe/{montantTaxe}")
-    public List<TauxTaxe> findByMontantTaxe(@PathVariable BigDecimal montantTaxe) {
-        return tauxTaxeService.findByMontantTaxe(montantTaxe);
-    }
+//    //tested
+//    @GetMapping(value = "/montantTaxe/{montantTaxe}")
+//    public List<TauxTaxe> findByMontantTaxe(@PathVariable BigDecimal montantTaxe) {
+//        return tauxTaxeService.findByMontantTaxe(montantTaxe);
+//    }
 
     @GetMapping(value = "/dateDebut/{dateDebut}")
     public TauxTaxe findByDateDebut(@PathVariable String dateDebut) {
@@ -98,4 +98,5 @@ public class TauxTaxeRest {
     
    
 
+    
 }

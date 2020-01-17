@@ -15,7 +15,12 @@ import com.fstg.eTaxe.Tnb.service.TauxTaxeRetardService;
 import com.fstg.eTaxe.Tnb.service.TaxeAnnuelleService;
 import com.fstg.eTaxe.Tnb.service.TerrainService;
 import com.fstg.eTaxe.Tnb.service.util.DateUtil;
+import com.fstg.eTaxe.Tnb.service.util.PdfUtil;
+import com.itextpdf.text.Document;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,12 +66,12 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
     @Override
     public String save(TaxeAnnuelle taxeAnnuelle) {
         if (terrainService.isPropretaireHaveTerrain(proprietaireService.findById(taxeAnnuelle.getProprietaire().getId()), terrainService.findById(taxeAnnuelle.getTerrain().getId()))) {
-            if (existsByAnnee(taxeAnnuelle.getAnnee())) {
+            if (existsByAnneeAndTerrain(taxeAnnuelle.getAnnee(), taxeAnnuelle.getTerrain())) {
                 return "La taxeAnnuelle du Terrain de l'annee " + taxeAnnuelle.getAnnee() + " dêja existe";
             } else {
                 Date dateNow = new Date();
                 if (terrainService.calculeMontantAnnuelle(taxeAnnuelle.getTerrain().getId(), taxeAnnuelle.getAnnee()).equals(BigDecimal.ZERO)) {
-                    return "Le taux taxe pour l'année "+taxeAnnuelle.getAnnee()+" n'existe pas;";
+                    return "Le taux taxe pour l'année " + taxeAnnuelle.getAnnee() + " n'existe pas;";
                 } else {
                     taxeAnnuelle.setTauxTaxe(tauxTaxeDao.findByCategorieAndDateNow(terrainService.findById(taxeAnnuelle.getTerrain().getId()).getCategorie(), DateUtil.parse(DateUtil.format(dateNow))));
                     taxeAnnuelle.setTauxTaxeRetard(TauxTaxeRetardService.findByCategorie(terrainService.findById(taxeAnnuelle.getTerrain().getId()).getCategorie()));
@@ -166,7 +171,6 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
 //    public void update(TaxeAnnuelle taxeAnnuelle) {
 //         taxeAnnuelleDao.save(taxeAnnuelle);
 //    }
-
     @Override
     public TaxeAnnuelle findById(Long id) {
         return taxeAnnuelleDao.findById(id).get();
@@ -191,8 +195,108 @@ public class TaxeAnnuelleServiceImpl implements TaxeAnnuelleService {
         return taxeAnnuelleDao.findByAnneeAndTerrain(annee, Terrain);
     }
 
+    //test!!!!!!!!!!!!!!!!!
     @Override
-    public Boolean existsByAnnee(int annee) {
-        return taxeAnnuelleDao.existsByAnnee(annee);
+    public Boolean existsByAnneeAndTerrain(int annee, Terrain terrain) {
+        return taxeAnnuelleDao.existsByAnneeAndTerrain(annee, terrain);
+    }
+
+    @Override
+    public List<TaxeAnnuelle> findByAnnee(int annee) {
+        return taxeAnnuelleDao.findByAnnee(annee);
+    }
+
+    @Override
+    public BigDecimal totalTaxeTnbByAnnee(int annee) {
+        BigDecimal totalTaxes = new BigDecimal(BigInteger.ZERO);
+        List<TaxeAnnuelle> taxeAnnuelles = findByAnnee(annee);
+        if (taxeAnnuelles == null) {
+            return totalTaxes;
+        } else {
+            for (TaxeAnnuelle taxeAnnuelle : taxeAnnuelles) {
+                totalTaxes = totalTaxes.add(taxeAnnuelle.getMontant());
+            }
+            return totalTaxes;
+        }
+    }
+
+    @Override
+    public List<BigDecimal> histoPaiementTerrain(Terrain terrain) {
+        List<TaxeAnnuelle> taxeAnnuelles = findByTerrain(terrain);
+        if (taxeAnnuelles.isEmpty()) {
+            return null;
+        } else {
+            List<BigDecimal> paiements = new ArrayList<>();
+            for (TaxeAnnuelle taxeAnnuelle : taxeAnnuelles) {
+                paiements.add(taxeAnnuelle.getMontant());
+            }
+            return paiements;
+        }
+    }
+
+    @Override
+    public String pdfHistoPaiementTerrain(Terrain terrain) {
+        List<TaxeAnnuelle> taxeAnnuelles = findByTerrain(terrain);
+        if (taxeAnnuelles.isEmpty()) {
+            return "Ce terrain n'existe pas dans l'historique ";
+        } else {
+            Document document = PdfUtil.createPdf("HistoPaiementTerrain" + terrain.getReferance());
+            PdfUtil.pdfOpen(document);
+            PdfUtil.pdfTitle(document, "          Histo Paiement du Terrain " + terrain.getReferance());
+            PdfUtil.editPdf(document, "Année  :  Montant ");
+            Collections.sort(taxeAnnuelles);
+            for (TaxeAnnuelle taxeAnnuelle : taxeAnnuelles) {
+                PdfUtil.editPdf(document, taxeAnnuelle.getAnnee() + "   :   " + taxeAnnuelle.getMontant());
+            }
+            PdfUtil.pdfClose(document);
+            return "HistoPaiementTerrain" + terrain.getReferance() + " is saved";
+        }
+    }
+
+    @Override
+    public List<BigDecimal> histoPaiementProprietaire(Proprietaire proprietaire) {
+        List<TaxeAnnuelle> taxeAnnuelles = findByProprietainre(proprietaire);
+        if (taxeAnnuelles.isEmpty()) {
+            return null;
+        } else {
+            List<BigDecimal> paiements = new ArrayList<>();
+            for (TaxeAnnuelle taxeAnnuelle : taxeAnnuelles) {
+                paiements.add(taxeAnnuelle.getMontant());
+            }
+            return paiements;
+        }
+    }
+
+    @Override
+    public String pdfHistoPaiementProprietaire(Proprietaire proprietaire) {
+        List<TaxeAnnuelle> taxeAnnuelles = findByProprietainre(proprietaire);
+        System.out.println("com.fstg.eTaxe.Tnb.service.Impl.TaxeAnnuelleServiceImpl.pdfHistoPaiementProprietaire()"+taxeAnnuelles);
+        if (taxeAnnuelles.isEmpty()) {
+            return "Ce proprietaire n'existe pas dans l'historique ";
+        } else {
+            Document document = PdfUtil.createPdf("HistoPaiementProprietaire" + proprietaire.getReferance());
+            PdfUtil.pdfOpen(document);
+            PdfUtil.pdfTitle(document, "        Histo Paiement du Proprietaire " + proprietaire.getReferance());
+            PdfUtil.editPdf(document, "   Nom Prenom : " + proprietaire.getNom() + " " + proprietaire.getPrenom());
+            PdfUtil.editPdf(document, "Année  :  Montant ");
+            Collections.sort(taxeAnnuelles);
+            for (TaxeAnnuelle taxeAnnuelle : taxeAnnuelles) {
+                PdfUtil.editPdf(document, taxeAnnuelle.getAnnee() + "   :   " + taxeAnnuelle.getMontant());
+            }
+            PdfUtil.pdfClose(document);
+            return "HistoPaiementProprietaire" + proprietaire.getReferance() + " is saved";
+        }
+    }
+
+
+
+    @Override
+    public List<TaxeAnnuelle> findByTerrain(Terrain terrain) {
+        return taxeAnnuelleDao.findByTerrain(terrain);
+    }
+
+    @Override
+    public List<TaxeAnnuelle> findByProprietainre(Proprietaire proprietaire) {
+        return taxeAnnuelleDao.findByProprietaire(proprietaire);
     }
 }

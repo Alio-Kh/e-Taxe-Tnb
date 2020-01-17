@@ -13,6 +13,9 @@ import java.util.List;
  * @author yassine
  */
 public interface SecteurService {
+    
+    
+    /// yassine
 
    public Secteur findByLibelle(String libelle);
 

@@ -64,10 +64,10 @@ public class TauxTaxeServiceImpl implements TauxTaxeService {
         return tauxTaxeDao.findByCategorie(categorie);
     }
 
-    @Override
-    public List<TauxTaxe> findByMontantTaxe(BigDecimal montantTaxe) {
-        return tauxTaxeDao.findByMontantTaxe(montantTaxe);
-    }
+//    @Override
+//    public List<TauxTaxe> findByMontantTaxe(BigDecimal montantTaxe) {
+//        return tauxTaxeDao.findByMontantTaxe(montantTaxe);
+//    }
 
     @Override
     public TauxTaxe findByDateDebut(Date dateDebut) {
@@ -101,6 +101,27 @@ public class TauxTaxeServiceImpl implements TauxTaxeService {
     @Override
     public TauxTaxe findByCategorieAndDateTaxe(Categorie categorie, Date dateTaxe) {
         return tauxTaxeDao.findByCategorieAndDateTaxe(categorie, dateTaxe);
+    }
+// not tested (yassine)
+//    @Override
+//    public int saveTaxe(TauxTaxe tauxTaxe) {
+//        Boolean isBetween1,isBetween2;
+//        List<TauxTaxe> tauxTaxes=findAll();
+//        for(TauxTaxe tauxTaxe1 :tauxTaxes){
+//         isBetween1=tauxTaxe.getDateDebut().after(tauxTaxe1.getDateDebut()) && tauxTaxe.getDateDebut().before(tauxTaxe1.getDateFin()) ;
+//         isBetween2=tauxTaxe.getDateFin().before(tauxTaxe1.getDateFin()) && (tauxTaxe.getDateFin().after(tauxTaxe1.getDateDebut()));
+//         if(isBetween1==false && isBetween2 == false ){
+//             tauxTaxeDao.save(tauxTaxe);
+//             return 1;
+//         } 
+//         }
+//        return -1;
+//        
+//    }
+
+    @Override
+    public TauxTaxe findByMontantTaxe(BigDecimal montantTaxe) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

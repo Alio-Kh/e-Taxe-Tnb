@@ -42,7 +42,11 @@ public class Terrain implements Serializable {
     @ManyToOne
     private Proprietaire proprietaire;
     
+    @OneToOne
+    private Notification darierNotification;
+    
     private int derinierAnneePayee;
+   
 
     public int getDerinierAnneePayee() {
         return derinierAnneePayee;
@@ -60,15 +64,14 @@ public class Terrain implements Serializable {
         this.darierNotification = darierNotification;
     }
     
-    @OneToOne
-    private Notification darierNotification;
+   
     
     @OneToMany(mappedBy = "terrain")
     private List<TaxeAnnuelle> taxeAnnuelles;
 
     @Override
     public String toString() {
-        return "Terrain{" + "id=" + id + ", referance=" + referance + ", rue=" + rue + ", categorie=" + categorie + ", surface=" + surface + ", proprietaire=" + proprietaire + ", derinierAnneePayee=" + derinierAnneePayee + ", darierNotification=" + darierNotification + ", taxeAnnuelles=" + taxeAnnuelles + '}';
+        return "Terrain{" + "id=" + id + ", referance=" + referance +  '}';
     }
 
     @JsonIgnore

@@ -25,6 +25,7 @@ public interface TerrainDao  extends   JpaRepository<Terrain, Long>{
      public List<Terrain> findByCategorie(Categorie categorie);
      public List<Terrain> findByProprietaire(Proprietaire proprietaire);
      public List<Terrain> findBySurface(BigDecimal surface);
+     //public List<Terrain> findBy
 
    
  

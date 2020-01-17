@@ -28,11 +28,7 @@ public interface UserService {
 
     public User findById(Long id);
 
-    public User findByReferance(String referance);
-
     public String update(String referance, User user);
-
-    public Boolean existsByReferance(String referance);
 
     public Boolean existsByLogin(String login);
 

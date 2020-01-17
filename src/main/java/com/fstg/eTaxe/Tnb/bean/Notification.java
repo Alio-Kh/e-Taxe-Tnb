@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -22,9 +23,28 @@ public class Notification implements Serializable {
     private long id;
     private int numeroNotification;
     private String libelle; 
+    private int anneeNotification;
 
+    public int getAnnee() {
+        return anneeNotification;
+    }
+
+    public void setAnnee(int annee) {
+        this.anneeNotification = annee;
+    }
+    @OneToOne
+    private  NotificationDetail notificationDetail;
+      
     public long getId() {
         return id;
+    }
+
+    public NotificationDetail getNotificationDetail() {
+        return notificationDetail;
+    }
+
+    public void setNotificationDetail(NotificationDetail notificationDetail) {
+        this.notificationDetail = notificationDetail;
     }
 
     public void setId(long id) {
@@ -46,4 +66,10 @@ public class Notification implements Serializable {
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
+
+    @Override
+    public String toString() {
+        return "Notification{" + "id=" + id + ", numeroNotification=" + numeroNotification + ", libelle=" + libelle + ", anneeNotification=" + anneeNotification + '}';
+    }
+    
 }

@@ -8,6 +8,8 @@ package com.fstg.eTaxe.Tnb.rest;
 import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.User;
 import com.fstg.eTaxe.Tnb.service.UserService;
+import com.fstg.eTaxe.Tnb.service.util.AscUtil;
+import com.fstg.eTaxe.Tnb.service.util.HashUtil;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author yassine
+ * @author alikhyatti
  */
 @RestController
 @RequestMapping("/e-Taxe-Tnb/user")
@@ -66,26 +68,11 @@ public class UserRest {
         userService.deleteUser(id);
     }
 
-    //tested
-    @GetMapping(value = "/referance/{referance}")
-    public User findByReferance(@PathVariable String referance) {
-        return userService.findByReferance(referance);
-    }
-
     @PutMapping("/referance/{referance}")
     public String update(@PathVariable String referance, @RequestBody User user) {
         return userService.update(referance, user);
     }
 
-    @GetMapping("/exist/referance/{referance}")
-    public String exist(@PathVariable String referance) {
-        if (userService.existsByReferance(referance)) {
-            return "Le user " + userService.findByReferance(referance).getNom() + " " + userService.findByReferance(referance).getPrenom() + " existe";
-        } else {
-            return "Le user " + referance + " n'existe pas";
-        }
-    }
-    
     @GetMapping("/exist/login/{login}")
     public String existsByLogin(@PathVariable String login) {
         if (userService.existsByLogin(login)) {
@@ -93,6 +80,22 @@ public class UserRest {
         } else {
             return "Le user " + login + " n'existe pas";
         }
+    }
+    final String secretKey = "ssshhhhhhhhhhh!!!!";
+
+    @GetMapping("/login/{login}/password/{password}")
+    public String login(@PathVariable String login, @PathVariable String password) throws Exception {
+        User user = userService.findByLogin(login);
+        if (user == null) {
+            return "login incorrect";
+        } else if (user.getPassword().equals(AscUtil.decrypt(password, secretKey))) {
+
+            return "Bienvenu";
+        } else {
+            System.out.println("com.fstg.eTaxe.Tnb.rest.UserRest.login()" + user.getPassword() + "     " + HashUtil.decrypt(password));
+            return "password incorrect";
+        }
+
     }
 
 }

@@ -11,12 +11,14 @@ import com.fstg.eTaxe.Tnb.bean.Terrain;
 import com.fstg.eTaxe.Tnb.service.ProprietaireService;
 import com.fstg.eTaxe.Tnb.service.TerrainService;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +35,7 @@ public class TerrainRest {
     // pas de traitement 
     @Autowired // permet d'instensier un objet   // si il troveent beaucoup de class fille erreur 
     private TerrainService terrainservice;
-    
+
     @Autowired
     private ProprietaireService proprietaireService;
 
@@ -65,7 +67,7 @@ public class TerrainRest {
     @GetMapping("/referance/{referance}")
     public Terrain findByReferance(@PathVariable String referance) { // dans l'input le meme variable (le meme nom de variable )
         return terrainservice.findByReferance(referance);
-        
+
     }
 
     // tested
@@ -77,7 +79,7 @@ public class TerrainRest {
     // tested
     @GetMapping("/proprietaire/")
     public List<Terrain> findByPropreitaire(@RequestBody Proprietaire proprietaire) {
-        return terrainservice.findByPropreitaire(proprietaire);
+        return terrainservice.findByProprietaire(proprietaire);
     }
 
     // tested
@@ -109,7 +111,7 @@ public class TerrainRest {
     public List<Terrain> terrainsNonPayeeByProprietaireReferance(@PathVariable String referance) {
         return terrainservice.terrainsNonPayeeByProprietaire(proprietaireService.findByReferance(referance));
     }
-    
+
     @GetMapping(value = "/id/{id}/annee/{annee}")
     public BigDecimal calculeMontantAnnuelle(@PathVariable Long id /*id terrain*/, @PathVariable int annee) {
         return terrainservice.calculeMontantAnnuelle(id, annee);
@@ -122,10 +124,39 @@ public class TerrainRest {
 //      public BigDecimal calculeMontantTotal(@PathVariable Long id /*id terrain*/, @PathVariable int annee){
 //         return terrainservice.calculeMontantTotal(id, annee);
 //     }
-    
+
     @GetMapping(value = "/proprietaire/referance/{referanceProprietaire}/terrain/referance/{referanceTerrain}")
-    public Boolean isPropretaireHaveTerrain(@PathVariable String referanceProprietaire, @PathVariable String referanceTerrain) {        
+    public Boolean isPropretaireHaveTerrain(@PathVariable String referanceProprietaire, @PathVariable String referanceTerrain) {
         return terrainservice.isPropretaireHaveTerrain(proprietaireService.findByReferance(referanceProprietaire), terrainservice.findByReferance(referanceTerrain));
     }
-    
+    // already tested (yassine)
+
+    @GetMapping("/n/{n}")
+    public List<Terrain> findTerrainNotifier(@PathVariable int n) {
+        return terrainservice.findTerrainNotifier(n);
+    }
+
+    //aalready test (yassine)
+    @GetMapping("/n/{n}/annee/{annee}")
+    public List<Terrain> findByNumeroNotificationAndAnneNotification(@PathVariable int n, @PathVariable int annee) {
+        return terrainservice.findByNumeroNotificationAndAnneNotification(n, annee);
+    }
+
+    //  already test yassin
+    @PutMapping("/id/{id}")
+    public void updateTerrain(@PathVariable long id) {
+        terrainservice.updateTerrain(id);
+    }
+
+    //  already testyassine
+    @GetMapping("/date/{dateNow}")
+    public List<Terrain> findTerrainNonPayer(@PathVariable int dateNow) {
+        return terrainservice.findTerrainNonPayer(dateNow);
+    }
+
+     @GetMapping("/save_Annees_Terrains_NonPayee")
+    public void CreatePdfAnneesTerrainsNonPayee() {
+         terrainservice.CreatePdfAnneesTerrainsNonPayee();
+    }
+
 }

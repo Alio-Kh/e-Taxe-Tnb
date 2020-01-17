@@ -9,6 +9,7 @@ import com.fstg.eTaxe.Tnb.bean.Categorie;
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
 import com.fstg.eTaxe.Tnb.bean.Terrain;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,10 +27,11 @@ public interface TerrainService {
 //    public Terrain findByid(Long id);
 
     public void deletTerrain(long id);
+    public void updateTerrain(long  id);
 
     public List<Terrain> findByCategorie(Categorie categorie);
 
-    public List<Terrain> findByPropreitaire(Proprietaire proprietaire);
+    public List<Terrain> findByProprietaire(Proprietaire proprietaire);
 
     public List<Terrain> findBySurface(BigDecimal surface);
 
@@ -49,5 +51,17 @@ public interface TerrainService {
     public BigDecimal calculeMontantTotal(Long id, int annee);
     
     public Boolean isPropretaireHaveTerrain(Proprietaire proprietaire, Terrain terrain);
+
+    // yassine//////
+    
+    public List<Terrain> findTerrainNotifier(int n);
+    // terrain notifier avec numero de notification n dans annee 
+    public List<Terrain> findByNumeroNotificationAndAnneNotification(int n,int annee);
+    
+    public List<Terrain> findTerrainNonPayer(int dateNow);
+    
+    public Terrain findyidAndNumeroNotification(long id,int numeroNotification);
+    
+    public void CreatePdfAnneesTerrainsNonPayee();
 
 }

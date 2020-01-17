@@ -6,8 +6,12 @@
 package com.fstg.eTaxe.Tnb.service.Impl;
 
 import com.fstg.eTaxe.Tnb.bean.Proprietaire;
+import com.fstg.eTaxe.Tnb.bean.Terrain;
 import com.fstg.eTaxe.Tnb.dao.ProprietaireDao;
+import com.fstg.eTaxe.Tnb.dao.TerrainDao;
 import com.fstg.eTaxe.Tnb.service.ProprietaireService;
+import com.fstg.eTaxe.Tnb.service.TerrainService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +26,8 @@ public class ProprietaireServiceImpl implements ProprietaireService {
 
     @Autowired
     private ProprietaireDao proprietaireDao;
+    @Autowired
+     private TerrainService terrainService;
 
     @Override
     public String save(Proprietaire proprietaire) {
@@ -74,6 +80,19 @@ public class ProprietaireServiceImpl implements ProprietaireService {
     public Proprietaire findByReferance(String referance) {
         return proprietaireDao.findByReferance(referance);
     }
+@Override
+    public Proprietaire findPersonneNotifier(int n,long id) {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       //List<Proprietaire> proprietaires = null ;
+        Terrain terrain= terrainService.findById(id);
+        //for(int i=0;i<terrains.size();i++){
+           // Terrain terrain1=terrains.get(i);
+            if(terrain.getDarierNotification().getNumeroNotification()==n){
+               return terrain.getProprietaire();
+            }else{
+                return null;
+            }
+    }
 
     public Boolean exist(String referance) {
         return proprietaireDao.existsByReferance(referance);
@@ -105,4 +124,23 @@ public class ProprietaireServiceImpl implements ProprietaireService {
         }
     }
 
+    @Override
+    public List<Proprietaire> findPersonneNotifierr(int n) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+//    @Override
+//    public List<Proprietaire> findPersonneNotifierr(int n) {
+//        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        List<Proprietaire>proprietaires=new ArrayList<Proprietaire>();
+//        List<Terrain> terrains =terrainService.findTerrainNotifier(n);
+//              for(Terrain terrain:terrains){
+//                  proprietaires.add(terrain.getProprietaire());
+//              }
+//        
+//              return proprietaires;
+//        
+//    }
+    
 }

@@ -8,7 +8,11 @@ package com.fstg.eTaxe.Tnb.service.Impl;
 import com.fstg.eTaxe.Tnb.bean.User;
 import com.fstg.eTaxe.Tnb.dao.UserDao;
 import com.fstg.eTaxe.Tnb.service.UserService;
+import com.fstg.eTaxe.Tnb.service.util.AscUtil;
+import com.fstg.eTaxe.Tnb.service.util.HashUtil;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,12 +27,22 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    final String secretKey = "ssshhhhhhhhhhh!!!!";
+
     @Override
-    public String save(User User) {
-        if (userDao.existsByReferance(User.getReferance())) {
-            return User.getReferance() + " exist in data base";
+    public String save(User user) {
+        if (userDao.existsByLogin(user.getLogin())) {
+            return user.getLogin() + " exist in data base";
         } else {
-            userDao.save(User);
+            String password = user.getPassword();
+            try {
+                //            user.setPassword(HashUtil.encryptPassword(password));
+//                user.setPassword(HashUtil.encrypt(password));
+                user.setPassword(AscUtil.encrypt(password, secretKey));
+            } catch (Exception ex) {
+                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            userDao.save(user);
             return "User saved";
         }
     }
@@ -66,14 +80,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByReferance(String referance) {
-        return userDao.findByReferance(referance);
-    }
-
-    @Override
-    public String update(String referance, User User) {
-        if (userDao.existsByReferance(referance)) {
-            User User1 = userDao.findByReferance(referance);
+    public String update(String login, User User) {
+        if (userDao.existsByLogin(login)) {
+            User User1 = userDao.findByLogin(login);
             if (User.getEmail() != null) {
                 User1.setEmail(User.getEmail());
             }
@@ -86,13 +95,8 @@ public class UserServiceImpl implements UserService {
             userDao.save(User1);
             return "la mise à jour du User " + User1.getNom() + " " + User1.getPrenom() + " a réussi";
         } else {
-            return "Update failed! (le User " + referance + " n'existe pas)";
+            return "Update failed! (le User " + login + " n'existe pas)";
         }
-    }
-
-    @Override
-    public Boolean existsByReferance(String referance) {
-        return userDao.existsByReferance(referance);
     }
 
     @Override

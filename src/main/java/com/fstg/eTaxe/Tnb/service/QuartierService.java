@@ -13,13 +13,18 @@ import java.util.List;
  * @author yassine
  */
 public interface QuartierService {
+    
 
+    
+    
+    
     public Quartier findByLibelle(String libelle);
 
 //    public Quartier findByRue(Rue rue);
 
 //    public List<Quartier> findBySecteur(Secteur secteur);
-
+  
+    // yassine///
    public void save(Quartier quartier);
 
     public void deleteQuartier(long id);
@@ -29,7 +34,6 @@ public interface QuartierService {
     
     public int exitsts(long id);
       public List<Quartier> findSecteur();
-      //public List<Quartier> findbyidLibelle(String libelle);
      public List<Quartier> findByidSecteur(long idSecteur);
      public  List<Quartier> findByLibelleSecteur(String libelleSecteur);
      public Quartier WhereStreetExist(long id);

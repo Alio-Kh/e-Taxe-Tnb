@@ -17,7 +17,9 @@ public interface RueService {
     public Rue findByLibelle(String libelle);
 
 //    public List<Rue> findByQuartier(Quartier quartier);
- public List<Rue> findAll();
+    
+    // yassin
+    public List<Rue> findAll();
 
     public void save(Rue rue);
     public Rue findByid(long id);

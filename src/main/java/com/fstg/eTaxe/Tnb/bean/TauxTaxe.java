@@ -33,6 +33,8 @@ public class TauxTaxe implements Serializable { // paiement par categorie
     
     private BigDecimal montantTaxe;
 
+    private BigDecimal penalite;
+    
     // date debut application 
     @Temporal(TemporalType.DATE)
     private Date dateDebut;

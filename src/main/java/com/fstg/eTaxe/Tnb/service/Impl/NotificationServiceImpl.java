@@ -6,8 +6,14 @@
 package com.fstg.eTaxe.Tnb.service.Impl;
 
 import com.fstg.eTaxe.Tnb.bean.Notification;
+import com.fstg.eTaxe.Tnb.bean.Proprietaire;
+import com.fstg.eTaxe.Tnb.bean.Terrain;
 import com.fstg.eTaxe.Tnb.dao.NotificationDao;
+import com.fstg.eTaxe.Tnb.dao.TerrainDao;
 import com.fstg.eTaxe.Tnb.service.NotificationService;
+import com.fstg.eTaxe.Tnb.service.TerrainService;
+import com.fstg.eTaxe.Tnb.service.util.DateUtil;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +27,11 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Autowired
     public NotificationDao notificationDao;
-
+    @Autowired
+    public TerrainService terrainService;
+    @Autowired
+    public TerrainDao terrainDao;
+    DateUtil dateUtil;
     @Override
     public void save(Notification notification) {
         notificationDao.save(notification);
@@ -37,12 +47,13 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     // not implemented yet
-    @Override
+   /* @Override
     public void update(long id, Notification notification) {
         Notification existedNotification = findById(id);
         existedNotification.setLibelle(notification.getLibelle());
         notificationDao.save(existedNotification);
     }
+*/
 
     @Override
     public void deleteNotification(long id) {
@@ -53,5 +64,92 @@ public class NotificationServiceImpl implements NotificationService {
     public Notification findById(long id) {
         return notificationDao.findById(id).get();
     }
+// yassine 
+    @Override
+    public int HowMuchNotifierProprietaire(Proprietaire proprietaire) {
+        int cmp=0;
+        List<Terrain> terrains=terrainService.findByProprietaire(proprietaire);
+           for(Terrain terrain :terrains){
+               if(terrain.getDarierNotification()!=null){
+                   cmp=1+cmp;
+                   
+               }
+           }
+           return cmp;
+        
+    }
+// yassine
+    @Override
+    public void NotifierTerrain(int n) {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       List<Terrain> terrains=terrainService.findTerrainNotifier(n-1);
+       for(Terrain terrain1:terrains){
+           terrain1.getDarierNotification().setNumeroNotification(n);
+           terrainService.updateTerrain(terrain1.getId());
+       }
+       
+    }
+    // notifier annee n avec numeronotification 
+
+    @Override
+    public void NotifierNow(int dateNow , int numeroNotification) {
+        //int annee=dateUtil.formatToYearInteger(dateNow);
+         List<Terrain> terrains= terrainService.findByNumeroNotificationAndAnneNotification(dateNow, numeroNotification-1);
+               for(Terrain terrain:terrains ){
+                  terrain.getDarierNotification().setNumeroNotification(numeroNotification);
+             terrainService.updateTerrain(terrain.getId());
+              // update(terrain.getDarierNotification().getId(),terrain.getDarierNotification());
+              //terrainService.save(terrain);
+              //updateNotification(terrain.getDarierNotification().getId());
+         }
+    }
+
+    @Override
+    public void NotifierUrgent(int annee) {
+        
+         List<Terrain> terrains=terrainService.findTerrainNonPayer(annee);
+         for(Terrain terrain:terrains){
+            int nombreAnneRetard=0;
+            nombreAnneRetard=annee-terrain.getDerinierAnneePayee();
+             if(nombreAnneRetard>3 && terrain.getDarierNotification().getNumeroNotification()>= 1 ){
+                 
+                 terrain.getDarierNotification().setNumeroNotification(3);
+             }else if(nombreAnneRetard>=1  &&  terrain.getDarierNotification().getNumeroNotification()==2){
+                  terrain.getDarierNotification().setNumeroNotification(3);
+             }
+                 
+         } 
+    }
+//  already tested 
+    @Override
+    public int NotifierTerrain(long id,int n) {
+        Terrain terrain =terrainService.findyidAndNumeroNotification(id, n-1);
+        if(terrain==null){
+            return -1;
+        }else {
+                terrain.getDarierNotification().setNumeroNotification(n);
+                return 1;
+        }
+    }
+
+    @Override
+    public void updateNotification(long id) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Notification notification=findById(id);
+        if(notification!=null){
+             notificationDao.save(notification);
+        }
+    }
+    
+    public void notfication1Pdf(){
+        
+    }
+    public void notfication2Pdf(){
+        
+    }
+    public void notfication3Pdf(){
+        
+    }
+    
 
 }
